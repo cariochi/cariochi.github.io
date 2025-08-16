@@ -1,5 +1,3 @@
-![Alt](/assets/images/objecto.png)
-
 # Overview
 
 ## Introduction
@@ -68,4 +66,4 @@ default Issue createDefaultIssue(User assignee) {
 
 ## License
 
-**Objecto** library is licensed under the [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0).\
+**Objecto** library is licensed under the [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0).
