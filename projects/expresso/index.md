@@ -4,11 +4,11 @@ title: EXPRESSO
 
 # Introduction
 
-## <mark style="color:orange;">Object-Oriented Regular Expressions</mark>
+## Object-Oriented Regular Expressions
 
 Expresso is a Java library that redefines how you work with regular expressions by introducing object-oriented principles. Unlike traditional regex engines, Expresso allows you to build modular, reusable, and hierarchical patterns that are easy to maintain and integrate into your applications. With Expresso, you can achieve more structured and readable solutions for complex text parsing tasks.
 
-## <mark style="color:orange;">Key Features of Expresso</mark>
+## Key Features of Expresso
 
 ### Hierarchical Patterns
 
@@ -30,7 +30,7 @@ Define patterns once and reuse them across your application by referencing them 
 
 Leverage Expresso’s Java Matcher API to capture structured results, traverse hierarchical groups, and extract meaningful data with ease.
 
-## <mark style="color:orange;">Why Choose Expresso?</mark>
+## Why Choose Expresso?
 
 ### Maintainable Patterns
 
@@ -44,6 +44,6 @@ Generate structured outputs like JSON directly from matched patterns, making Exp
 
 With Expresso’s [interactive demo](https://expresso.cariochi.com/), you can experiment with patterns and input text in real-time, ensuring precision before deploying them into your application.
 
-## <mark style="color:orange;">Ready to Start?</mark>
+## Ready to Start?
 
 Dive into the sections below to explore how to define patterns, utilize advanced features, and see real-world examples of Expresso in action.
