@@ -25,21 +25,10 @@ In case you have multiple test parameters provided by the **Recordo** extension,
 
 There are four modules in the **Recordo** extension that can be used together or separately.
 
-{% content-ref url="read.md" %}
 [read.md](read.md)
-{% endcontent-ref %}
-
-{% content-ref url="assertions.md" %}
 [assertions.md](assertions.md)
-{% endcontent-ref %}
-
-{% content-ref url="mockmvc.md" %}
 [mockmvc.md](mockmvc.md)
-{% endcontent-ref %}
-
-{% content-ref url="mockserver.md" %}
 [mockserver.md](mockserver.md)
-{% endcontent-ref %}
 
 ## License
 
