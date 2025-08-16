@@ -2,11 +2,11 @@
 
 # Overview
 
-## <mark style="color:orange;">Introduction</mark>
+## Introduction
 
 **Objecto** is a powerful open-source Java library designed to streamline the generation of random objects and data structures. With a focus on simplicity and flexibility, **Objecto** allows developers to create random instances of objects for various use cases, including testing and data initialization.
 
-## <mark style="color:orange;">Maven Dependency</mark>
+## Maven Dependency
 
 To add **Reflecto** to your project, include the following dependency in your `pom.xml`
 
@@ -20,7 +20,7 @@ To add **Reflecto** to your project, include the following dependency in your `p
 
 You can find the latest version on [Maven Repository](https://mvnrepository.com/artifact/com.cariochi.objecto/objecto).
 
-## <mark style="color:orange;">Key Concepts</mark>
+## Key Concepts
 
 ### Object Factories
 
@@ -66,6 +66,6 @@ default Issue createDefaultIssue(User assignee) {
 }
 ```
 
-## <mark style="color:orange;">License</mark>
+## License
 
 **Objecto** library is licensed under the [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0).\
