@@ -1,11 +1,14 @@
 - name: Home
   url: /
 
-- name: Spring Data Web Spec
-  url: /projects/spec/
+- name: Reflecto
+  url: /projects/reflecto/
 
 - name: Objecto
   url: /projects/objecto/
 
-- name: Reflecto
-  url: /projects/reflecto/
+- name: Recordo
+  url: /projects/recordo/
+
+- name: Expresso
+  url: /projects/expresso/
