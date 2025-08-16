@@ -1,0 +1,8 @@
+<nav style="margin: 1rem 0;">
+    {% for item in site.data.menu %}
+    <a href="{{ item.url | relative_url }}" style="margin-right: 1rem;">
+        {{ item.name }}
+    </a>
+    {% endfor %}
+</nav>
+<hr>

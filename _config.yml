@@ -3,3 +3,7 @@ description: "Java Libraries and Tools"
 remote_theme: pages-themes/minimal@v0.2.0
 plugins:
   - jekyll-remote-theme
+
+# якщо сайт в корені домену, baseurl можна не задавати
+# url: "https://www.cariochi.com"
+# baseurl: ""
