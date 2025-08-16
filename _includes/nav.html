@@ -1,8 +1,10 @@
 <nav>
     {% for item in site.data.menu %}
-    {% assign is_active = (page.url == item.url or page.url == item.url | append: "index.html") %}
-    <a href="{{ item.url | relative_url }}" class="{% if is_active %}active{% endif %}">
+    {% assign page_path = page.url | replace: 'index.html', '' %}
+    {% assign item_path = item.url | replace: 'index.html', '' %}
+    <a href="{{ item.url | relative_url }}" class="{% if page_path == item_path %}active{% endif %}">
         {{ item.name }}
     </a>
     {% endfor %}
 </nav>
+<hr>
