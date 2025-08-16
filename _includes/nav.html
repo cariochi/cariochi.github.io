@@ -1,8 +1,8 @@
-<nav style="margin: 1rem 0;">
+<nav>
     {% for item in site.data.menu %}
-    <a href="{{ item.url | relative_url }}" style="margin-right: 1rem;">
+    {% assign is_active = (page.url == item.url or page.url == item.url | append: "index.html") %}
+    <a href="{{ item.url | relative_url }}" class="{% if is_active %}active{% endif %}">
         {{ item.name }}
     </a>
     {% endfor %}
 </nav>
-<hr>
