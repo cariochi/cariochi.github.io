@@ -1,9 +1,59 @@
-title: "Cariochi"
-description: "Java Libraries and Tools"
-remote_theme: pages-themes/minimal@v0.2.0
-plugins:
-  - jekyll-remote-theme
+title: Cariochi
+description: Documentation hub for Reflecto, Objecto, Recordo, Expresso
+url: https://<your-username>.github.io
+baseurl: "" # keep empty for org/user site; set to repo name for project site
 
-# якщо сайт в корені домену, baseurl можна не задавати
-# url: "https://www.cariochi.com"
-# baseurl: ""
+# Build
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    line_numbers: false
+
+permalink: pretty
+
+# Where the docs live (plain pages under /projects). This lets us autogenerate menus without defining collections.
+include:
+  - projects
+
+# Plugins
+plugins:
+  - jekyll-seo-tag
+  - jekyll-sitemap
+  - jekyll-feed
+  - jekyll-redirect-from
+  - jekyll-include-cache
+  - jekyll-toc
+
+# jekyll-toc defaults (can be overridden per page)
+toc:
+  min_level: 1
+  max_level: 2
+  no_toc_section_class: "no-toc"
+  # headings_defaults helps ensure stable IDs
+  # (toc renders from page content; we also add anchors with CSS + small JS-free CSS trick)
+
+# Defaults for all project pages
+defaults:
+  - scope:
+      path: "projects"
+      type: pages
+    values:
+      layout: project
+      toc: true
+      toc_label: ""
+
+# Navigation label for the brand
+brand:
+  name: CARIOCHI
+  logo: /assets/images/logo.svg
+
+# Feed
+feed:
+  path: feed.xml
+
+# Exclusions
+exclude:
+  - README.md
+  - vendor

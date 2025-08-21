@@ -1,4 +1,28 @@
-# Getting Started
+---
+layout: default
+title: Overview
+---
 
-Welcome to **cariochi.com**. Here, you'll find a collection of open-source Java libraries and an experimental service designed to make your development work easier and more efficient. From enhancing Java reflection to generating random objects, simplifying JUnit testing, and extracting data from text, our projects offer practical tools for common development challenges. Explore our projects to see how they can fit into your workflow.
+# Overview
 
+Welcome to the Cariochi docs hub. Pick a project to start:
+
+<ul>
+{% assign project_pages = site.pages | where_exp: 'p', 'p.url contains "/projects/"' %}
+{% assign slugs = '' | split: '' %}
+{% for p in project_pages %}
+  {% assign parts = p.url | split: '/' %}
+  {% assign slug = parts[2] %}
+  {% if slug and slug != '' %}
+    {% unless slugs contains slug %}
+      {% assign slugs = slugs | push: slug %}
+    {% endunless %}
+  {% endif %}
+{% endfor %}
+{% assign slugs = slugs | sort %}
+{% for slug in slugs %}
+  <li><a href="{{ '/projects/' | append: slug | append: '/' | relative_url }}">{{ slug | capitalize }}</a></li>
+{% endfor %}
+</ul>
+
+<a class="github" href="https://github.com/cariochi" target="_blank">View on GitHub</a>

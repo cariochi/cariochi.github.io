@@ -1,0 +1,8 @@
+{%- if page.toc != false -%}
+<aside class="toc" aria-label="Table of contents">
+    <div class="toc-inner">
+        <h3>{{ page.toc_label | default: page.title }}</h3>
+        {{ content | toc_only }}
+    </div>
+</aside>
+{%- endif -%}

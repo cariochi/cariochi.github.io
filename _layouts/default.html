@@ -1,23 +1,23 @@
----
-layout: null
----
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <title>{{ page.title | default: site.title }}</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    {%- if site.description -%}
-    <meta name="description" content="{{ site.description }}">
-    {%- endif -%}
-    <!-- Підключаємо стилі теми minimal -->
-    <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>{% if page.title %}{{ page.title }} · {% endif %}{{ site.title }}</title>
+    {%- seo -%}
+    <link rel="stylesheet" href="{{ '/assets/css/site.css' | relative_url }}"/>
+    <link rel="stylesheet" href="{{ '/assets/css/rouge.css' | relative_url }}">
 </head>
 <body>
-<div class="container-lg px-3 my-5 markdown-body">
-    <h1>{{ page.title | default: site.title }}</h1>
-    {% include nav.html %}
+{%- include header.html -%}
+<main class="container">
     {{ content }}
-</div>
+</main>
+<footer class="site-footer">
+    <div class="container">
+        <p>© {{ site.time | date: '%Y' }} {{ site.title }}. Powered by <a href="https://jekyllrb.com/">Jekyll</a> & <a href="https://pages.github.com/">GitHub Pages</a></p>
+    </div>
+</footer>
+<script src="{{ '/assets/js/toc.js' | relative_url }}"></script>
 </body>
 </html>

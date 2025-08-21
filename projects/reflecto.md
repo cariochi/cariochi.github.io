@@ -6,7 +6,9 @@ title: REFLECTO
 
 ## Introduction
 
-**Reflecto** is an open-source Java library designed to streamline and simplify the usage of Java reflection. With **Reflecto**, developers can effortlessly access and manipulate fields, invoke methods, and work with complex types. Whether navigating through nested objects or interacting with collections, **Reflecto** provides an intuitive interface, making reflection tasks more accessible and developer-friendly.
+**Reflecto** is an open-source Java library designed to streamline and simplify the usage of Java reflection. With **Reflecto**, developers can effortlessly access and
+manipulate fields, invoke methods, and work with complex types. Whether navigating through nested objects or interacting with collections, **Reflecto** provides an
+intuitive interface, making reflection tasks more accessible and developer-friendly.
 
 Key Features:
 
