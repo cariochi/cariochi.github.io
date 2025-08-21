@@ -1,0 +1,1758 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>RECORDO · Cariochi</title><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>RECORDO | Cariochi</title>
+<meta name="generator" content="Jekyll v4.4.1" />
+<meta property="og:title" content="RECORDO" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Documentation hub for Reflecto, Objecto, Recordo, Expresso" />
+<meta property="og:description" content="Documentation hub for Reflecto, Objecto, Recordo, Expresso" />
+<link rel="canonical" href="https://cariochi.github.io/projects/recordo/" />
+<meta property="og:url" content="https://cariochi.github.io/projects/recordo/" />
+<meta property="og:site_name" content="Cariochi" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="RECORDO" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Documentation hub for Reflecto, Objecto, Recordo, Expresso","headline":"RECORDO","url":"https://cariochi.github.io/projects/recordo/"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/site.css"/>
+    <link rel="stylesheet" href="/assets/css/rouge.css">
+</head>
+<body><header class="site-header">
+    <div class="container">
+        <a class="brand" href="/">
+            
+            <img src="/assets/images/logo.svg" alt="CARIOCHI"/>
+            
+            <!--            <span>CARIOCHI</span>-->
+        </a>
+
+        <nav class="top-nav" aria-label="Projects">
+            <ul><li
+                      >
+                    <a href="/projects/reflecto">REFLECTO</a>
+                </li><li
+                      >
+                    <a href="/projects/objecto">OBJECTO</a>
+                </li><li
+                       class="active" >
+                    <a href="/projects/recordo">RECORDO</a>
+                </li><li
+                      >
+                    <a href="/projects/expresso">EXPRESSO</a>
+                </li><li
+                      >
+                    <a href="/projects/spring-data-web-spec">WEB SPEC</a>
+                </li><li class="github-link">
+                    <a href="https://github.com/cariochi" target="_blank" class="github-button">
+                        <svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor" aria-hidden="true">
+                            <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54
+               2.29 6.53 5.47 7.59.4.07.55-.17.55-.38
+               0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94
+               -.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53
+               .63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66
+               .07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95
+               0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12
+               0 0 .67-.21 2.2.82a7.62 7.62 0 0 1 2 0c1.53-1.04
+               2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82
+               1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54
+               1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013
+               8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
+                        </svg>
+                        <span>GitHub</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</header>
+<main class="container">
+    <div class="grid">
+    <aside class="toc" aria-label="Table of contents">
+    <div class="toc-inner">
+        <h3>RECORDO</h3>
+        <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h1"><a href="#overview">Overview</a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#concept">Concept</a></li>
+<li class="toc-entry toc-h2"><a href="#modules">Modules</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h1"><a href="#setup">Setup</a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#maven-dependencies">Maven Dependencies</a></li>
+<li class="toc-entry toc-h2"><a href="#compatibility">Compatibility</a></li>
+<li class="toc-entry toc-h2"><a href="#initialize-extension">Initialize Extension</a></li>
+<li class="toc-entry toc-h2"><a href="#objectmapper">ObjectMapper</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h1"><a href="#read-module">Read Module</a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#annotation-parameters">Annotation Parameters</a></li>
+<li class="toc-entry toc-h2"><a href="#interface-based-object-factory">Interface-based Object Factory</a></li>
+<li class="toc-entry toc-h2"><a href="#parameterized-object-factory">Parameterized Object Factory</a></li>
+<li class="toc-entry toc-h2"><a href="#direct-object-creation">Direct Object Creation</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h1"><a href="#assertions-module">Assertions Module</a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#jsonassertion">JsonAssertion</a></li>
+<li class="toc-entry toc-h2"><a href="#csvassertion">CsvAssertion</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h1"><a href="#mockmvc-module">MockMvc Module</a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#api-client-interfaces">API Client Interfaces</a></li>
+<li class="toc-entry toc-h2"><a href="#test-parameters">Test Parameters</a></li>
+<li class="toc-entry toc-h2"><a href="#type-options">Type Options</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h1"><a href="#mockserver-module">MockServer Module</a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#setup-1">Setup</a></li>
+<li class="toc-entry toc-h2"><a href="#annotation-parameters-2">Annotation Parameters</a></li>
+<li class="toc-entry toc-h2"><a href="#examples-2">Examples</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h1"><a href="#license">License</a></li>
+</ul>
+    </div>
+</aside>
+    <article class="content">
+<!--        <h1>RECORDO</h1>-->
+        <h1 id="overview">Overview</h1>
+
+<p><strong>Recordo</strong> is a **JUnit 5
+** extension that simplifies testing and json resource handling by implementing common functionality in a declarative manner. It can record or generate json files if they
+are absent, ensuring fast, deterministic, and accurate tests.
+—
+title: RECORDO
+—</p>
+
+<h2 id="concept">Concept</h2>
+
+<p>The <strong>Recordo</strong> extension is designed to move certain test resources like DTOs, mocked or expected objects, mocked REST requests, and responses to files. This approach is
+similar to how we use the annotation <code class="language-plaintext highlighter-rouge">@Sql</code> to prepare DB data with an SQL script.</p>
+
+<p>You don’t need to manually create these files. They will be generated on the first test run.</p>
+
+<p>The most common scenario for test creation is as follows: </p>
+
+<ol>
+  <li>You create a test and run it for the first time. This will generate JSON or CSV files, but the test will fail. </li>
+  <li>Then, you need to examine and modify the files as needed. </li>
+  <li>Finally, you run the test for the second time, and it should pass.</li>
+</ol>
+
+<p>In case you have multiple test parameters provided by the <strong>Recordo</strong> extension, you may require multiple test preparation runs.</p>
+
+<h2 id="modules">Modules</h2>
+
+<p>There are four modules in the <strong>Recordo</strong> extension that can be used together or separately.</p>
+
+<p><a href="read.md">read.md</a>
+<a href="assertions.md">assertions.md</a>
+<a href="mockmvc.md">mockmvc.md</a>
+<a href="mockserver.md">mockserver.md</a></p>
+
+<h1 id="setup">Setup</h1>
+
+<h2 id="maven-dependencies">Maven Dependencies</h2>
+
+<p>You can include individual modules as needed or add all modules at once using the <code class="language-plaintext highlighter-rouge">recordo-all</code> artifact.</p>
+
+<h3 id="all-modules">All Modules</h3>
+
+<p>To include all modules:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>com.cariochi.recordo<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>recordo-all<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span><span class="c">&lt;!-- Use the latest version --&gt;</span><span class="nt">&lt;/version&gt;</span>
+    <span class="nt">&lt;type&gt;</span>pom<span class="nt">&lt;/type&gt;</span>
+    <span class="nt">&lt;scope&gt;</span>test<span class="nt">&lt;/scope&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</code></pre></div></div>
+
+<h3 id="individual-modules">Individual Modules</h3>
+
+<p>Alternatively, you can include any of the following modules separately:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">&lt;!-- Read Module --&gt;</span>
+<span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>com.cariochi.recordo<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>recordo-read<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span><span class="c">&lt;!-- Use the latest version --&gt;</span><span class="nt">&lt;/version&gt;</span>
+    <span class="nt">&lt;scope&gt;</span>test<span class="nt">&lt;/scope&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+
+<span class="c">&lt;!-- Assertions Module --&gt;</span>
+<span class="nt">&lt;dependency&gt;</span>
+<span class="nt">&lt;groupId&gt;</span>com.cariochi.recordo<span class="nt">&lt;/groupId&gt;</span>
+<span class="nt">&lt;artifactId&gt;</span>recordo-assertions<span class="nt">&lt;/artifactId&gt;</span>
+<span class="nt">&lt;version&gt;</span><span class="c">&lt;!-- Use the latest version --&gt;</span><span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;scope&gt;</span>test<span class="nt">&lt;/scope&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+
+<span class="c">&lt;!-- MockMvc Module --&gt;</span>
+<span class="nt">&lt;dependency&gt;</span>
+<span class="nt">&lt;groupId&gt;</span>com.cariochi.recordo<span class="nt">&lt;/groupId&gt;</span>
+<span class="nt">&lt;artifactId&gt;</span>recordo-spring-mockmvc<span class="nt">&lt;/artifactId&gt;</span>
+<span class="nt">&lt;version&gt;</span><span class="c">&lt;!-- Use the latest version --&gt;</span><span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;scope&gt;</span>test<span class="nt">&lt;/scope&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+
+<span class="c">&lt;!-- MockServer Module --&gt;</span>
+<span class="nt">&lt;dependency&gt;</span>
+<span class="nt">&lt;groupId&gt;</span>com.cariochi.recordo<span class="nt">&lt;/groupId&gt;</span>
+<span class="nt">&lt;artifactId&gt;</span>recordo-mockserver<span class="nt">&lt;/artifactId&gt;</span>
+<span class="nt">&lt;version&gt;</span><span class="c">&lt;!-- Use the latest version --&gt;</span><span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;scope&gt;</span>test<span class="nt">&lt;/scope&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</code></pre></div></div>
+
+<p>You can find the latest version on <a href="https://mvnrepository.com/artifact/com.cariochi.recordo">Maven Repository</a>.</p>
+
+<h2 id="compatibility">Compatibility</h2>
+
+<ul>
+  <li><strong>Versions 1.x.x</strong>: Compatible with <strong>Java 11+</strong> and <strong>Spring 5.x</strong> (<strong>Spring Boot 2.x</strong>).</li>
+  <li><strong>Versions 2.x.x</strong>: Compatible with <strong>Java 17+</strong> and <strong>Spring 6.x</strong> (<strong>Spring Boot 3.x</strong>).</li>
+</ul>
+
+<p><strong>Important Note:</strong> Three of the four modules (<code class="language-plaintext highlighter-rouge">recordo-read</code>, <code class="language-plaintext highlighter-rouge">recordo-assertions</code>, and <code class="language-plaintext highlighter-rouge">recordo-mockserver</code>) can be used in projects that do not utilize the <strong>Spring
+Framework</strong>. Only <code class="language-plaintext highlighter-rouge">recordo-spring-mockmvc</code> requires <strong>Spring</strong>.</p>
+
+<h2 id="initialize-extension">Initialize Extension</h2>
+
+<p>To set up <strong>Recordo</strong> for your test, simply use the <code class="language-plaintext highlighter-rouge">RecordoExtension</code>.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="nd">@ExtendWith</span><span class="o">(</span><span class="nc">RecordoExtension</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+<span class="kd">class</span> <span class="nc">BookServiceTest</span> <span class="o">{</span>
+    <span class="o">...</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="objectmapper"><strong>ObjectMapper</strong></h2>
+
+<p><strong>Recordo</strong> uses the Jackson <strong>ObjectMapper</strong> for JSON operations. The logic for locating the <strong>ObjectMapper</strong> instance is as follows:</p>
+
+<ol>
+  <li>As the highest priority, the <strong>ObjectMapper</strong> field annotated with the <code class="language-plaintext highlighter-rouge">@EnableRecordo</code> annotation will be used, if present.</li>
+  <li>If <strong>Spring</strong> is being used and the test doesn’t have a field, the library will use the <strong>ObjectMapper</strong> bean from the Spring context if available.</li>
+  <li>In all cases other than the specific ones where a custom <strong>ObjectMapper</strong> instance is provided, the library will utilize its default <strong>Recordo</strong> <strong>ObjectMapper</strong>
+instance.</li>
+</ol>
+
+<h1 id="read-module">Read Module</h1>
+
+<p>The <strong>Recordo Read</strong> module is designed to enhance the testing experience in JUnit. This module introduces flexible and convenient ways to create test objects by
+seamlessly integrating external JSON data.</p>
+
+<p>If the specified JSON file is missing, <strong>Recordo</strong> will automatically create a new file with an object structure and populate it with random values. This feature
+streamlines test preparation, allowing developers to focus on establishing anticipated values without the need for manual file creation.</p>
+
+<p>The module provides three convenient approaches for reading objects: </p>
+
+<p><a href="read.md#interface-based-object-factory" title="mention">#interface-based-object-factory</a></p>
+
+<p><a href="read.md#parameterized-object-factory" title="mention">#parameterized-object-factory</a></p>
+
+<p><a href="read.md#direct-object-creation" title="mention">#direct-object-creation</a></p>
+
+<h2 id="annotation-parameters"><strong>Annotation Parameters</strong></h2>
+
+<p>The <code class="language-plaintext highlighter-rouge">@Read</code> annotation has two parameters:</p>
+
+<table><thead><tr><th width="173">Name</th><th width="102">Type</th><th>Description</th></tr></thead><tbody><tr><td><strong>value</strong></td><td>String</td><td>Path to JSON file</td></tr><tr><td><strong>objectMapper</strong></td><td>String</td><td>Name of ObjectMapper bean or test class field</td></tr></tbody></table>
+
+<h2 id="interface-based-object-factory">Interface-based <strong>Object Factory</strong></h2>
+
+<p>Developers can define interfaces with the <code class="language-plaintext highlighter-rouge">@RecordoObjectFactory</code> annotation to instruct <strong>Recordo</strong> on how to create objects. Here’s an example interface:</p>
+
+<p>The <strong>Interface-based Object Factories</strong> feature is built upon the <a href="broken-reference">Cariochi Objecto</a> library, inheriting all the capabilities of <strong>Objecto</strong> while
+expanding its functionality. Additionally, it introduces the usage of the <code class="language-plaintext highlighter-rouge">@Read</code> annotation for factory methods, altering the behavior of the method by transforming it
+from generating a random object on each invocation to generating it only upon the first usage and subsequently persisting it to a file.</p>
+
+<p>For detailed information and documentation regarding the <strong>Objecto</strong> library, please refer to the <a href="broken-reference">Objecto documentation</a>.</p>
+
+<h3 id="declaration">Declaration</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="nd">@RecordoObjectFactory</span>
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">LogRecordObjectFactory</span> <span class="o">{</span>
+
+    <span class="c1">// Factory methods with @Read annotation</span>
+    <span class="nd">@Read</span><span class="o">(</span><span class="s">"/messages/log.json"</span><span class="o">)</span>
+    <span class="nc">LogRecord</span> <span class="nf">getLogRecord</span><span class="o">();</span>
+
+    <span class="nd">@Read</span><span class="o">(</span><span class="s">"/messages/log.json"</span><span class="o">)</span>
+    <span class="nc">LogRecord</span> <span class="nf">getLogRecord</span><span class="o">(</span><span class="nd">@Modifier</span><span class="o">(</span><span class="s">"id"</span><span class="o">)</span> <span class="nc">Long</span> <span class="n">id</span><span class="o">);</span>
+
+    <span class="nd">@Read</span><span class="o">(</span><span class="s">"/messages/logs.json"</span><span class="o">)</span>
+    <span class="nc">List</span><span class="o">&lt;</span><span class="nc">LogRecord</span><span class="o">&gt;</span> <span class="nf">getLogRecords</span><span class="o">();</span>
+
+    <span class="nd">@Read</span><span class="o">(</span><span class="s">"/files/output.zip"</span><span class="o">)</span>
+    <span class="kt">byte</span><span class="o">[]</span> <span class="nf">getOutputFile</span><span class="o">();</span>
+
+    <span class="c1">// Modification methods without @Read annotation</span>
+    <span class="nd">@Modifier</span><span class="o">(</span><span class="s">"id"</span><span class="o">)</span>
+    <span class="nc">LogRecordObjectFactory</span> <span class="nf">withId</span><span class="o">(</span><span class="nc">Long</span> <span class="n">id</span><span class="o">);</span>
+
+    <span class="nd">@Modifier</span><span class="o">(</span><span class="s">"responses[0].status"</span><span class="o">)</span>
+    <span class="nc">LogRecordObjectFactory</span> <span class="nf">withFirstResponseStatus</span><span class="o">(</span><span class="nc">ResponseStatus</span> <span class="n">status</span><span class="o">);</span>
+
+    <span class="nd">@Modifier</span><span class="o">(</span><span class="s">"responses[*].status"</span><span class="o">)</span>
+    <span class="nc">LogRecordObjectFactory</span> <span class="nf">withAllResponseStatuses</span><span class="o">(</span><span class="nc">ResponseStatus</span> <span class="n">status</span><span class="o">);</span>
+
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><strong>Factory Methods:</strong></p>
+
+<p>Methods annotated with <code class="language-plaintext highlighter-rouge">@Read</code> represent factory methods for creating objects, specifying the JSON file paths and parameters.</p>
+
+<ul>
+  <li><strong>Return Type:</strong> The factory method’s return type should be the object you want to create.</li>
+  <li><strong>@Read Annotation:</strong> Apply the <code class="language-plaintext highlighter-rouge">@Read</code> annotation to specify the path to the JSON file containing the object’s data.</li>
+  <li><strong>Parameters:</strong> If the object creation involves parameters, use method parameters annotated with <code class="language-plaintext highlighter-rouge">@Modifier</code>  to specify the paths within the object that need to be
+modified.</li>
+</ul>
+
+<p><strong>Modification Methods:</strong></p>
+
+<p>Methods annotated with <code class="language-plaintext highlighter-rouge">@Modifier</code> serve as modification methods, allowing developers to alter the factory object with specific parameters.</p>
+
+<ul>
+  <li><strong>Return Type:</strong> The return type should be the same factory interface (<code class="language-plaintext highlighter-rouge">LogRecordObjectFactory</code> in this case).</li>
+  <li><strong>@Modifier Annotation:</strong> Use the <code class="language-plaintext highlighter-rouge">@Modifier</code> annotation on methods to specify the paths within the object that need to be modified.</li>
+</ul>
+
+<h3 id="usage">Usage</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="nd">@ExtendWith</span><span class="o">(</span><span class="nc">RecordoExtension</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+<span class="kd">class</span> <span class="nc">MyTest</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="nc">TestDtoObjectFactory</span> <span class="n">objectFactory</span> <span class="o">=</span> <span class="nc">Recordo</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="nc">TestDtoObjectFactory</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+
+    <span class="nd">@Test</span>
+    <span class="kt">void</span> <span class="nf">createLogRecord</span><span class="o">()</span> <span class="o">{</span>
+
+        <span class="c1">// Use factory methods to create LogRecord objects</span>
+        <span class="nc">LogRecord</span> <span class="n">log</span> <span class="o">=</span> <span class="n">factory</span><span class="o">.</span><span class="na">getLogRecord</span><span class="o">();</span>
+
+        <span class="c1">// ...</span>
+
+        <span class="c1">// Create a new LogRecord using the modification methods</span>
+        <span class="nc">LogRecord</span> <span class="n">modifiedLog</span> <span class="o">=</span> <span class="n">factory</span>
+                <span class="o">.</span><span class="na">withId</span><span class="o">(</span><span class="mi">123</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">withFirstResponseStatus</span><span class="o">(</span><span class="nc">ResponseStatus</span><span class="o">.</span><span class="na">SUCCESS</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">getLogRecord</span><span class="o">()</span>
+
+        <span class="c1">// ...</span>
+
+        <span class="c1">// Use factory methods to read file content</span>
+        <span class="kt">byte</span><span class="o">[]</span> <span class="n">fileContent</span> <span class="o">=</span> <span class="n">factory</span><span class="o">.</span><span class="na">getOutputFile</span><span class="o">();</span>
+
+        <span class="c1">// ...</span>
+
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="parameterized-object-factory">Parameterized Object Factory</h2>
+
+<p>Developers can use the <code class="language-plaintext highlighter-rouge">ObjectFactory</code> class along with the <code class="language-plaintext highlighter-rouge">@Read</code> annotation to create objects with specified parameters. </p>
+
+<h3 id="usage-example">Usage example</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Read</span><span class="o">(</span><span class="s">"/messages/log.json"</span><span class="o">)</span>
+<span class="kd">private</span> <span class="nc">ObjectFactory</span><span class="o">&lt;</span><span class="nc">LogRecord</span><span class="o">&gt;</span> <span class="n">logFactory</span><span class="o">;</span>
+
+<span class="nd">@Test</span>
+<span class="kt">void</span> <span class="nf">shouldGetLogStats</span><span class="o">()</span> <span class="o">{</span>
+    <span class="c1">// Given</span>
+    <span class="nc">List</span><span class="o">&lt;</span><span class="nc">LogRecord</span><span class="o">&gt;</span> <span class="n">logs</span> <span class="o">=</span> <span class="nc">List</span><span class="o">.</span><span class="na">of</span><span class="o">(</span>
+
+            <span class="c1">// creates a LogRecord object with default values</span>
+            <span class="n">logFactory</span><span class="o">.</span><span class="na">create</span><span class="o">(),</span>
+
+            <span class="c1">// creates a LogRecord object with the "id" field set to "TEST-100"</span>
+            <span class="n">logFactory</span><span class="o">.</span><span class="na">with</span><span class="o">(</span><span class="s">"id"</span><span class="o">,</span> <span class="s">"TEST-100"</span><span class="o">).</span><span class="na">create</span><span class="o">(),</span>
+
+            <span class="c1">// creates a LogRecord object with the status of the second response set to FAILED</span>
+            <span class="n">logFactory</span><span class="o">.</span><span class="na">with</span><span class="o">(</span><span class="s">"responses[1].status"</span><span class="o">,</span> <span class="nc">ResponseStatus</span><span class="o">.</span><span class="na">FAILED</span><span class="o">).</span><span class="na">create</span><span class="o">(),</span>
+
+            <span class="c1">// creates a LogRecord object with an empty list for the "responses" field</span>
+            <span class="n">logFactory</span><span class="o">.</span><span class="na">with</span><span class="o">(</span><span class="s">"responses"</span><span class="o">,</span> <span class="n">emptyList</span><span class="o">()).</span><span class="na">create</span><span class="o">()</span>
+
+    <span class="o">);</span>
+
+    <span class="c1">// Perform additional test logic with the created LogRecord objects</span>
+    <span class="c1">// ...</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="how-it-works">How it Works</h3>
+
+<ol>
+  <li><strong>@Read Annotation:</strong> Annotate a field of type <code class="language-plaintext highlighter-rouge">ObjectFactory&lt;T&gt;</code> with the <code class="language-plaintext highlighter-rouge">@Read</code> annotation, where <code class="language-plaintext highlighter-rouge">T</code> is the type of object to be created.</li>
+  <li><strong>ObjectFactory Methods:</strong>
+    <ul>
+      <li><strong>create():</strong> Create an object using the default values specified in the associated JSON file.</li>
+      <li><strong>with(String key, Object value):</strong> Specify a key-value pair to modify the object being created. The key uses a JSONPath-like syntax.</li>
+    </ul>
+  </li>
+</ol>
+
+<h2 id="direct-object-creation">Direct Object Creation</h2>
+
+<p>Among its features, the module offers a straightforward method for creating objects directly within test methods using the <code class="language-plaintext highlighter-rouge">@Read</code> annotation.</p>
+
+<p>Developers can use the <code class="language-plaintext highlighter-rouge">@Read</code> annotation on test methods to effortlessly create objects with default values, simplifying the testing process. This method is suitable for
+scenarios where customization or modification of object values is not required.</p>
+
+<h3 id="usage-examples">Usage Examples</h3>
+
+<p>In the given examples, the test methods effortlessly create objects using the data from the JSON file. Developers can focus on writing test logic without additional setup
+or object instantiation.</p>
+
+<p><strong>Single object</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="nd">@Test</span>
+<span class="kt">void</span> <span class="nf">should_create_book</span><span class="o">(</span>
+        <span class="nd">@Read</span><span class="o">(</span><span class="s">"/books/book.json"</span><span class="o">)</span> <span class="nc">Book</span> <span class="n">book</span>
+<span class="o">)</span> <span class="o">{</span>
+    <span class="o">...</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><strong>List of objects</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="nd">@Test</span>
+<span class="kt">void</span> <span class="nf">should_read_books</span><span class="o">(</span>
+        <span class="nd">@Read</span><span class="o">(</span><span class="s">"/books/books.json"</span><span class="o">)</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Book</span><span class="o">&gt;</span> <span class="n">books</span>
+<span class="o">)</span> <span class="o">{</span>
+    <span class="o">...</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><strong>Strings</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="nd">@Test</span>
+<span class="kt">void</span> <span class="nf">should_parse_string</span><span class="o">(</span>
+        <span class="nd">@Read</span><span class="o">(</span><span class="s">"/books/text.txt"</span><span class="o">)</span> <span class="nc">String</span> <span class="n">string</span>
+<span class="o">)</span> <span class="o">{</span>
+    <span class="o">...</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><strong>Bytes</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="nd">@Test</span>
+<span class="kt">void</span> <span class="nf">should_upload_zip_archive</span><span class="o">(</span>
+        <span class="nd">@Read</span><span class="o">(</span><span class="s">"/books/books.zip"</span><span class="o">)</span> <span class="kt">byte</span><span class="o">[]</span> <span class="n">content</span>
+<span class="o">)</span> <span class="o">{</span>
+    <span class="o">...</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="how-it-works-1"><strong>How it Works</strong></h3>
+
+<ul>
+  <li><strong>@Read Annotation:</strong> Apply the <code class="language-plaintext highlighter-rouge">@Read</code> annotation to a method parameter to signify that the associated JSON file should be used to create an object.</li>
+  <li><strong>Default Object Creation:</strong> The <code class="language-plaintext highlighter-rouge">@Read</code> annotation, when applied directly to a test method parameter, signals Recordo to create an object with default values specified
+in the associated JSON file.</li>
+</ul>
+
+<h1 id="assertions-module">Assertions Module</h1>
+
+<h2 id="jsonassertion">JsonAssertion</h2>
+
+<p>Asserts that the actual object is equal as JSON to the expected one stored in a file.</p>
+
+<p>If the expected JSON file is missing, the actual value will be saved as expected.</p>
+
+<p>All you need to do is verify the details, and the test will be ready.</p>
+
+<p>If an assertion fails, the actual value will be saved in a new file for manual comparison.</p>
+
+<h3 id="jsonassertion-parameters">JsonAssertion Parameters</h3>
+
+<h4 id="usingobjectmapper-mapper"><strong>.using</strong>(ObjectMapper mapper)</h4>
+
+<p>Sets the ObjectMapper to be used for JSON conversion.</p>
+
+<h4 id="extensibleboolean-value"><strong>.extensible</strong>(boolean value)</h4>
+
+<p>Sets whether the comparison should allow for additional properties in the expected JSON. </p>
+
+<p>Defaults to false.</p>
+
+<h4 id="withstrictorderboolean-value"><strong>.withStrictOrder</strong>(boolean value)</h4>
+
+<p>Sets whether the order of elements in the JSON arrays should be strictly enforced. </p>
+
+<p>Defaults to true.</p>
+
+<h4 id="includingstring-fields"><strong>.including</strong>(String… fields)</h4>
+
+<p>Specifies a list of fields to be included during comparison. </p>
+
+<p>Fields can be specified with nested structures using dot notation (e.g., <code class="language-plaintext highlighter-rouge">parent.name</code>, <code class="language-plaintext highlighter-rouge">user.role.name</code>). </p>
+
+<p>You can also use index for collections and arrays (e.g., <code class="language-plaintext highlighter-rouge">children[0].id</code>, <code class="language-plaintext highlighter-rouge">issues[0].tags[0].text</code>) or wildcard character <code class="language-plaintext highlighter-rouge">*</code> <em>to match any element (e.g.,</em>
+<code class="language-plaintext highlighter-rouge">children[*].name</code>, <code class="language-plaintext highlighter-rouge">issues[*].tags[*].text</code>).</p>
+
+<h4 id="excludingstring-fields"><strong>.excluding</strong>(String… fields)</h4>
+
+<p>Specifies a list of fields to be excluded during comparison. </p>
+
+<p>Fields can be specified with nested structures using dot notation (e.g., <code class="language-plaintext highlighter-rouge">parent.name</code>, <code class="language-plaintext highlighter-rouge">user.role.name</code>). </p>
+
+<p>You can also use index for collections and arrays (e.g., <code class="language-plaintext highlighter-rouge">children[0].id</code>, <code class="language-plaintext highlighter-rouge">issues[0].tags[0].text</code>) or wildcard character <code class="language-plaintext highlighter-rouge">*</code> <em>to match any element (e.g.,</em>
+<code class="language-plaintext highlighter-rouge">children[*].name</code>, <code class="language-plaintext highlighter-rouge">issues[*].tags[*].text</code>).</p>
+
+<h3 id="examples">Examples</h3>
+
+<p><strong>Java</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="nd">@Test</span>
+<span class="kt">void</span> <span class="nf">should_get_book_by_id</span><span class="o">()</span> <span class="o">{</span>
+    <span class="nc">Book</span> <span class="n">actual</span> <span class="o">=</span> <span class="n">bookService</span><span class="o">.</span><span class="na">getById</span><span class="o">(</span><span class="mi">1L</span><span class="o">);</span>
+
+    <span class="nc">JsonAssertion</span><span class="o">.</span><span class="na">assertAsJson</span><span class="o">(</span><span class="n">actual</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">isEqualTo</span><span class="o">(</span><span class="s">"/books/book.json"</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><strong>book.json</strong></p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="dl">"</span><span class="s2">id</span><span class="dl">"</span>
+<span class="p">:</span>
+  <span class="mi">1</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">title</span><span class="dl">"</span>
+<span class="p">:</span>
+  <span class="dl">"</span><span class="s2">Othello</span><span class="dl">"</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">author</span><span class="dl">"</span>
+<span class="p">:</span>
+  <span class="p">{</span>
+    <span class="dl">"</span><span class="s2">id</span><span class="dl">"</span>
+  <span class="p">:</span>
+    <span class="mi">1</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">firstName</span><span class="dl">"</span>
+  <span class="p">:</span>
+    <span class="dl">"</span><span class="s2">William</span><span class="dl">"</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">lastName</span><span class="dl">"</span>
+  <span class="p">:</span>
+    <span class="dl">"</span><span class="s2">Shakespeare</span><span class="dl">"</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><strong>Java</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="nd">@Test</span>
+<span class="kt">void</span> <span class="nf">should_get_books_by_author</span><span class="o">(</span>
+        <span class="nd">@Read</span><span class="o">(</span><span class="s">"/books/author.json"</span><span class="o">)</span> <span class="nc">Author</span> <span class="n">author</span>
+<span class="o">)</span> <span class="o">{</span>
+    <span class="nc">Page</span><span class="o">&lt;</span><span class="nc">Book</span><span class="o">&gt;</span> <span class="n">actual</span> <span class="o">=</span> <span class="n">bookService</span><span class="o">.</span><span class="na">findAllByAuthor</span><span class="o">(</span><span class="n">author</span><span class="o">);</span>
+
+    <span class="nc">JsonAssertion</span><span class="o">.</span><span class="na">assertAsJson</span><span class="o">(</span><span class="n">actual</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">using</span><span class="o">(</span><span class="n">objectMapper</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">extensible</span><span class="o">(</span><span class="kc">true</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">including</span><span class="o">(</span><span class="s">"content[*].id"</span><span class="o">,</span> <span class="s">"content[*].title"</span><span class="o">,</span> <span class="s">"content[*].author.id"</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">isEqualTo</span><span class="o">(</span><span class="s">"/books/short_books.json"</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><strong>author.json</strong></p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="dl">"</span><span class="s2">id</span><span class="dl">"</span>
+<span class="p">:</span>
+  <span class="mi">1</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">firstName</span><span class="dl">"</span>
+<span class="p">:</span>
+  <span class="dl">"</span><span class="s2">William</span><span class="dl">"</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">lastName</span><span class="dl">"</span>
+<span class="p">:</span>
+  <span class="dl">"</span><span class="s2">Shakespeare</span><span class="dl">"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><strong>short:books.json</strong></p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="dl">"</span><span class="s2">content</span><span class="dl">"</span>
+<span class="p">:</span>
+  <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="dl">"</span><span class="s2">id</span><span class="dl">"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">title</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Othello</span><span class="dl">"</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">author</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="dl">"</span><span class="s2">id</span><span class="dl">"</span><span class="p">:</span> <span class="mi">1</span>
+      <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="dl">"</span><span class="s2">id</span><span class="dl">"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">title</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Macbeth</span><span class="dl">"</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">author</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="dl">"</span><span class="s2">id</span><span class="dl">"</span><span class="p">:</span> <span class="mi">1</span>
+      <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="dl">"</span><span class="s2">id</span><span class="dl">"</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">title</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Richard II</span><span class="dl">"</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">author</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="dl">"</span><span class="s2">id</span><span class="dl">"</span><span class="p">:</span> <span class="mi">1</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><strong>Java</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="nd">@Test</span>
+<span class="kt">void</span> <span class="nf">should_get_all_books</span><span class="o">()</span> <span class="o">{</span>
+    <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Book</span><span class="o">&gt;</span> <span class="n">actual</span> <span class="o">=</span> <span class="n">bookService</span><span class="o">.</span><span class="na">findAll</span><span class="o">();</span>
+
+    <span class="nc">JsonAssertion</span><span class="o">.</span><span class="na">assertAsJson</span><span class="o">(</span><span class="n">actual</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">excluding</span><span class="o">(</span><span class="s">"author.firstName"</span><span class="o">,</span> <span class="s">"author.lastName"</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">withStrictOrder</span><span class="o">(</span><span class="kc">false</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">isEqualTo</span><span class="o">(</span><span class="s">"/books/short_books.json"</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><strong>short:books.json</strong></p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="dl">"</span><span class="s2">content</span><span class="dl">"</span>
+<span class="p">:</span>
+  <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="dl">"</span><span class="s2">id</span><span class="dl">"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">title</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Othello</span><span class="dl">"</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">author</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="dl">"</span><span class="s2">id</span><span class="dl">"</span><span class="p">:</span> <span class="mi">1</span>
+      <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="dl">"</span><span class="s2">id</span><span class="dl">"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">title</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Macbeth</span><span class="dl">"</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">author</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="dl">"</span><span class="s2">id</span><span class="dl">"</span><span class="p">:</span> <span class="mi">1</span>
+      <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="dl">"</span><span class="s2">id</span><span class="dl">"</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">title</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Richard II</span><span class="dl">"</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">author</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="dl">"</span><span class="s2">id</span><span class="dl">"</span><span class="p">:</span> <span class="mi">1</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="csvassertion">CsvAssertion</h2>
+
+<p>Asserts that the CSV string matches the expected one from a file.</p>
+
+<p>If the expected CSV file is missing, the actual value will be saved as expected.</p>
+
+<p>You only need to verify them, and then the test will be ready.</p>
+
+<p>If an assertion fails, the actual value will be saved for manual comparison.</p>
+
+<h3 id="csvassertion-parameters">CsvAssertion Parameters</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>withHeaders</strong></td>
+      <td>With header line. Default value is <code class="language-plaintext highlighter-rouge">false</code>.</td>
+    </tr>
+    <tr>
+      <td><strong>withStrictOrder</strong></td>
+      <td>Requires strict ordering of array elements. Default value is <code class="language-plaintext highlighter-rouge">false</code>.</td>
+    </tr>
+    <tr>
+      <td><strong>withColumnSeparator</strong></td>
+      <td>Default value is <code class="language-plaintext highlighter-rouge">,</code></td>
+    </tr>
+    <tr>
+      <td><strong>withLineSeparator</strong></td>
+      <td>Default value is</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="examples-1">Examples</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="nd">@Test</span>
+<span class="kt">void</span> <span class="nf">test</span><span class="o">()</span> <span class="o">{</span>
+    <span class="nc">String</span> <span class="n">csv</span> <span class="o">=</span> <span class="o">...</span>
+    <span class="nc">CsvAssertion</span><span class="o">.</span><span class="na">assertCsv</span><span class="o">(</span><span class="n">csv</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">withHeaders</span><span class="o">(</span><span class="kc">true</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">withStrictOrder</span><span class="o">(</span><span class="kc">false</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">isEqualsTo</span><span class="o">(</span><span class="s">"/expected.csv"</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h1 id="mockmvc-module">MockMvc Module</h1>
+
+<p>The <strong>Recordo MockMvc</strong> module empowers developers to streamline the testing of controllers using the MockMvc framework, offering two powerful mechanisms for testing
+flexibility:</p>
+
+<p><a href="mockmvc.md#api-client-interfaces" title="mention">#api-client-interfaces</a></p>
+
+<p><a href="mockmvc.md#test-parameters" title="mention">#test-parameters</a></p>
+
+<h2 id="api-client-interfaces">API Client Interfaces</h2>
+
+<p>Developers can define an interface where they specify the API endpoints they want to test using standard Spring annotations. This intuitive approach simplifies the
+testing process, as <strong>Recordo</strong> handles the underlying logic. Developers only need to autowire this interface in their test classes.</p>
+
+<h3 id="example-interface"><strong>Example Interface</strong></h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="nd">@RecordoApiClient</span><span class="o">(</span><span class="n">interceptors</span> <span class="o">=</span> <span class="nc">AuthInterceptor</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+<span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">"/users"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">UserApiClient</span> <span class="o">{</span>
+
+    <span class="nd">@GetMapping</span><span class="o">(</span><span class="s">"/{id}"</span><span class="o">)</span>
+    <span class="nc">UserDto</span> <span class="nf">findById</span><span class="o">(</span><span class="nd">@PathVariable</span> <span class="kt">int</span> <span class="n">id</span><span class="o">);</span>
+
+    <span class="nd">@GetMapping</span><span class="o">(</span><span class="s">"/{id}"</span><span class="o">)</span>
+    <span class="nd">@ResponseStatus</span><span class="o">(</span><span class="nc">HttpStatus</span><span class="o">.</span><span class="na">NOT_FOUND</span><span class="o">)</span>
+    <span class="nc">ErrorDto</span> <span class="nf">findById_NotFound</span><span class="o">(</span><span class="nd">@PathVariable</span> <span class="kt">int</span> <span class="n">id</span><span class="o">);</span>
+
+    <span class="nd">@GetMapping</span>
+    <span class="nc">Page</span><span class="o">&lt;</span><span class="nc">UserDto</span><span class="o">&gt;</span> <span class="nf">findAll</span><span class="o">(</span><span class="nd">@RequestParam</span><span class="o">(</span><span class="s">"q"</span><span class="o">)</span> <span class="nc">String</span> <span class="n">query</span><span class="o">,</span> <span class="nc">Pageable</span> <span class="n">pageable</span><span class="o">);</span>
+
+    <span class="nd">@PostMapping</span><span class="o">(</span><span class="s">"/{id}/pic"</span><span class="o">)</span>
+    <span class="kt">void</span> <span class="nf">uploadPic</span><span class="o">(</span><span class="nd">@PathVariable</span> <span class="kt">int</span> <span class="n">id</span><span class="o">,</span> <span class="nd">@RequestParam</span> <span class="nc">Request</span><span class="o">.</span><span class="na">File</span> <span class="n">file</span><span class="o">);</span>
+
+    <span class="nd">@PostMapping</span>
+    <span class="nc">UserDto</span> <span class="nf">create</span><span class="o">(</span><span class="nd">@RequestBody</span> <span class="nc">UserDto</span> <span class="n">userDto</span><span class="o">);</span>
+
+    <span class="nd">@DeleteMapping</span><span class="o">(</span><span class="s">"/{id}"</span><span class="o">)</span>
+    <span class="kt">void</span> <span class="nf">delete</span><span class="o">(</span><span class="nd">@PathVariable</span> <span class="kt">int</span> <span class="n">id</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="usage-examples-1">Usage Examples</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="nd">@ExtendWith</span><span class="o">(</span><span class="nc">RecordoExtension</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+<span class="nd">@WebMvcTest</span><span class="o">(</span><span class="nc">UserController</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+<span class="kd">class</span> <span class="nc">UserControllerTest</span> <span class="o">{</span>
+
+    <span class="nd">@Autowired</span>
+    <span class="kd">private</span> <span class="nc">UserApiClient</span> <span class="n">apiClient</span><span class="o">;</span>
+
+    <span class="nd">@Test</span>
+    <span class="kt">void</span> <span class="nf">should_find_by_id</span><span class="o">()</span> <span class="o">{</span>
+        <span class="c1">// ...</span>
+        <span class="nc">UserDto</span> <span class="n">user</span> <span class="o">=</span> <span class="n">apiClient</span><span class="o">.</span><span class="na">findById</span><span class="o">(</span><span class="mi">1L</span><span class="o">);</span>
+        <span class="c1">// ...</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Test</span>
+    <span class="kt">void</span> <span class="nf">should_get_not_found_error</span><span class="o">()</span> <span class="o">{</span>
+        <span class="c1">// ...</span>
+        <span class="nc">ErrorDto</span> <span class="n">error</span> <span class="o">=</span> <span class="n">apiClient</span><span class="o">.</span><span class="na">findById_NotFound</span><span class="o">(</span><span class="mi">1L</span><span class="o">);</span>
+        <span class="c1">// ...</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Test</span>
+    <span class="kt">void</span> <span class="nf">should_find_all</span><span class="o">()</span> <span class="o">{</span>
+        <span class="c1">// ...</span>
+        <span class="nc">PageRequest</span> <span class="n">pageRequest</span> <span class="o">=</span> <span class="nc">PageRequest</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">20</span><span class="o">,</span> <span class="nc">Sort</span><span class="o">.</span><span class="na">by</span><span class="o">(</span><span class="n">asc</span><span class="o">(</span><span class="s">"name"</span><span class="o">)));</span>
+        <span class="nc">Page</span><span class="o">&lt;</span><span class="nc">UserDto</span><span class="o">&gt;</span> <span class="n">users</span> <span class="o">=</span> <span class="n">apiClient</span><span class="o">.</span><span class="na">findAll</span><span class="o">(</span><span class="s">"john"</span><span class="o">,</span> <span class="n">pageRequest</span><span class="o">);</span>
+        <span class="c1">// ...</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Test</span>
+    <span class="kt">void</span> <span class="nf">should_create_user</span><span class="o">(</span>
+            <span class="nd">@Read</span><span class="o">(</span><span class="s">"/users/new_user.json"</span><span class="o">)</span> <span class="nc">UserDto</span> <span class="n">newUser</span>
+    <span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// ...</span>
+        <span class="nc">UserDto</span> <span class="n">createdUser</span> <span class="o">=</span> <span class="n">apiClient</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="n">newUser</span><span class="o">);</span>
+        <span class="c1">// ...</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Test</span>
+    <span class="kt">void</span> <span class="nf">should_upload_pic</span><span class="o">()</span> <span class="o">{</span>
+        <span class="c1">// ...      </span>
+        <span class="nc">Request</span><span class="o">.</span><span class="na">File</span> <span class="n">file</span> <span class="o">=</span> <span class="nc">Request</span><span class="o">.</span><span class="na">File</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">name</span><span class="o">(</span><span class="s">"pic.png"</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">content</span><span class="o">(</span><span class="n">fileBytes</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+
+        <span class="n">apiClient</span><span class="o">.</span><span class="na">uploadPic</span><span class="o">(</span><span class="mi">1L</span><span class="o">,</span> <span class="n">file</span><span class="o">);</span>
+        <span class="c1">// ...</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+
+</code></pre></div></div>
+
+<h2 id="test-parameters">Test Parameters</h2>
+
+<p>Developers can declare necessary requests directly as parameters in their test methods, specifying the HTTP method, URI, request body, and other details. This approach
+provides fine-grained control over requests.</p>
+
+<h3 id="annotation-parameters-1"><strong>Annotation Parameters</strong></h3>
+
+<table><thead><tr><th width="167">Name</th><th width="241">Type</th><th>Description</th></tr></thead><tbody><tr><td><strong>value</strong></td><td>String</td><td>Request path</td></tr><tr><td><strong>headers</strong></td><td>String[]</td><td>List of headers</td></tr><tr><td><strong>expectedStatus</strong></td><td>HttpStatus</td><td>Expected HTTP status (OK by default)</td></tr><tr><td><strong>interceptors</strong></td><td>Class&#x3C;? extends RequestInterceptor&gt;[]</td><td>List of request Interceptors</td></tr><tr><td><strong>objectMapper</strong></td><td>String</td><td>Name of ObjectMapper bean or test class field</td></tr></tbody></table>
+
+<h3 id="usage-examples-2">Usage Examples</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="nd">@Test</span>
+<span class="kt">void</span> <span class="nf">shouldGetBooks</span><span class="o">(</span>
+        <span class="nd">@Get</span><span class="o">(</span><span class="s">"/users/1/books?page=2"</span><span class="o">)</span> <span class="nc">Page</span><span class="o">&lt;</span><span class="nc">Book</span><span class="o">&gt;</span> <span class="n">books</span>
+<span class="o">)</span> <span class="o">{</span>
+    <span class="c1">// Perform test assertions using the retrieved books</span>
+    <span class="c1">// ...</span>
+<span class="o">}</span>
+
+<span class="nd">@Test</span>
+<span class="kt">void</span> <span class="nf">shouldGetNotFound</span><span class="o">(</span>
+        <span class="nd">@Get</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">"/users/1/books?page=2"</span><span class="o">,</span> <span class="n">expectedStatus</span> <span class="o">=</span> <span class="nc">HttpStatus</span><span class="o">.</span><span class="na">NOT_FOUND</span><span class="o">)</span> <span class="nc">ErrorDto</span> <span class="n">errorDto</span>
+<span class="o">)</span> <span class="o">{</span>
+    <span class="c1">// ...</span>
+<span class="o">}</span>
+
+<span class="nd">@Test</span>
+<span class="kt">void</span> <span class="nf">shouldCreateBook</span><span class="o">(</span>
+        <span class="nd">@Post</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">"/books"</span><span class="o">,</span> <span class="n">expectedStatus</span> <span class="o">=</span> <span class="nc">HttpStatus</span><span class="o">.</span><span class="na">CREATED</span><span class="o">)</span> <span class="nc">Request</span><span class="o">&lt;</span><span class="nc">Book</span><span class="o">&gt;</span> <span class="n">request</span>
+<span class="o">)</span> <span class="o">{</span>
+    <span class="c1">// Create a book instance</span>
+    <span class="nc">Book</span> <span class="n">book</span> <span class="o">=</span> <span class="o">...</span>
+
+    <span class="c1">// Perform the request and retrieve the response</span>
+    <span class="nc">Response</span><span class="o">&lt;</span><span class="nc">Book</span><span class="o">&gt;</span> <span class="n">response</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="na">body</span><span class="o">(</span><span class="n">book</span><span class="o">).</span><span class="na">perform</span><span class="o">();</span>
+    <span class="nc">Book</span> <span class="n">createdBook</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="na">getBody</span><span class="o">();</span>
+    <span class="c1">// Perform test assertions using the created book</span>
+    <span class="c1">// ...</span>
+<span class="o">}</span>
+
+<span class="nd">@Test</span>
+<span class="kt">void</span> <span class="nf">shouldUpdateBook</span><span class="o">(</span>
+        <span class="nd">@Put</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">"/books"</span><span class="o">,</span> <span class="n">body</span> <span class="o">=</span> <span class="nd">@Content</span><span class="o">(</span><span class="n">file</span> <span class="o">=</span> <span class="s">"/book.json"</span><span class="o">))</span> <span class="nc">Book</span> <span class="n">updatedBook</span>
+<span class="o">)</span> <span class="o">{</span>
+    <span class="c1">// Perform test assertions using the updated book</span>
+    <span class="c1">// ...</span>
+<span class="o">}</span>
+
+<span class="nd">@Test</span>
+<span class="kt">void</span> <span class="nf">shouldDeleteBook</span><span class="o">(</span>
+        <span class="nd">@Delete</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">"/books/{id}"</span><span class="o">,</span> <span class="n">expectedStatus</span> <span class="o">=</span> <span class="nc">HttpStatus</span><span class="o">.</span><span class="na">NO_CONTENT</span><span class="o">)</span> <span class="nc">Response</span><span class="o">&lt;</span><span class="nc">Void</span><span class="o">&gt;</span> <span class="n">response</span>
+<span class="o">)</span> <span class="o">{</span>
+    <span class="c1">// Perform test assertions for successful deletion</span>
+    <span class="c1">// ...</span>
+<span class="o">}</span>
+
+</code></pre></div></div>
+
+<h2 id="type-options">Type Options</h2>
+
+<p>Available in both the API client interfaces and when declaring requests as test parameters</p>
+
+<p>Developers have flexibility in choosing how they handle response and request types. Result Type Options offer a convenient way to interact with API responses for diverse
+testing scenarios.</p>
+
+<h4 id="1-object-result-type-pagebook-book">1. Object Result Type (<code class="language-plaintext highlighter-rouge">Page&lt;Book&gt;</code>, <code class="language-plaintext highlighter-rouge">Book</code>)</h4>
+
+<p>Developers can directly retrieve the response body as an object, simplifying test assertions. </p>
+
+<p><strong>Interface Usage:</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="nd">@GetMapping</span><span class="o">(</span><span class="s">"/{id}"</span><span class="o">)</span>
+<span class="nc">UserDto</span> <span class="nf">findById</span><span class="o">(</span><span class="nd">@PathVariable</span> <span class="kt">int</span> <span class="n">id</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p><strong>Test Parameter Usage:</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Get</span><span class="o">(</span><span class="s">"/users/1/books?page=2"</span><span class="o">)</span> <span class="nc">Page</span><span class="o">&lt;</span><span class="nc">Book</span><span class="o">&gt;</span> <span class="n">books</span>
+</code></pre></div></div>
+
+<h4 id="2-response-object-responsebook-responsevoid">2. Response Object (<code class="language-plaintext highlighter-rouge">Response&lt;Book&gt;</code>, <code class="language-plaintext highlighter-rouge">Response&lt;Void&gt;</code>)</h4>
+
+<p>Developers can declare the response type as an object to access detailed information such as status and headers. </p>
+
+<p><strong>Interface Usage:</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="nd">@GetMapping</span><span class="o">(</span><span class="s">"/{id}"</span><span class="o">)</span>
+<span class="nc">Response</span><span class="o">&lt;</span><span class="nc">UserDto</span><span class="o">&gt;</span> <span class="nf">findById</span><span class="o">(</span><span class="nd">@PathVariable</span> <span class="kt">int</span> <span class="n">id</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p><strong>Test Parameter Usage:</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Get</span><span class="o">(</span><span class="s">"/users/1/books?page=2"</span><span class="o">)</span> <span class="nc">Response</span><span class="o">&lt;</span><span class="nc">Page</span><span class="o">&lt;</span><span class="nc">Book</span><span class="o">&gt;&gt;</span> <span class="n">booksResponse</span>
+</code></pre></div></div>
+
+<h4 id="3-request-object-requestbook">3. Request Object (<code class="language-plaintext highlighter-rouge">Request&lt;Book&gt;</code>)</h4>
+
+<p>Developers can use the <code class="language-plaintext highlighter-rouge">Request</code> type to perform additional customizations before executing the request. </p>
+
+<p><strong>Interface Usage:</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="nd">@GetMapping</span><span class="o">(</span><span class="s">"/{id}"</span><span class="o">)</span>
+<span class="nc">Request</span><span class="o">&lt;</span><span class="nc">UserDto</span><span class="o">&gt;</span> <span class="nf">findById</span><span class="o">(</span><span class="nd">@PathVariable</span> <span class="kt">int</span> <span class="n">id</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p><strong>Test Parameter Usage:</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Get</span><span class="o">(</span><span class="s">"/users/1/books?page=2"</span><span class="o">)</span> <span class="nc">Request</span><span class="o">&lt;</span><span class="nc">Page</span><span class="o">&lt;</span><span class="nc">Book</span><span class="o">&gt;&gt;</span> <span class="n">booksRequest</span>
+</code></pre></div></div>
+
+<h1 id="mockserver-module">MockServer Module</h1>
+
+<p>During the first test run or in the absence of a file, all real interactions are recorded into a file.</p>
+
+<p>Once the file is saved, it is automatically utilized for mocking purposes.</p>
+
+<h2 id="setup-1">Setup</h2>
+
+<h3 id="http-interceptor">HTTP Interceptor</h3>
+
+<p><strong>Recordo</strong> adds an interceptor to your HTTP client to capture and replay HTTP requests and responses.</p>
+
+<p><br />
+At present, three HTTP clients are supported:</p>
+
+<ul>
+  <li>Spring RestTemplate</li>
+  <li>OkHttp Client</li>
+  <li>Apache HTTP Client</li>
+</ul>
+
+<p><strong>Recordo</strong> searches for an HTTP client in the application context. If you are not using the <strong>Spring</strong> <strong>Framework</strong> or if you don’t have an HTTP client or have multiple
+ones, you can specify which HTTP client to use by explicitly adding the <code class="language-plaintext highlighter-rouge">@EnableRecordo</code> annotation<strong>.</strong></p>
+
+<p>If you need to use multiple MockServers for different HTTP clients, you can specify the HTTP client bean or the name of the test class field in the `httpClient`
+annotation parameter.</p>
+
+<p><strong>RestTemplate</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Autowired</span>
+<span class="nd">@EnableRecordo</span>
+<span class="kd">private</span> <span class="nc">RestTemplate</span> <span class="n">restTemplate</span><span class="o">;</span>
+</code></pre></div></div>
+
+<p><strong>OkHttp</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Autowired</span>
+<span class="nd">@EnableRecordo</span>
+<span class="kd">private</span> <span class="nc">OkHttpClient</span> <span class="n">okHttpClient</span><span class="o">;</span>
+</code></pre></div></div>
+
+<p><strong>Apache HttpClient</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Autowired</span>
+<span class="nd">@EnableRecordo</span>
+<span class="kd">private</span> <span class="nc">HttpClient</span> <span class="n">httpClient</span><span class="o">;</span>
+</code></pre></div></div>
+
+<h3 id="openfeign-client-definition-example">OpenFeign Client definition example</h3>
+
+<p>You can use an HTTP client that has been intercepted underneath <strong>OpenFeign</strong> or other high-level clients.</p>
+
+<p><strong>OkHttp</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="nd">@Bean</span>
+<span class="kd">public</span> <span class="n">okhttp3</span><span class="o">.</span><span class="na">OkHttpClient</span> <span class="nf">okHttpClient</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="n">okhttp3</span><span class="o">.</span><span class="na">OkHttpClient</span><span class="o">();</span>
+<span class="o">}</span>
+
+<span class="nd">@Bean</span>
+<span class="kd">public</span> <span class="n">feign</span><span class="o">.</span><span class="na">Client</span> <span class="nf">feignClient</span><span class="o">(</span><span class="nc">OkHttpClient</span> <span class="n">okHttpClient</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="n">feign</span><span class="o">.</span><span class="na">okhttp</span><span class="o">.</span><span class="na">OkHttpClient</span><span class="o">(</span><span class="n">okHttpClient</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><strong>Apache HttpClient</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="nd">@Bean</span>
+<span class="kd">public</span> <span class="nc">HttpClient</span> <span class="nf">apacheHttpClient</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="nc">HttpClients</span><span class="o">.</span><span class="na">createDefault</span><span class="o">();</span>
+<span class="o">}</span>
+
+<span class="nd">@Bean</span>
+<span class="kd">public</span> <span class="n">feign</span><span class="o">.</span><span class="na">Client</span> <span class="nf">feignClient</span><span class="o">(</span><span class="nc">HttpClient</span> <span class="n">apacheHttpClient</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="n">feign</span><span class="o">.</span><span class="na">httpclient</span><span class="o">.</span><span class="na">ApacheHttpClient</span><span class="o">(</span><span class="n">httpClient</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="annotation-parameters-2">Annotation Parameters</h2>
+
+<p>The <code class="language-plaintext highlighter-rouge">@MockServer</code> annotation has 4 parameters:</p>
+
+<table><thead><tr><th width="156">Name</th><th width="109">Type</th><th>Description</th></tr></thead><tbody><tr><td><strong>value</strong></td><td>String</td><td><p></p><p>The <code>value</code> property in the MockServer annotation can specify both file and folder paths:</p><ul><li><strong>File Path (<code>.json</code>):</strong> <br />Records and replays multiple requests in a single file.</li><li><strong>Folder Path (No <code>.json</code>):</strong> <br />Creates individual JSON files for each request in the folder.</li></ul></td></tr><tr><td><strong>urlPattern</strong></td><td>String</td><td>The mapping matches URLs using the following rules:<br /><code>?</code> matches one character<br /><code>*</code>matches zero or more characters<br /><code>**</code> matches zero or more directories in a path</td></tr><tr><td><strong>httpClient</strong></td><td>String</td><td>Name of RestTemplate, OkHttp, or Apache HTTP Client bean or test class field</td></tr><tr><td><strong>objectMapper</strong></td><td>String</td><td>Name of ObjectMapper bean or test class field</td></tr></tbody></table>
+
+<h2 id="examples-2">Examples</h2>
+
+<h4 id="single-server">Single Server</h4>
+
+<p><strong>Java</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="nd">@Test</span>
+<span class="nd">@MockServer</span><span class="o">(</span><span class="s">"/mock_servers/get_gists.json"</span><span class="o">)</span>
+<span class="kt">void</span> <span class="nf">should_retrieve_gists</span><span class="o">()</span> <span class="o">{</span>
+    <span class="o">...</span>
+    <span class="nc">List</span><span class="o">&lt;</span><span class="nc">GistResponse</span><span class="o">&gt;</span> <span class="n">gists</span> <span class="o">=</span> <span class="n">gitHubClient</span><span class="o">.</span><span class="na">getGists</span><span class="o">();</span>
+    <span class="o">...</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><strong>get_gists.json (recorded)</strong></p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span>
+  <span class="p">{</span>
+    <span class="dl">"</span><span class="s2">request</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+      <span class="dl">"</span><span class="s2">method</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">GET</span><span class="dl">"</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">url</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https://api.github.com/gists</span><span class="dl">"</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">headers</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="dl">"</span><span class="s2">authorization</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">********</span><span class="dl">"</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">accept</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">application/json, application/*+json</span><span class="dl">"</span>
+      <span class="p">},</span>
+      <span class="dl">"</span><span class="s2">body</span><span class="dl">"</span><span class="p">:</span> <span class="kc">null</span>
+    <span class="p">},</span>
+    <span class="dl">"</span><span class="s2">response</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+      <span class="dl">"</span><span class="s2">protocol</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">HTTP/1.1</span><span class="dl">"</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">statusCode</span><span class="dl">"</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">statusText</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">OK</span><span class="dl">"</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">headers</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="dl">"</span><span class="s2">content-type</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">application/json; charset=utf-8</span><span class="dl">"</span>
+      <span class="p">},</span>
+      <span class="dl">"</span><span class="s2">body</span><span class="dl">"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+          <span class="dl">"</span><span class="s2">url</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https://api.github.com/gists/77c974bae1167df5c880f4849b7e001c</span><span class="dl">"</span><span class="p">,</span>
+          <span class="dl">"</span><span class="s2">forks_url</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https://api.github.com/gists/77c974bae1167df5c880f4849b7e001c/forks</span><span class="dl">"</span><span class="p">,</span>
+          <span class="dl">"</span><span class="s2">commits_url</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https://api.github.com/gists/77c974bae1167df5c880f4849b7e001c/commits</span><span class="dl">"</span><span class="p">,</span>
+          <span class="dl">"</span><span class="s2">id</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">77c974bae1167df5c880f4849b7e001c</span><span class="dl">"</span><span class="p">,</span>
+          <span class="dl">"</span><span class="s2">node_id</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">MDQ6R2lzdDc3Yzk3NGJhZTExNjdkZjVjODgwZjQ4NDliN2UwMDFj</span><span class="dl">"</span><span class="p">,</span>
+          <span class="dl">"</span><span class="s2">git_pull_url</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https://gist.github.com/77c974bae1167df5c880f4849b7e001c.git</span><span class="dl">"</span><span class="p">,</span>
+          <span class="dl">"</span><span class="s2">git_push_url</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https://gist.github.com/77c974bae1167df5c880f4849b7e001c.git</span><span class="dl">"</span><span class="p">,</span>
+          <span class="dl">"</span><span class="s2">html_url</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https://gist.github.com/77c974bae1167df5c880f4849b7e001c</span><span class="dl">"</span><span class="p">,</span>
+          <span class="dl">"</span><span class="s2">files</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="dl">"</span><span class="s2">hello_world.txt</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+              <span class="dl">"</span><span class="s2">filename</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">hello_world.txt</span><span class="dl">"</span><span class="p">,</span>
+              <span class="dl">"</span><span class="s2">type</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">text/plain</span><span class="dl">"</span><span class="p">,</span>
+              <span class="dl">"</span><span class="s2">language</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Text</span><span class="dl">"</span><span class="p">,</span>
+              <span class="dl">"</span><span class="s2">raw_url</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https://gist.githubusercontent.com/vadimdeineka/77c974bae1167df5c880f4849b7e001c/raw/d66c8d4d32962340839b015b7849e067d0f79479/hello_world.txt</span><span class="dl">"</span><span class="p">,</span>
+              <span class="dl">"</span><span class="s2">size</span><span class="dl">"</span><span class="p">:</span> <span class="mi">14</span>
+            <span class="p">}</span>
+          <span class="p">},</span>
+          <span class="dl">"</span><span class="s2">public</span><span class="dl">"</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+          <span class="dl">"</span><span class="s2">created_at</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">2020-06-26T14:19:30Z</span><span class="dl">"</span><span class="p">,</span>
+          <span class="dl">"</span><span class="s2">updated_at</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">2020-06-26T14:19:32Z</span><span class="dl">"</span><span class="p">,</span>
+          <span class="dl">"</span><span class="s2">description</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Hello World!</span><span class="dl">"</span><span class="p">,</span>
+          <span class="dl">"</span><span class="s2">comments</span><span class="dl">"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+          <span class="dl">"</span><span class="s2">user</span><span class="dl">"</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+          <span class="dl">"</span><span class="s2">comments_url</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https://api.github.com/gists/77c974bae1167df5c880f4849b7e001c/comments</span><span class="dl">"</span><span class="p">,</span>
+          <span class="dl">"</span><span class="s2">owner</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="dl">"</span><span class="s2">login</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">vadimdeineka</span><span class="dl">"</span><span class="p">,</span>
+            <span class="dl">"</span><span class="s2">id</span><span class="dl">"</span><span class="p">:</span> <span class="mi">9740075</span><span class="p">,</span>
+            <span class="dl">"</span><span class="s2">node_id</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">MDQ6VXNlcjk3NDAwNzU=</span><span class="dl">"</span><span class="p">,</span>
+            <span class="dl">"</span><span class="s2">avatar_url</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https://avatars3.githubusercontent.com/u/9740075?v=4</span><span class="dl">"</span><span class="p">,</span>
+            <span class="dl">"</span><span class="s2">gravatar_id</span><span class="dl">"</span><span class="p">:</span> <span class="dl">""</span><span class="p">,</span>
+            <span class="dl">"</span><span class="s2">url</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https://api.github.com/users/vadimdeineka</span><span class="dl">"</span><span class="p">,</span>
+            <span class="dl">"</span><span class="s2">html_url</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https://github.com/vadimdeineka</span><span class="dl">"</span><span class="p">,</span>
+            <span class="dl">"</span><span class="s2">followers_url</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https://api.github.com/users/vadimdeineka/followers</span><span class="dl">"</span><span class="p">,</span>
+            <span class="dl">"</span><span class="s2">following_url</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https://api.github.com/users/vadimdeineka/following{/other_user}</span><span class="dl">"</span><span class="p">,</span>
+            <span class="dl">"</span><span class="s2">gists_url</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https://api.github.com/users/vadimdeineka/gists{/gist_id}</span><span class="dl">"</span><span class="p">,</span>
+            <span class="dl">"</span><span class="s2">starred_url</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https://api.github.com/users/vadimdeineka/starred{/owner}{/repo}</span><span class="dl">"</span><span class="p">,</span>
+            <span class="dl">"</span><span class="s2">subscriptions_url</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https://api.github.com/users/vadimdeineka/subscriptions</span><span class="dl">"</span><span class="p">,</span>
+            <span class="dl">"</span><span class="s2">organizations_url</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https://api.github.com/users/vadimdeineka/orgs</span><span class="dl">"</span><span class="p">,</span>
+            <span class="dl">"</span><span class="s2">repos_url</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https://api.github.com/users/vadimdeineka/repos</span><span class="dl">"</span><span class="p">,</span>
+            <span class="dl">"</span><span class="s2">events_url</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https://api.github.com/users/vadimdeineka/events{/privacy}</span><span class="dl">"</span><span class="p">,</span>
+            <span class="dl">"</span><span class="s2">received_events_url</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https://api.github.com/users/vadimdeineka/received_events</span><span class="dl">"</span><span class="p">,</span>
+            <span class="dl">"</span><span class="s2">type</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">User</span><span class="dl">"</span><span class="p">,</span>
+            <span class="dl">"</span><span class="s2">site_admin</span><span class="dl">"</span><span class="p">:</span> <span class="kc">false</span>
+          <span class="p">},</span>
+          <span class="dl">"</span><span class="s2">truncated</span><span class="dl">"</span><span class="p">:</span> <span class="kc">false</span>
+        <span class="p">}</span>
+      <span class="p">]</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">]</span>
+</code></pre></div></div>
+
+<p><strong>Java</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="nd">@Test</span>
+<span class="nd">@MockServer</span><span class="o">(</span><span class="s">"/mock_servers/create_and_delete_gist.json"</span><span class="o">)</span>
+    <span class="c1">// File Path</span>
+<span class="kt">void</span> <span class="nf">should_create_and_delete_gist</span><span class="o">()</span> <span class="o">{</span>
+    <span class="o">...</span>
+    <span class="nc">GistResponse</span> <span class="n">response</span> <span class="o">=</span> <span class="n">gitHubClient</span><span class="o">.</span><span class="na">createGist</span><span class="o">(</span><span class="n">gist</span><span class="o">);</span>
+    <span class="nc">Gist</span> <span class="n">created</span> <span class="o">=</span> <span class="n">gitHubClient</span><span class="o">.</span><span class="na">getGist</span><span class="o">(</span><span class="n">response</span><span class="o">.</span><span class="na">getId</span><span class="o">());</span>
+    <span class="n">gitHubClient</span><span class="o">.</span><span class="na">deleteGist</span><span class="o">(</span><span class="n">response</span><span class="o">.</span><span class="na">getId</span><span class="o">());</span>
+    <span class="o">...</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><strong>create_and_delete_gist.json (recorded)</strong></p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span>
+  <span class="p">{</span>
+    <span class="dl">"</span><span class="s2">request</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+      <span class="dl">"</span><span class="s2">method</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">POST</span><span class="dl">"</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">url</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https://api.github.com/gists</span><span class="dl">"</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">headers</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="dl">"</span><span class="s2">authorization</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">********</span><span class="dl">"</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">content-type</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">application/json</span><span class="dl">"</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">accept</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">application/json, application/*+json</span><span class="dl">"</span>
+      <span class="p">},</span>
+      <span class="dl">"</span><span class="s2">body</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="dl">"</span><span class="s2">description</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Hello World!</span><span class="dl">"</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">files</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+          <span class="dl">"</span><span class="s2">hello_world.txt</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="dl">"</span><span class="s2">content</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Hello </span><span class="se">\n</span><span class="s2">World</span><span class="se">\n</span><span class="s2">!</span><span class="dl">"</span>
+          <span class="p">}</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="dl">"</span><span class="s2">response</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+      <span class="dl">"</span><span class="s2">protocol</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">HTTP/1.1</span><span class="dl">"</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">statusCode</span><span class="dl">"</span><span class="p">:</span> <span class="mi">201</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">statusText</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Created</span><span class="dl">"</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">headers</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="dl">"</span><span class="s2">content-type</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">application/json; charset=utf-8</span><span class="dl">"</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">location</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https://api.github.com/gists/4c16188cd8b6bc2de6ea2eec953ed7ca</span><span class="dl">"</span>
+      <span class="p">},</span>
+      <span class="dl">"</span><span class="s2">body</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="dl">"</span><span class="s2">url</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https://api.github.com/gists/4c16188cd8b6bc2de6ea2eec953ed7ca</span><span class="dl">"</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">forks_url</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https://api.github.com/gists/4c16188cd8b6bc2de6ea2eec953ed7ca/forks</span><span class="dl">"</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">commits_url</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https://api.github.com/gists/4c16188cd8b6bc2de6ea2eec953ed7ca/commits</span><span class="dl">"</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">id</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">4c16188cd8b6bc2de6ea2eec953ed7ca</span><span class="dl">"</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">node_id</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">MDQ6R2lzdDRjMTYxODhjZDhiNmJjMmRlNmVhMmVlYzk1M2VkN2Nh</span><span class="dl">"</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">git_pull_url</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https://gist.github.com/4c16188cd8b6bc2de6ea2eec953ed7ca.git</span><span class="dl">"</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">git_push_url</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https://gist.github.com/4c16188cd8b6bc2de6ea2eec953ed7ca.git</span><span class="dl">"</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">html_url</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https://gist.github.com/4c16188cd8b6bc2de6ea2eec953ed7ca</span><span class="dl">"</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">files</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+          <span class="dl">"</span><span class="s2">hello_world.txt</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="dl">"</span><span class="s2">filename</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">hello_world.txt</span><span class="dl">"</span><span class="p">,</span>
+            <span class="dl">"</span><span class="s2">type</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">text/plain</span><span class="dl">"</span><span class="p">,</span>
+            <span class="dl">"</span><span class="s2">language</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Text</span><span class="dl">"</span><span class="p">,</span>
+            <span class="dl">"</span><span class="s2">raw_url</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https://gist.githubusercontent.com/vadimdeineka/4c16188cd8b6bc2de6ea2eec953ed7ca/raw/d66c8d4d32962340839b015b7849e067d0f79479/hello_world.txt</span><span class="dl">"</span><span class="p">,</span>
+            <span class="dl">"</span><span class="s2">size</span><span class="dl">"</span><span class="p">:</span> <span class="mi">14</span><span class="p">,</span>
+            <span class="dl">"</span><span class="s2">truncated</span><span class="dl">"</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+            <span class="dl">"</span><span class="s2">content</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Hello </span><span class="se">\n</span><span class="s2">World</span><span class="se">\n</span><span class="s2">!</span><span class="dl">"</span>
+          <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="dl">"</span><span class="s2">public</span><span class="dl">"</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">created_at</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">2020-07-06T08:34:56Z</span><span class="dl">"</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">updated_at</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">2020-07-06T08:34:56Z</span><span class="dl">"</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">description</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Hello World!</span><span class="dl">"</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">comments</span><span class="dl">"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">user</span><span class="dl">"</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">comments_url</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https://api.github.com/gists/4c16188cd8b6bc2de6ea2eec953ed7ca/comments</span><span class="dl">"</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">owner</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+          <span class="dl">"</span><span class="s2">login</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">vadimdeineka</span><span class="dl">"</span><span class="p">,</span>
+          <span class="dl">"</span><span class="s2">id</span><span class="dl">"</span><span class="p">:</span> <span class="mi">9740075</span><span class="p">,</span>
+          <span class="dl">"</span><span class="s2">node_id</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">MDQ6VXNlcjk3NDAwNzU=</span><span class="dl">"</span><span class="p">,</span>
+          <span class="dl">"</span><span class="s2">avatar_url</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https://avatars3.githubusercontent.com/u/9740075?v=4</span><span class="dl">"</span><span class="p">,</span>
+          <span class="dl">"</span><span class="s2">gravatar_id</span><span class="dl">"</span><span class="p">:</span> <span class="dl">""</span><span class="p">,</span>
+          <span class="dl">"</span><span class="s2">url</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https://api.github.com/users/vadimdeineka</span><span class="dl">"</span><span class="p">,</span>
+          <span class="dl">"</span><span class="s2">html_url</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https://github.com/vadimdeineka</span><span class="dl">"</span><span class="p">,</span>
+          <span class="dl">"</span><span class="s2">followers_url</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https://api.github.com/users/vadimdeineka/followers</span><span class="dl">"</span><span class="p">,</span>
+          <span class="dl">"</span><span class="s2">following_url</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https://api.github.com/users/vadimdeineka/following{/other_user}</span><span class="dl">"</span><span class="p">,</span>
+          <span class="dl">"</span><span class="s2">gists_url</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https://api.github.com/users/vadimdeineka/gists{/gist_id}</span><span class="dl">"</span><span class="p">,</span>
+          <span class="dl">"</span><span class="s2">starred_url</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https://api.github.com/users/vadimdeineka/starred{/owner}{/repo}</span><span class="dl">"</span><span class="p">,</span>
+          <span class="dl">"</span><span class="s2">subscriptions_url</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https://api.github.com/users/vadimdeineka/subscriptions</span><span class="dl">"</span><span class="p">,</span>
+          <span class="dl">"</span><span class="s2">organizations_url</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https://api.github.com/users/vadimdeineka/orgs</span><span class="dl">"</span><span class="p">,</span>
+          <span class="dl">"</span><span class="s2">repos_url</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https://api.github.com/users/vadimdeineka/repos</span><span class="dl">"</span><span class="p">,</span>
+          <span class="dl">"</span><span class="s2">events_url</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https://api.github.com/users/vadimdeineka/events{/privacy}</span><span class="dl">"</span><span class="p">,</span>
+          <span class="dl">"</span><span class="s2">received_events_url</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https://api.github.com/users/vadimdeineka/received_events</span><span class="dl">"</span><span class="p">,</span>
+          <span class="dl">"</span><span class="s2">type</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">User</span><span class="dl">"</span><span class="p">,</span>
+          <span class="dl">"</span><span class="s2">site_admin</span><span class="dl">"</span><span class="p">:</span> <span class="kc">false</span>
+        <span class="p">},</span>
+        <span class="dl">"</span><span class="s2">forks</span><span class="dl">"</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="dl">"</span><span class="s2">history</span><span class="dl">"</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="dl">"</span><span class="s2">truncated</span><span class="dl">"</span><span class="p">:</span> <span class="kc">false</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+    <span class="dl">"</span><span class="s2">request</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+      <span class="dl">"</span><span class="s2">method</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">GET</span><span class="dl">"</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">url</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https://api.github.com/gists/4c16188cd8b6bc2de6ea2eec953ed7ca</span><span class="dl">"</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">headers</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="dl">"</span><span class="s2">authorization</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">********</span><span class="dl">"</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">accept</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">application/json, application/*+json</span><span class="dl">"</span>
+      <span class="p">},</span>
+      <span class="dl">"</span><span class="s2">body</span><span class="dl">"</span><span class="p">:</span> <span class="kc">null</span>
+    <span class="p">},</span>
+    <span class="dl">"</span><span class="s2">response</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+      <span class="dl">"</span><span class="s2">protocol</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">HTTP/1.1</span><span class="dl">"</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">statusCode</span><span class="dl">"</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">statusText</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">OK</span><span class="dl">"</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">headers</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="dl">"</span><span class="s2">content-type</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">application/json; charset=utf-8</span><span class="dl">"</span>
+      <span class="p">},</span>
+      <span class="dl">"</span><span class="s2">body</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="dl">"</span><span class="s2">url</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https://api.github.com/gists/4c16188cd8b6bc2de6ea2eec953ed7ca</span><span class="dl">"</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">forks_url</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https://api.github.com/gists/4c16188cd8b6bc2de6ea2eec953ed7ca/forks</span><span class="dl">"</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">commits_url</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https://api.github.com/gists/4c16188cd8b6bc2de6ea2eec953ed7ca/commits</span><span class="dl">"</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">id</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">4c16188cd8b6bc2de6ea2eec953ed7ca</span><span class="dl">"</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">node_id</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">MDQ6R2lzdDRjMTYxODhjZDhiNmJjMmRlNmVhMmVlYzk1M2VkN2Nh</span><span class="dl">"</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">git_pull_url</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https://gist.github.com/4c16188cd8b6bc2de6ea2eec953ed7ca.git</span><span class="dl">"</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">git_push_url</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https://gist.github.com/4c16188cd8b6bc2de6ea2eec953ed7ca.git</span><span class="dl">"</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">html_url</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https://gist.github.com/4c16188cd8b6bc2de6ea2eec953ed7ca</span><span class="dl">"</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">files</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+          <span class="dl">"</span><span class="s2">hello_world.txt</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="dl">"</span><span class="s2">filename</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">hello_world.txt</span><span class="dl">"</span><span class="p">,</span>
+            <span class="dl">"</span><span class="s2">type</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">text/plain</span><span class="dl">"</span><span class="p">,</span>
+            <span class="dl">"</span><span class="s2">language</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Text</span><span class="dl">"</span><span class="p">,</span>
+            <span class="dl">"</span><span class="s2">raw_url</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https://gist.githubusercontent.com/vadimdeineka/4c16188cd8b6bc2de6ea2eec953ed7ca/raw/d66c8d4d32962340839b015b7849e067d0f79479/hello_world.txt</span><span class="dl">"</span><span class="p">,</span>
+            <span class="dl">"</span><span class="s2">size</span><span class="dl">"</span><span class="p">:</span> <span class="mi">14</span><span class="p">,</span>
+            <span class="dl">"</span><span class="s2">truncated</span><span class="dl">"</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+            <span class="dl">"</span><span class="s2">content</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Hello </span><span class="se">\n</span><span class="s2">World</span><span class="se">\n</span><span class="s2">!</span><span class="dl">"</span>
+          <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="dl">"</span><span class="s2">public</span><span class="dl">"</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">created_at</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">2020-07-06T08:34:56Z</span><span class="dl">"</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">updated_at</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">2020-07-06T08:34:56Z</span><span class="dl">"</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">description</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Hello World!</span><span class="dl">"</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">comments</span><span class="dl">"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">user</span><span class="dl">"</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">comments_url</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https://api.github.com/gists/4c16188cd8b6bc2de6ea2eec953ed7ca/comments</span><span class="dl">"</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">owner</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+          <span class="dl">"</span><span class="s2">login</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">vadimdeineka</span><span class="dl">"</span><span class="p">,</span>
+          <span class="dl">"</span><span class="s2">id</span><span class="dl">"</span><span class="p">:</span> <span class="mi">9740075</span><span class="p">,</span>
+          <span class="dl">"</span><span class="s2">node_id</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">MDQ6VXNlcjk3NDAwNzU=</span><span class="dl">"</span><span class="p">,</span>
+          <span class="dl">"</span><span class="s2">avatar_url</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https://avatars3.githubusercontent.com/u/9740075?v=4</span><span class="dl">"</span><span class="p">,</span>
+          <span class="dl">"</span><span class="s2">gravatar_id</span><span class="dl">"</span><span class="p">:</span> <span class="dl">""</span><span class="p">,</span>
+          <span class="dl">"</span><span class="s2">url</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https://api.github.com/users/vadimdeineka</span><span class="dl">"</span><span class="p">,</span>
+          <span class="dl">"</span><span class="s2">html_url</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https://github.com/vadimdeineka</span><span class="dl">"</span><span class="p">,</span>
+          <span class="dl">"</span><span class="s2">followers_url</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https://api.github.com/users/vadimdeineka/followers</span><span class="dl">"</span><span class="p">,</span>
+          <span class="dl">"</span><span class="s2">following_url</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https://api.github.com/users/vadimdeineka/following{/other_user}</span><span class="dl">"</span><span class="p">,</span>
+          <span class="dl">"</span><span class="s2">gists_url</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https://api.github.com/users/vadimdeineka/gists{/gist_id}</span><span class="dl">"</span><span class="p">,</span>
+          <span class="dl">"</span><span class="s2">starred_url</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https://api.github.com/users/vadimdeineka/starred{/owner}{/repo}</span><span class="dl">"</span><span class="p">,</span>
+          <span class="dl">"</span><span class="s2">subscriptions_url</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https://api.github.com/users/vadimdeineka/subscriptions</span><span class="dl">"</span><span class="p">,</span>
+          <span class="dl">"</span><span class="s2">organizations_url</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https://api.github.com/users/vadimdeineka/orgs</span><span class="dl">"</span><span class="p">,</span>
+          <span class="dl">"</span><span class="s2">repos_url</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https://api.github.com/users/vadimdeineka/repos</span><span class="dl">"</span><span class="p">,</span>
+          <span class="dl">"</span><span class="s2">events_url</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https://api.github.com/users/vadimdeineka/events{/privacy}</span><span class="dl">"</span><span class="p">,</span>
+          <span class="dl">"</span><span class="s2">received_events_url</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https://api.github.com/users/vadimdeineka/received_events</span><span class="dl">"</span><span class="p">,</span>
+          <span class="dl">"</span><span class="s2">type</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">User</span><span class="dl">"</span><span class="p">,</span>
+          <span class="dl">"</span><span class="s2">site_admin</span><span class="dl">"</span><span class="p">:</span> <span class="kc">false</span>
+        <span class="p">},</span>
+        <span class="dl">"</span><span class="s2">forks</span><span class="dl">"</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="dl">"</span><span class="s2">history</span><span class="dl">"</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="dl">"</span><span class="s2">truncated</span><span class="dl">"</span><span class="p">:</span> <span class="kc">false</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+    <span class="dl">"</span><span class="s2">request</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+      <span class="dl">"</span><span class="s2">method</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">DELETE</span><span class="dl">"</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">url</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https://api.github.com/gists/4c16188cd8b6bc2de6ea2eec953ed7ca</span><span class="dl">"</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">headers</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="dl">"</span><span class="s2">authorization</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">********</span><span class="dl">"</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">accept</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">application/json, application/*+json</span><span class="dl">"</span>
+      <span class="p">},</span>
+      <span class="dl">"</span><span class="s2">body</span><span class="dl">"</span><span class="p">:</span> <span class="kc">null</span>
+    <span class="p">},</span>
+    <span class="dl">"</span><span class="s2">response</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+      <span class="dl">"</span><span class="s2">protocol</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">HTTP/1.1</span><span class="dl">"</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">statusCode</span><span class="dl">"</span><span class="p">:</span> <span class="mi">204</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">statusText</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">No Content</span><span class="dl">"</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">headers</span><span class="dl">"</span><span class="p">:</span> <span class="p">{},</span>
+      <span class="dl">"</span><span class="s2">body</span><span class="dl">"</span><span class="p">:</span> <span class="kc">null</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">]</span>
+</code></pre></div></div>
+
+<p><strong>Java</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="nd">@Test</span>
+<span class="nd">@MockServer</span><span class="o">(</span><span class="s">"/mock_servers/gists/"</span><span class="o">)</span>
+    <span class="c1">// Folder Path</span>
+<span class="kt">void</span> <span class="nf">should_create_and_delete_gist</span><span class="o">()</span> <span class="o">{</span>
+    <span class="o">...</span>
+    <span class="nc">GistResponse</span> <span class="n">response</span> <span class="o">=</span> <span class="n">gitHubClient</span><span class="o">.</span><span class="na">createGist</span><span class="o">(</span><span class="n">gist</span><span class="o">);</span>
+    <span class="nc">Gist</span> <span class="n">created</span> <span class="o">=</span> <span class="n">gitHubClient</span><span class="o">.</span><span class="na">getGist</span><span class="o">(</span><span class="n">response</span><span class="o">.</span><span class="na">getId</span><span class="o">());</span>
+    <span class="n">gitHubClient</span><span class="o">.</span><span class="na">deleteGist</span><span class="o">(</span><span class="n">response</span><span class="o">.</span><span class="na">getId</span><span class="o">());</span>
+    <span class="o">...</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><strong>001__POST__api.github.com__gists.json</strong></p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"request"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"method"</span><span class="p">:</span><span class="w"> </span><span class="s2">"POST"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/gists"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"headers"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"authorization"</span><span class="p">:</span><span class="w"> </span><span class="s2">"********"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"accept"</span><span class="p">:</span><span class="w"> </span><span class="s2">"*/*"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"body"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Hello World!"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"files"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"hello_world.txt"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"content"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Hello </span><span class="se">\n</span><span class="s2">World</span><span class="se">\n</span><span class="s2">!"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"response"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"protocol"</span><span class="p">:</span><span class="w"> </span><span class="s2">"h2"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"statusCode"</span><span class="p">:</span><span class="w"> </span><span class="mi">201</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"headers"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"content-type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"application/json; charset=utf-8"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"location"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/gists/31e4458e2fbb1e073787790766268622"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"body"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/gists/31e4458e2fbb1e073787790766268622"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"forks_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/gists/31e4458e2fbb1e073787790766268622/forks"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"commits_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/gists/31e4458e2fbb1e073787790766268622/commits"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"31e4458e2fbb1e073787790766268622"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"node_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"G_kwDOAJSfK9oAIDMxZTQ0NThlMmZiYjFlMDczNzg3NzkwNzY2MjY4NjIy"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"git_pull_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://gist.github.com/31e4458e2fbb1e073787790766268622.git"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"git_push_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://gist.github.com/31e4458e2fbb1e073787790766268622.git"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"html_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://gist.github.com/vadimdeineka/31e4458e2fbb1e073787790766268622"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"files"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"hello_world.txt"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"filename"</span><span class="p">:</span><span class="w"> </span><span class="s2">"hello_world.txt"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"text/plain"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"language"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Text"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"raw_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://gist.githubusercontent.com/vadimdeineka/31e4458e2fbb1e073787790766268622/raw/d66c8d4d32962340839b015b7849e067d0f79479/hello_world.txt"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"size"</span><span class="p">:</span><span class="w"> </span><span class="mi">14</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"truncated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"content"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Hello </span><span class="se">\n</span><span class="s2">World</span><span class="se">\n</span><span class="s2">!"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"public"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-03-22T10:32:21Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-03-22T10:32:22Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Hello World!"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"comments"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"user"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"comments_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/gists/31e4458e2fbb1e073787790766268622/comments"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"owner"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"login"</span><span class="p">:</span><span class="w"> </span><span class="s2">"vadimdeineka"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">9740075</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"node_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MDQ6VXNlcjk3NDAwNzU="</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"avatar_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://avatars.githubusercontent.com/u/9740075?v=4"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"gravatar_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/users/vadimdeineka"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"html_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://github.com/vadimdeineka"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"followers_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/users/vadimdeineka/followers"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"following_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/users/vadimdeineka/following{/other_user}"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"gists_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/users/vadimdeineka/gists{/gist_id}"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"starred_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/users/vadimdeineka/starred{/owner}{/repo}"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"subscriptions_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/users/vadimdeineka/subscriptions"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"organizations_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/users/vadimdeineka/orgs"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"repos_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/users/vadimdeineka/repos"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"events_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/users/vadimdeineka/events{/privacy}"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"received_events_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/users/vadimdeineka/received_events"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"User"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"site_admin"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"forks"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+      </span><span class="nl">"history"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"user"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"login"</span><span class="p">:</span><span class="w"> </span><span class="s2">"vadimdeineka"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">9740075</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"node_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MDQ6VXNlcjk3NDAwNzU="</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"avatar_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://avatars.githubusercontent.com/u/9740075?v=4"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"gravatar_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/users/vadimdeineka"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"html_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://github.com/vadimdeineka"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"followers_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/users/vadimdeineka/followers"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"following_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/users/vadimdeineka/following{/other_user}"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"gists_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/users/vadimdeineka/gists{/gist_id}"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"starred_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/users/vadimdeineka/starred{/owner}{/repo}"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"subscriptions_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/users/vadimdeineka/subscriptions"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"organizations_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/users/vadimdeineka/orgs"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"repos_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/users/vadimdeineka/repos"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"events_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/users/vadimdeineka/events{/privacy}"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"received_events_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/users/vadimdeineka/received_events"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"User"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"site_admin"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="nl">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"8763d463517eef559e7fd7daf653ffc5c1e7245f"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"committed_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-03-22T10:32:21Z"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"change_status"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"additions"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"deletions"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/gists/31e4458e2fbb1e073787790766268622/8763d463517eef559e7fd7daf653ffc5c1e7245f"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="nl">"truncated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre></div></div>
+
+<p><strong>002__GET__api.github.com__gists_31e4458e2fbb1e073787790766268622.json</strong></p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"request"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"method"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GET"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/gists/31e4458e2fbb1e073787790766268622?rand=hello%20world"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"headers"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"authorization"</span><span class="p">:</span><span class="w"> </span><span class="s2">"********"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"accept"</span><span class="p">:</span><span class="w"> </span><span class="s2">"*/*"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"response"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"protocol"</span><span class="p">:</span><span class="w"> </span><span class="s2">"h2"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"statusCode"</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"headers"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"content-type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"application/json; charset=utf-8"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"body"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/gists/31e4458e2fbb1e073787790766268622"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"forks_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/gists/31e4458e2fbb1e073787790766268622/forks"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"commits_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/gists/31e4458e2fbb1e073787790766268622/commits"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"31e4458e2fbb1e073787790766268622"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"node_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"G_kwDOAJSfK9oAIDMxZTQ0NThlMmZiYjFlMDczNzg3NzkwNzY2MjY4NjIy"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"git_pull_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://gist.github.com/31e4458e2fbb1e073787790766268622.git"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"git_push_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://gist.github.com/31e4458e2fbb1e073787790766268622.git"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"html_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://gist.github.com/vadimdeineka/31e4458e2fbb1e073787790766268622"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"files"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"hello_world.txt"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"filename"</span><span class="p">:</span><span class="w"> </span><span class="s2">"hello_world.txt"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"text/plain"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"language"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Text"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"raw_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://gist.githubusercontent.com/vadimdeineka/31e4458e2fbb1e073787790766268622/raw/d66c8d4d32962340839b015b7849e067d0f79479/hello_world.txt"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"size"</span><span class="p">:</span><span class="w"> </span><span class="mi">14</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"truncated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"content"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Hello </span><span class="se">\n</span><span class="s2">World</span><span class="se">\n</span><span class="s2">!"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"public"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-03-22T10:32:21Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-03-22T10:32:22Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Hello World!"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"comments"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"user"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"comments_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/gists/31e4458e2fbb1e073787790766268622/comments"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"owner"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"login"</span><span class="p">:</span><span class="w"> </span><span class="s2">"vadimdeineka"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">9740075</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"node_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MDQ6VXNlcjk3NDAwNzU="</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"avatar_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://avatars.githubusercontent.com/u/9740075?v=4"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"gravatar_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/users/vadimdeineka"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"html_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://github.com/vadimdeineka"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"followers_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/users/vadimdeineka/followers"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"following_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/users/vadimdeineka/following{/other_user}"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"gists_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/users/vadimdeineka/gists{/gist_id}"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"starred_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/users/vadimdeineka/starred{/owner}{/repo}"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"subscriptions_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/users/vadimdeineka/subscriptions"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"organizations_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/users/vadimdeineka/orgs"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"repos_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/users/vadimdeineka/repos"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"events_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/users/vadimdeineka/events{/privacy}"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"received_events_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/users/vadimdeineka/received_events"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"User"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"site_admin"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"forks"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+      </span><span class="nl">"history"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"user"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"login"</span><span class="p">:</span><span class="w"> </span><span class="s2">"vadimdeineka"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">9740075</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"node_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MDQ6VXNlcjk3NDAwNzU="</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"avatar_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://avatars.githubusercontent.com/u/9740075?v=4"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"gravatar_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/users/vadimdeineka"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"html_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://github.com/vadimdeineka"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"followers_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/users/vadimdeineka/followers"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"following_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/users/vadimdeineka/following{/other_user}"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"gists_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/users/vadimdeineka/gists{/gist_id}"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"starred_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/users/vadimdeineka/starred{/owner}{/repo}"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"subscriptions_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/users/vadimdeineka/subscriptions"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"organizations_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/users/vadimdeineka/orgs"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"repos_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/users/vadimdeineka/repos"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"events_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/users/vadimdeineka/events{/privacy}"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"received_events_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/users/vadimdeineka/received_events"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"User"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"site_admin"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="nl">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3e02b0d2032e3972744b9393c0287b41dcda6959"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"committed_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-03-22T10:32:22Z"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"change_status"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"additions"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"deletions"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/gists/31e4458e2fbb1e073787790766268622/3e02b0d2032e3972744b9393c0287b41dcda6959"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"user"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"login"</span><span class="p">:</span><span class="w"> </span><span class="s2">"vadimdeineka"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">9740075</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"node_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MDQ6VXNlcjk3NDAwNzU="</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"avatar_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://avatars.githubusercontent.com/u/9740075?v=4"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"gravatar_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/users/vadimdeineka"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"html_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://github.com/vadimdeineka"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"followers_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/users/vadimdeineka/followers"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"following_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/users/vadimdeineka/following{/other_user}"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"gists_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/users/vadimdeineka/gists{/gist_id}"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"starred_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/users/vadimdeineka/starred{/owner}{/repo}"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"subscriptions_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/users/vadimdeineka/subscriptions"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"organizations_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/users/vadimdeineka/orgs"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"repos_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/users/vadimdeineka/repos"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"events_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/users/vadimdeineka/events{/privacy}"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"received_events_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/users/vadimdeineka/received_events"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"User"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"site_admin"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="nl">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"8763d463517eef559e7fd7daf653ffc5c1e7245f"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"committed_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-03-22T10:32:21Z"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"change_status"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"additions"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"deletions"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/gists/31e4458e2fbb1e073787790766268622/8763d463517eef559e7fd7daf653ffc5c1e7245f"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="nl">"truncated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre></div></div>
+
+<p><strong>003__DELETE__api.github.com__gists_31e4458e2fbb1e073787790766268622.json</strong></p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"request"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"method"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DELETE"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.github.com/gists/31e4458e2fbb1e073787790766268622"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"headers"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"authorization"</span><span class="p">:</span><span class="w"> </span><span class="s2">"********"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"accept"</span><span class="p">:</span><span class="w"> </span><span class="s2">"*/*"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"response"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"protocol"</span><span class="p">:</span><span class="w"> </span><span class="s2">"h2"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"statusCode"</span><span class="p">:</span><span class="w"> </span><span class="mi">204</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre></div></div>
+
+<h4 id="multiple-http-clients">Multiple HTTP clients</h4>
+
+<p><strong>Java</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Autowired</span>
+<span class="kd">private</span> <span class="nc">RestTemplate</span> <span class="n">bookServerRestTemplate</span><span class="o">;</span>
+
+<span class="nd">@Autowired</span>
+<span class="kd">private</span> <span class="nc">RestTemplate</span> <span class="n">authorServerRestTemplate</span><span class="o">;</span>
+
+<span class="nd">@Test</span>
+<span class="nd">@MockServer</span><span class="o">(</span><span class="n">httpClient</span> <span class="o">=</span> <span class="s">"bookServerRestTemplate"</span><span class="o">,</span> <span class="n">value</span> <span class="o">=</span> <span class="s">"/mockserver/multiservers/books-server.rest.json"</span><span class="o">)</span>
+<span class="nd">@MockServer</span><span class="o">(</span><span class="n">httpClient</span> <span class="o">=</span> <span class="s">"authorServerRestTemplate"</span><span class="o">,</span> <span class="n">value</span> <span class="o">=</span> <span class="s">"/mockserver/multiservers/authors-server.rest.json"</span><span class="o">)</span>
+<span class="kt">void</span> <span class="nf">should_retrieve_books</span><span class="o">()</span> <span class="o">{</span>
+    <span class="o">...</span>
+    <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Book</span><span class="o">&gt;</span> <span class="n">allBooks</span> <span class="o">=</span> <span class="n">restClient</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"https://books.server/books"</span><span class="o">,</span> <span class="n">listOf</span><span class="o">(</span><span class="nc">Book</span><span class="o">.</span><span class="na">class</span><span class="o">));</span>
+    <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Author</span><span class="o">&gt;</span> <span class="n">allAuthors</span> <span class="o">=</span> <span class="n">restClient</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"https://authors.server/authors"</span><span class="o">,</span> <span class="n">listOf</span><span class="o">(</span><span class="nc">Author</span><span class="o">.</span><span class="na">class</span><span class="o">));</span>
+    <span class="nc">Book</span> <span class="n">book</span> <span class="o">=</span> <span class="n">restClient</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"https://books.server/books/129649986932158"</span><span class="o">,</span> <span class="n">typeOf</span><span class="o">(</span><span class="nc">Book</span><span class="o">.</span><span class="na">class</span><span class="o">));</span>
+    <span class="nc">Author</span> <span class="n">author</span> <span class="o">=</span> <span class="n">restClient</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"https://authors.server/authors/1"</span><span class="o">,</span> <span class="n">typeOf</span><span class="o">(</span><span class="nc">Author</span><span class="o">.</span><span class="na">class</span><span class="o">));</span>
+    <span class="o">...</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="multiple-servers">Multiple Servers</h4>
+
+<p><strong>Java</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="nd">@Test</span>
+<span class="nd">@MockServer</span><span class="o">(</span><span class="n">urlPattern</span> <span class="o">=</span> <span class="s">"https://books.server/**"</span><span class="o">,</span> <span class="n">value</span> <span class="o">=</span> <span class="s">"/mockserver/multiservers/books-server.rest.json"</span><span class="o">)</span>
+<span class="nd">@MockServer</span><span class="o">(</span><span class="n">urlPattern</span> <span class="o">=</span> <span class="s">"https://authors.server/**"</span><span class="o">,</span> <span class="n">value</span> <span class="o">=</span> <span class="s">"/mockserver/multiservers/authors-server.rest.json"</span><span class="o">)</span>
+<span class="kt">void</span> <span class="nf">should_retrieve_books</span><span class="o">()</span> <span class="o">{</span>
+    <span class="o">...</span>
+    <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Book</span><span class="o">&gt;</span> <span class="n">allBooks</span> <span class="o">=</span> <span class="n">restClient</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"https://books.server/books"</span><span class="o">,</span> <span class="n">listOf</span><span class="o">(</span><span class="nc">Book</span><span class="o">.</span><span class="na">class</span><span class="o">));</span>
+    <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Author</span><span class="o">&gt;</span> <span class="n">allAuthors</span> <span class="o">=</span> <span class="n">restClient</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"https://authors.server/authors"</span><span class="o">,</span> <span class="n">listOf</span><span class="o">(</span><span class="nc">Author</span><span class="o">.</span><span class="na">class</span><span class="o">));</span>
+    <span class="nc">Book</span> <span class="n">book</span> <span class="o">=</span> <span class="n">restClient</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"https://books.server/books/129649986932158"</span><span class="o">,</span> <span class="n">typeOf</span><span class="o">(</span><span class="nc">Book</span><span class="o">.</span><span class="na">class</span><span class="o">));</span>
+    <span class="nc">Author</span> <span class="n">author</span> <span class="o">=</span> <span class="n">restClient</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"https://authors.server/authors/1"</span><span class="o">,</span> <span class="n">typeOf</span><span class="o">(</span><span class="nc">Author</span><span class="o">.</span><span class="na">class</span><span class="o">));</span>
+    <span class="o">...</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><strong>books-server.rest.json</strong></p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"request"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"method"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GET"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://books.server/books"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"headers"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"accept"</span><span class="p">:</span><span class="w"> </span><span class="s2">"application/json, application/*+json"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"response"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"statusCode"</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"statusText"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OK"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"headers"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"content-type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"application/json; charset=utf-8"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"body"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">129649986932158</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"author"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">129649985822335</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"firstName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3vRRjH5Eir"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"lastName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"v4qcdNu87_"</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"lIEE41TMJh"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">129649988384959</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"author"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">129649987758738</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"firstName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0ddAM5PDcp"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"lastName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Q2DXdR9DdB"</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Oin7c_WtHq"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"request"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"method"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GET"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://books.server/books/129649986932158"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"headers"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"accept"</span><span class="p">:</span><span class="w"> </span><span class="s2">"application/json, application/*+json"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"response"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"statusCode"</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"statusText"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OK"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"headers"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"content-type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"application/json; charset=utf-8"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"body"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">129649986932158</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"author"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">129649985822335</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"firstName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3vRRjH5Eir"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"lastName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"v4qcdNu87_"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"lIEE41TMJh"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+
+</span></code></pre></div></div>
+
+<p><strong>authors-server.rest.json</strong></p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"request"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"method"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GET"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://authors.server/authors"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"headers"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"accept"</span><span class="p">:</span><span class="w"> </span><span class="s2">"application/json, application/*+json"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"response"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"statusCode"</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"statusText"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OK"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"headers"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"content-type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"application/json; charset=utf-8"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"body"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"firstName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"William"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"lastName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Shakespeare"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"request"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"method"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GET"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://authors.server/authors/1"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"headers"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"accept"</span><span class="p">:</span><span class="w"> </span><span class="s2">"application/json, application/*+json"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"response"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"statusCode"</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"statusText"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OK"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"headers"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"content-type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"application/json; charset=utf-8"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"body"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"firstName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"William"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"lastName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Shakespeare"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+
+</span></code></pre></div></div>
+
+<h1 id="license">License</h1>
+
+<p> <strong>Recordo</strong> library is licensed under the <a href="https://github.com/cariochi/recordo/blob/master/LICENSE">Apache License, Version 2.0</a>.</p>
+
+    </article>
+</div>
+
+</main>
+<footer class="site-footer">
+    <div class="container">
+        <p>© 2025 Cariochi. Powered by <a href="https://jekyllrb.com/">Jekyll</a> & <a href="https://pages.github.com/">GitHub Pages</a></p>
+    </div>
+</footer>
+<script src="/assets/js/toc.js"></script>
+</body>
+</html>
