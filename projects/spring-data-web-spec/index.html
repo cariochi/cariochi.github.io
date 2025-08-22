@@ -3,7 +3,9 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>Spring Data Web Spec · Cariochi</title><!-- Begin Jekyll SEO tag v2.8.0 -->
+    <title>Spring Data Web Spec · Cariochi</title>
+    <link rel="icon" type="image/png" href="/assets/images/favicon.png">
+    <link rel="shortcut icon" type="image/png" href="/assets/images/favicon.png"><!-- Begin Jekyll SEO tag v2.8.0 -->
 <title>Spring Data Web Spec | Cariochi</title>
 <meta name="generator" content="Jekyll v4.4.1" />
 <meta property="og:title" content="Spring Data Web Spec" />
@@ -25,50 +27,44 @@
 <body><header class="site-header">
     <div class="container">
         <a class="brand" href="/">
-            
             <img src="/assets/images/logo.svg" alt="CARIOCHI"/>
-            
-            <!--            <span>CARIOCHI</span>-->
+<!--            <span>CARIOCHI</span>-->
         </a>
 
+        <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Toggle navigation">
+
+        <label for="nav-toggle" class="menu-toggle">
+            <svg class="burger" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+                <path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+            </svg>
+            <span class="menu-text">Menu</span>
+        </label>
+
         <nav class="top-nav" aria-label="Projects">
-            <ul><li
-                      >
-                    <a href="/projects/reflecto">REFLECTO</a>
-                </li><li
-                      >
-                    <a href="/projects/objecto">OBJECTO</a>
-                </li><li
-                      >
-                    <a href="/projects/recordo">RECORDO</a>
-                </li><li
-                      >
-                    <a href="/projects/expresso">EXPRESSO</a>
-                </li><li
-                       class="active" >
-                    <a href="/projects/spring-data-web-spec">WEB SPEC</a>
-                </li><li class="github-link">
-                    <a href="https://github.com/cariochi" target="_blank" class="github-button">
-                        <svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor" aria-hidden="true">
-                            <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54
-               2.29 6.53 5.47 7.59.4.07.55-.17.55-.38
-               0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94
-               -.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53
-               .63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66
-               .07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95
-               0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12
-               0 0 .67-.21 2.2.82a7.62 7.62 0 0 1 2 0c1.53-1.04
-               2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82
-               1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54
-               1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013
-               8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
-                        </svg>
-                        <span>GitHub</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
-    </div>
+            <ul><li>
+                <a href="/projects/reflecto">REFLECTO</a>
+                </li><li>
+                <a href="/projects/objecto">OBJECTO</a>
+                </li><li>
+                <a href="/projects/recordo">RECORDO</a>
+                </li><li>
+                <a href="/projects/expresso">EXPRESSO</a>
+                </li><li class="active">
+                <a href="/projects/spring-data-web-spec">WEB SPEC</a>
+                </li></ul>
+        </nav><a class="header-github" href="https://github.com/cariochi/spring-data-web-spec" target="_blank" rel="noopener">
+            <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" fill="currentColor">
+                <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38
+                   0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13
+                   -.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66
+                   .07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15
+                   -.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.59-.16 1.23-.24 1.87-.24
+                   .64 0 1.28.08 1.87.24 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12
+                   .51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48
+                   0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
+            </svg>
+            <span>GitHub</span>
+        </a></div>
 </header>
 <main class="container">
     <div class="grid">
@@ -95,7 +91,8 @@
 <!--        <h1>Spring Data Web Spec</h1>-->
         <h1 id="overview">Overview</h1>
 
-<p>Annotation-based mapping from <strong>web requests</strong> (query parameters, headers, path variables, and security context) to <strong>Spring Data JPA Specifications</strong>.</p>
+<p><strong>Spring Data Web Spec</strong> is an <strong>open-source library</strong> for annotation-based mapping from web requests (query parameters, headers, path variables, and security
+context) to Spring Data JPA Specifications.</p>
 
 <ul>
   <li>Declare filters directly in controller method parameters</li>
@@ -105,6 +102,8 @@
   <li>Minimal runtime dependencies</li>
   <li><strong>Spring Boot autoconfiguration</strong> and optional <code class="language-plaintext highlighter-rouge">@EnableWebSpec</code> annotation for easy setup</li>
 </ul>
+
+<p>👉 Source code is available on <a href="https://github.com/cariochi/spring-data-web-spec">GitHub</a>.</p>
 
 <h1 id="installation">Installation</h1>
 
@@ -176,7 +175,9 @@ Autoconfiguration is enabled by default but can be disabled via:</p>
 <h1 id="how-it-works">How it works</h1>
 
 <ol>
-  <li>Annotate a <code class="language-plaintext highlighter-rouge">Specification&lt;T&gt;</code> method parameter with one or more source annotations:
+  <li>
+    <p>Annotate a <code class="language-plaintext highlighter-rouge">Specification&lt;T&gt;</code> method parameter with one or more source annotations:</p>
+
     <ul>
       <li><code class="language-plaintext highlighter-rouge">@Spec.RequestParam</code> — query parameter</li>
       <li><code class="language-plaintext highlighter-rouge">@Spec.RequestHeader</code> — HTTP header</li>
@@ -184,7 +185,9 @@ Autoconfiguration is enabled by default but can be disabled via:</p>
       <li><code class="language-plaintext highlighter-rouge">@Spec.AccessControl</code> — security-based, no request value needed</li>
     </ul>
   </li>
-  <li><code class="language-plaintext highlighter-rouge">SpecArgumentResolver</code>:
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">SpecArgumentResolver</code>:</p>
+
     <ul>
       <li>Reads the values from the HTTP request or security context.</li>
       <li>Converts them using <strong>Spring’s ConversionService</strong>.</li>
@@ -200,10 +203,10 @@ Autoconfiguration is enabled by default but can be disabled via:</p>
 <span class="o">}</span>
 </code></pre></div>    </div>
   </li>
-  <li>All generated specifications are combined with <strong>AND</strong> logic.</li>
+  <li>
+    <p>All generated specifications are combined with <strong>AND</strong> logic.</p>
+  </li>
 </ol>
-
-<hr />
 
 <h1 id="built-in-operators">Built-in operators</h1>
 
@@ -217,8 +220,6 @@ Autoconfiguration is enabled by default but can be disabled via:</p>
 </ul>
 
 <p><strong>You can also implement custom operators.</strong></p>
-
-<hr />
 
 <h1 id="access-control--security">Access control / security</h1>
 
@@ -254,20 +255,19 @@ Autoconfiguration is enabled by default but can be disabled via:</p>
 
 <p>This will automatically restrict queries to allowed regions for the current user.</p>
 
-<hr />
-
 <h1 id="license">License</h1>
 
 <p>The library is licensed under the <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a>.</p>
 
-
     </article>
 </div>
 
-</main>
-<footer class="site-footer">
-    <div class="container">
-        <p>© 2025 Cariochi. Powered by <a href="https://jekyllrb.com/">Jekyll</a> & <a href="https://pages.github.com/">GitHub Pages</a></p>
+</main><footer class="site-footer">
+    <div class="container footer-inner">
+        <p class="copyright">© 2025 Cariochi.
+            Powered by <a href="https://jekyllrb.com/">Jekyll</a> & <a href="https://pages.github.com/">GitHub Pages</a>
+        </p>
+        <p class="contact">Contact: <a href="mailto:vadym@deineka.com">vadym@deineka.com</a></p>
     </div>
 </footer>
 <script src="/assets/js/toc.js"></script>

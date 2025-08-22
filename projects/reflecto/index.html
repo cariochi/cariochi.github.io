@@ -3,7 +3,9 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>REFLECTO · Cariochi</title><!-- Begin Jekyll SEO tag v2.8.0 -->
+    <title>REFLECTO · Cariochi</title>
+    <link rel="icon" type="image/png" href="/assets/images/favicon.png">
+    <link rel="shortcut icon" type="image/png" href="/assets/images/favicon.png"><!-- Begin Jekyll SEO tag v2.8.0 -->
 <title>REFLECTO | Cariochi</title>
 <meta name="generator" content="Jekyll v4.4.1" />
 <meta property="og:title" content="REFLECTO" />
@@ -25,50 +27,44 @@
 <body><header class="site-header">
     <div class="container">
         <a class="brand" href="/">
-            
             <img src="/assets/images/logo.svg" alt="CARIOCHI"/>
-            
-            <!--            <span>CARIOCHI</span>-->
+<!--            <span>CARIOCHI</span>-->
         </a>
 
+        <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Toggle navigation">
+
+        <label for="nav-toggle" class="menu-toggle">
+            <svg class="burger" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+                <path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+            </svg>
+            <span class="menu-text">Menu</span>
+        </label>
+
         <nav class="top-nav" aria-label="Projects">
-            <ul><li
-                       class="active" >
-                    <a href="/projects/reflecto">REFLECTO</a>
-                </li><li
-                      >
-                    <a href="/projects/objecto">OBJECTO</a>
-                </li><li
-                      >
-                    <a href="/projects/recordo">RECORDO</a>
-                </li><li
-                      >
-                    <a href="/projects/expresso">EXPRESSO</a>
-                </li><li
-                      >
-                    <a href="/projects/spring-data-web-spec">WEB SPEC</a>
-                </li><li class="github-link">
-                    <a href="https://github.com/cariochi" target="_blank" class="github-button">
-                        <svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor" aria-hidden="true">
-                            <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54
-               2.29 6.53 5.47 7.59.4.07.55-.17.55-.38
-               0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94
-               -.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53
-               .63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66
-               .07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95
-               0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12
-               0 0 .67-.21 2.2.82a7.62 7.62 0 0 1 2 0c1.53-1.04
-               2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82
-               1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54
-               1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013
-               8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
-                        </svg>
-                        <span>GitHub</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
-    </div>
+            <ul><li class="active">
+                <a href="/projects/reflecto">REFLECTO</a>
+                </li><li>
+                <a href="/projects/objecto">OBJECTO</a>
+                </li><li>
+                <a href="/projects/recordo">RECORDO</a>
+                </li><li>
+                <a href="/projects/expresso">EXPRESSO</a>
+                </li><li>
+                <a href="/projects/spring-data-web-spec">WEB SPEC</a>
+                </li></ul>
+        </nav><a class="header-github" href="https://github.com/cariochi/reflecto" target="_blank" rel="noopener">
+            <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" fill="currentColor">
+                <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38
+                   0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13
+                   -.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66
+                   .07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15
+                   -.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.59-.16 1.23-.24 1.87-.24
+                   .64 0 1.28.08 1.87.24 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12
+                   .51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48
+                   0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
+            </svg>
+            <span>GitHub</span>
+        </a></div>
 </header>
 <main class="container">
     <div class="grid">
@@ -80,9 +76,34 @@
 <ul>
 <li class="toc-entry toc-h2"><a href="#introduction">Introduction</a></li>
 <li class="toc-entry toc-h2"><a href="#maven-dependency">Maven Dependency</a></li>
-<li class="toc-entry toc-h2"><a href="#license">License</a></li>
 </ul>
 </li>
+<li class="toc-entry toc-h1"><a href="#type-creation">Type Creation</a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#overview-1">Overview</a></li>
+<li class="toc-entry toc-h2"><a href="#key-features">Key Features</a></li>
+<li class="toc-entry toc-h2"><a href="#core-methods">Core Methods</a></li>
+<li class="toc-entry toc-h2"><a href="#enhanced-flexibility-and-type-safety">Enhanced Flexibility and Type Safety</a></li>
+<li class="toc-entry toc-h2"><a href="#usage-examples">Usage Examples</a></li>
+<li class="toc-entry toc-h2"><a href="#advanced-usage">Advanced Usage</a></li>
+<li class="toc-entry toc-h2"><a href="#conclusion">Conclusion</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h1"><a href="#reflecting-types">Reflecting Types</a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#overview-2">Overview</a></li>
+<li class="toc-entry toc-h2"><a href="#complete-type-information">Complete Type Information</a></li>
+<li class="toc-entry toc-h2"><a href="#example-usage">Example Usage</a></li>
+<li class="toc-entry toc-h2"><a href="#conclusion-1">Conclusion</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h1"><a href="#reflecting-objects">Reflecting Objects</a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#overview-3">Overview</a></li>
+<li class="toc-entry toc-h2"><a href="#example-usage-1">Example Usage</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h1"><a href="#license">License</a></li>
 </ul>
     </div>
 </aside>
@@ -110,16 +131,525 @@ intuitive interface, making reflection tasks more accessible and developer-frien
 <p>To add <strong>Reflecto</strong> to your project, include the following dependency in your <code class="language-plaintext highlighter-rouge">pom.xml</code></p>
 
 <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="c">&lt;!-- https://mvnrepository.com/artifact/com.cariochi.reflecto/reflecto --&gt;</span>
 <span class="nt">&lt;dependency&gt;</span>
     <span class="nt">&lt;groupId&gt;</span>com.cariochi.reflecto<span class="nt">&lt;/groupId&gt;</span>
     <span class="nt">&lt;artifactId&gt;</span>reflecto<span class="nt">&lt;/artifactId&gt;</span>
-    <span class="nt">&lt;version&gt;</span><span class="c">&lt;!-- Use the latest version --&gt;</span><span class="nt">&lt;/version&gt;</span>
+    <span class="nt">&lt;version&gt;</span>2.0.2<span class="nt">&lt;/version&gt;</span>
 <span class="nt">&lt;/dependency&gt;</span>
 </code></pre></div></div>
 
-<p>You can find the latest version on <a href="https://mvnrepository.com/artifact/com.cariochi.reflecto/reflecto">Maven Repository</a>.</p>
+<h1 id="type-creation">Type Creation</h1>
 
-<h2 id="license">License</h2>
+<h2 id="overview-1">Overview</h2>
+
+<p>Cariochi Reflecto’s <code class="language-plaintext highlighter-rouge">Types</code> class offers a rich set of utilities for creating and manipulating Java <code class="language-plaintext highlighter-rouge">Type</code> instances dynamically, facilitating operations that would
+otherwise be verbose or cumbersome. This section delves deeper into the functionality provided by the <code class="language-plaintext highlighter-rouge">Types</code> class, highlighting its versatility in working with generic
+types, arrays, and type wildcards.</p>
+
+<h2 id="key-features">Key Features</h2>
+
+<ul>
+  <li><strong>Fluent API</strong>: A clean and intuitive interface for type creation and manipulation.</li>
+  <li><strong>Support for Complex Types</strong>: Easy creation of generic types, arrays, and nested generics.</li>
+  <li><strong>Type Safety and Convenience</strong>: Compile-time checks and utilities to reduce boilerplate.</li>
+  <li><strong>Enhanced Readability</strong>: Simplifies the representation of complex type declarations.</li>
+</ul>
+
+<h2 id="core-methods">Core Methods</h2>
+
+<ul>
+  <li><strong><code class="language-plaintext highlighter-rouge">type(Class&lt;?&gt; rawType, Type... typeArguments)</code>:</strong> Allows for the construction of parameterized types by specifying a raw type and its type arguments, offering
+flexibility in defining complex generic types.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">type(String typeName)</code>:</strong> Enables the creation of types from their string representation, supporting dynamic type resolution from string values.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">listOf(Type type)</code>:</strong> Produces a <code class="language-plaintext highlighter-rouge">Type</code> representing a <code class="language-plaintext highlighter-rouge">List</code> containing elements of the specified type, simplifying the declaration of generic <code class="language-plaintext highlighter-rouge">List</code> types.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">setOf(Type type)</code>:</strong> Generates a <code class="language-plaintext highlighter-rouge">Type</code> representing a <code class="language-plaintext highlighter-rouge">Set</code> containing elements of the specified type, facilitating the creation of generic <code class="language-plaintext highlighter-rouge">Set</code> types.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">mapOf(Type keyType, Type valueType)</code>:</strong> Creates a <code class="language-plaintext highlighter-rouge">Type</code> representing a <code class="language-plaintext highlighter-rouge">Map</code> with specified key and value types, making it straightforward to work with generic
+<code class="language-plaintext highlighter-rouge">Map</code> types.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">arrayOf(Type type)</code>:</strong> Constructs a <code class="language-plaintext highlighter-rouge">Type</code> representing an array of a given type, useful for dynamic array type creation.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">optionalOf(Type type)</code>:</strong> Constructs a <code class="language-plaintext highlighter-rouge">Type</code> representing an Optional of a given type.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">streamOf(Type type)</code>:</strong> Constructs a <code class="language-plaintext highlighter-rouge">Type</code> representing a Strem of a given type.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">any()</code>:</strong> Creates a wildcard type <code class="language-plaintext highlighter-rouge">?</code>, useful for representing an unknown type in a generic context.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">anyExtends(Type type)</code>:</strong> Generates a wildcard type with an upper bound, <code class="language-plaintext highlighter-rouge">? extends Type</code>, allowing for flexibility in generic type constraints.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">anySuper(Type type)</code>:</strong> Creates a wildcard type with a lower bound, <code class="language-plaintext highlighter-rouge">? super Type</code>, useful for defining a lower inclusive boundary for a generic type.</li>
+</ul>
+
+<h2 id="enhanced-flexibility-and-type-safety">Enhanced Flexibility and Type Safety</h2>
+
+<p>The <code class="language-plaintext highlighter-rouge">Types</code> class significantly enhances the flexibility and type safety of dynamic type operations in Java. By abstracting the complexity of Java’s type system and
+providing a more intuitive interface, it empowers developers to focus on the logic of their applications without getting bogged down in verbose type declarations.</p>
+
+<h2 id="usage-examples">Usage Examples</h2>
+
+<h4 id="basic-type-declarations">Basic Type Declarations</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="c1">// MyType&lt;String, Long&gt;</span>
+<span class="nc">Type</span> <span class="n">myType</span> <span class="o">=</span> <span class="nc">Types</span><span class="o">.</span><span class="na">type</span><span class="o">(</span><span class="nc">MyType</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="nc">String</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="nc">Long</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+
+<span class="c1">// List&lt;Double&gt;</span>
+<span class="nc">Type</span> <span class="n">listType</span> <span class="o">=</span> <span class="nc">Types</span><span class="o">.</span><span class="na">listOf</span><span class="o">(</span><span class="nc">Double</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+
+<span class="c1">// Set&lt;String&gt;</span>
+<span class="nc">Type</span> <span class="n">setType</span> <span class="o">=</span> <span class="nc">Types</span><span class="o">.</span><span class="na">setOf</span><span class="o">(</span><span class="nc">String</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+
+<span class="c1">// Map&lt;String, Integer&gt;</span>
+<span class="nc">Type</span> <span class="n">mapType</span> <span class="o">=</span> <span class="nc">Types</span><span class="o">.</span><span class="na">mapOf</span><span class="o">(</span><span class="nc">String</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="nc">Integer</span><span class="o">.</span><span class="na">class</span><span class="o">);</span> 
+</code></pre></div></div>
+
+<h4 id="arrays-and-nested-generics">Arrays and Nested Generics</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="c1">// List&lt;String&gt;[]</span>
+<span class="nc">Type</span> <span class="n">arrayOfListType</span> <span class="o">=</span> <span class="nc">Types</span><span class="o">.</span><span class="na">arrayOf</span><span class="o">(</span><span class="nc">Types</span><span class="o">.</span><span class="na">listOf</span><span class="o">(</span><span class="nc">String</span><span class="o">.</span><span class="na">class</span><span class="o">));</span>
+
+<span class="c1">// List&lt;Map&lt;String, Integer&gt;&gt;</span>
+<span class="nc">Type</span> <span class="n">nestedGenericType</span> <span class="o">=</span> <span class="nc">Types</span><span class="o">.</span><span class="na">type</span><span class="o">(</span><span class="nc">List</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="nc">Types</span><span class="o">.</span><span class="na">mapOf</span><span class="o">(</span><span class="nc">String</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="nc">Integer</span><span class="o">.</span><span class="na">class</span><span class="o">));</span> 
+</code></pre></div></div>
+
+<h4 id="complex-type-creations">Complex Type Creations</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="c1">// Map&lt;String, Supplier&lt;User&gt;&gt;</span>
+<span class="nc">Type</span> <span class="n">complexMapType</span> <span class="o">=</span> <span class="nc">Types</span><span class="o">.</span><span class="na">mapOf</span><span class="o">(</span><span class="nc">String</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="nc">Types</span><span class="o">.</span><span class="na">type</span><span class="o">(</span><span class="nc">Supplier</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="nc">User</span><span class="o">.</span><span class="na">class</span><span class="o">));</span> 
+</code></pre></div></div>
+
+<h4 id="types-with-wildcards-creation">Types with Wildcards Creation</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="c1">// List&lt;?&gt;</span>
+<span class="nc">Type</span> <span class="n">unboundedWildcardType</span> <span class="o">=</span> <span class="nc">Types</span><span class="o">.</span><span class="na">listOf</span><span class="o">(</span><span class="nc">Types</span><span class="o">.</span><span class="na">any</span><span class="o">());</span>
+
+<span class="c1">// List&lt;? extends Number&gt;</span>
+<span class="nc">Type</span> <span class="n">upperBoundedWildcardType</span> <span class="o">=</span> <span class="nc">Types</span><span class="o">.</span><span class="na">listOf</span><span class="o">(</span><span class="nc">Types</span><span class="o">.</span><span class="na">anyExtends</span><span class="o">(</span><span class="nc">Number</span><span class="o">.</span><span class="na">class</span><span class="o">));</span>
+
+<span class="c1">// List&lt;? super Integer&gt;</span>
+<span class="nc">Type</span> <span class="n">lowerBoundedWildcardType</span> <span class="o">=</span> <span class="nc">Types</span><span class="o">.</span><span class="na">listOf</span><span class="o">(</span><span class="nc">Types</span><span class="o">.</span><span class="na">anySuper</span><span class="o">(</span><span class="nc">Integer</span><span class="o">.</span><span class="na">class</span><span class="o">));</span>
+
+<span class="c1">// Map&lt;String, List&lt;? extends Serializable&gt;&gt;</span>
+<span class="nc">Type</span> <span class="n">complexNestedType</span> <span class="o">=</span> <span class="nc">Types</span><span class="o">.</span><span class="na">mapOf</span><span class="o">(</span><span class="nc">String</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="nc">Types</span><span class="o">.</span><span class="na">listOf</span><span class="o">(</span><span class="nc">Types</span><span class="o">.</span><span class="na">anyExtends</span><span class="o">(</span><span class="nc">Serializable</span><span class="o">.</span><span class="na">class</span><span class="o">)));</span>
+</code></pre></div></div>
+
+<h4 id="creating-a-type-instance-from-the-string-representation">Creating a Type instance from the string representation</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="c1">// List&lt;String&gt;</span>
+<span class="nc">Type</span> <span class="n">typeByName</span> <span class="o">=</span> <span class="nc">Types</span><span class="o">.</span><span class="na">type</span><span class="o">(</span><span class="s">"java.util.List&lt;java.lang.String&gt;"</span><span class="o">);</span>
+
+<span class="c1">// List&lt;Supplier&lt;? extends MyType&gt;&gt;</span>
+<span class="nc">Type</span> <span class="n">complexTypeByName</span> <span class="o">=</span> <span class="nc">Types</span><span class="o">.</span><span class="na">type</span><span class="o">(</span><span class="s">"java.util.List&lt;java.util.function.Supplier&lt;? extends com.cariochi.reflecto.examples.MyType&gt;&gt;"</span><span class="o">);</span>
+</code></pre></div></div>
+
+<h2 id="advanced-usage">Advanced Usage</h2>
+
+<p>The <code class="language-plaintext highlighter-rouge">Types</code> class enables sophisticated type manipulation, supporting scenarios ranging from simple collections to deeply nested generic structures. Its methods provide a
+straightforward way to represent and work with such types, significantly reducing the complexity and verbosity commonly associated with Java’s type system.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>The Cariochi Reflecto <code class="language-plaintext highlighter-rouge">Types</code> class offers a powerful and user-friendly toolkit for Java developers to work with types dynamically and reflectively. By leveraging its
+capabilities, developers can enhance the readability, maintainability, and flexibility of their code, especially when dealing with complex type systems and
+reflection-based operations.</p>
+
+<h1 id="reflecting-types">Reflecting Types</h1>
+
+<h2 id="overview-2">Overview</h2>
+
+<p>The <code class="language-plaintext highlighter-rouge">ReflectoType</code> class is a cornerstone of the Cariochi Reflecto library, offering a rich and intuitive interface for comprehensive type introspection and manipulation
+in Java. It simplifies accessing detailed information about any given type, making reflective programming more accessible and powerful.</p>
+
+<h2 id="complete-type-information">Complete Type Information</h2>
+
+<p><code class="language-plaintext highlighter-rouge">ReflectoType</code> provides a unified approach to access a wealth of information about types:</p>
+
+<ul>
+  <li><strong>Actual Type and Arguments</strong>: Discern the actual type, including generic type arguments, enabling precise type manipulation and inspection.</li>
+  <li><strong>Fields and Methods</strong>: Access detailed information about fields and methods, including their types, visibility, and whether they are static or instance members. Choose
+between declared members or all class members.</li>
+  <li><strong>Modifiers</strong>: Examine a type’s modifiers, such as visibility (public, private), abstraction (abstract classes, interfaces), and more.</li>
+  <li><strong>Constructors</strong>: List a type’s constructors, facilitating dynamic object instantiation.</li>
+  <li><strong>Super Type and Interfaces</strong>: Identify a type’s superclass and implemented interfaces, preserving generic type information.</li>
+  <li><strong>Special Types</strong>: Special handling for arrays and enums, including component type access and enum constant retrieval.</li>
+  <li><strong>Utility Methods</strong>: Includes methods like <code class="language-plaintext highlighter-rouge">is()</code>, <code class="language-plaintext highlighter-rouge">as()</code>, <code class="language-plaintext highlighter-rouge">isAssignableFrom()</code>, and <code class="language-plaintext highlighter-rouge">isInstance()</code> to query type properties and relationships intuitively.</li>
+</ul>
+
+<h2 id="example-usage">Example Usage</h2>
+
+<p>Here are some practical examples demonstrating the power of <code class="language-plaintext highlighter-rouge">ReflectoType</code>:</p>
+
+<h4 id="constructors">Constructors</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="c1">// ArrayList&lt;String&gt; type to discover</span>
+<span class="nc">Type</span> <span class="n">type</span> <span class="o">=</span> <span class="nc">Types</span><span class="o">.</span><span class="na">type</span><span class="o">(</span><span class="nc">ArrayList</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="nc">String</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+
+<span class="nc">ReflectoType</span> <span class="n">reflection</span> <span class="o">=</span> <span class="n">reflect</span><span class="o">(</span><span class="n">type</span><span class="o">);</span>
+
+<span class="nc">List</span><span class="o">&lt;</span><span class="nc">ReflectoConstructor</span><span class="o">&gt;</span> <span class="n">constructors</span> <span class="o">=</span> <span class="n">reflection</span><span class="o">.</span><span class="na">constructors</span><span class="o">().</span><span class="na">list</span><span class="o">();</span>
+<span class="nc">List</span><span class="o">&lt;</span><span class="nc">ReflectoConstructor</span><span class="o">&gt;</span> <span class="n">declaredConstructors</span> <span class="o">=</span> <span class="n">reflection</span><span class="o">.</span><span class="na">constructors</span><span class="o">().</span><span class="na">declared</span><span class="o">().</span><span class="na">list</span><span class="o">();</span>
+
+<span class="c1">// find constructor by arguments types</span>
+<span class="nc">ReflectoConstructor</span> <span class="n">constructor</span> <span class="o">=</span> <span class="n">reflection</span><span class="o">.</span><span class="na">constructors</span><span class="o">().</span><span class="na">get</span><span class="o">(</span><span class="nc">Collection</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+
+<span class="nc">Object</span> <span class="n">instance</span> <span class="o">=</span> <span class="n">constructor</span><span class="o">.</span><span class="na">newInstance</span><span class="o">(</span><span class="nc">Set</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="mi">1</span><span class="o">));</span>
+</code></pre></div></div>
+
+<h4 id="methods">Methods</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="c1">// lists all methods</span>
+<span class="nc">List</span><span class="o">&lt;</span><span class="nc">ReflectoMethod</span><span class="o">&gt;</span> <span class="n">methods</span> <span class="o">=</span> <span class="n">type</span><span class="o">.</span><span class="na">methods</span><span class="o">().</span><span class="na">list</span><span class="o">();</span>
+
+<span class="c1">// lists declared methods</span>
+<span class="nc">List</span><span class="o">&lt;</span><span class="nc">ReflectoMethod</span><span class="o">&gt;</span> <span class="n">declaredMethods</span> <span class="o">=</span> <span class="n">type</span><span class="o">.</span><span class="na">methods</span><span class="o">().</span><span class="na">declared</span><span class="o">().</span><span class="na">list</span><span class="o">();</span>
+
+<span class="c1">// retrieves the ReflectoMethod for the "setUsername" method with a String parameter from the type.</span>
+<span class="nc">ReflectoMethod</span> <span class="n">method</span> <span class="o">=</span> <span class="n">type</span><span class="o">.</span><span class="na">methods</span><span class="o">().</span><span class="na">get</span><span class="o">(</span><span class="s">"setUsername(?)"</span><span class="o">,</span> <span class="nc">String</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+
+<span class="c1">// binds the ReflectoMethod to the target object (user) and creates a TargetMethod.</span>
+<span class="nc">TargetMethod</span> <span class="n">targetMethod</span> <span class="o">=</span> <span class="n">method</span><span class="o">.</span><span class="na">withTarget</span><span class="o">(</span><span class="n">user</span><span class="o">);</span>
+
+<span class="c1">// invokes the "setUsername" method on the target object (user) with "test_user" as the argument.</span>
+<span class="n">targetMethod</span><span class="o">.</span>
+
+<span class="nf">invoke</span><span class="o">(</span><span class="s">"test_user"</span><span class="o">);</span>
+
+<span class="c1">// filter methods with multiple criteria</span>
+<span class="nc">List</span><span class="o">&lt;</span><span class="nc">ReflectoMethods</span><span class="o">&gt;</span> <span class="n">postProcessors</span> <span class="o">=</span> <span class="n">type</span><span class="o">.</span><span class="na">methods</span><span class="o">().</span><span class="na">declared</span><span class="o">().</span><span class="na">stream</span><span class="o">()</span>
+        <span class="o">.</span><span class="na">filter</span><span class="o">(</span><span class="n">method</span> <span class="o">-&gt;</span> <span class="n">method</span><span class="o">.</span><span class="na">modifiers</span><span class="o">().</span><span class="na">isPublic</span><span class="o">())</span>
+        <span class="o">.</span><span class="na">filter</span><span class="o">(</span><span class="n">method</span> <span class="o">-&gt;</span> <span class="n">method</span><span class="o">.</span><span class="na">annotations</span><span class="o">().</span><span class="na">contains</span><span class="o">(</span><span class="nc">PostProcessor</span><span class="o">.</span><span class="na">class</span><span class="o">))</span>
+        <span class="o">.</span><span class="na">filter</span><span class="o">(</span><span class="n">method</span> <span class="o">-&gt;</span> <span class="n">method</span><span class="o">.</span><span class="na">returnType</span><span class="o">().</span><span class="na">is</span><span class="o">(</span><span class="kt">void</span><span class="o">.</span><span class="na">class</span><span class="o">))</span>
+        <span class="o">.</span><span class="na">filter</span><span class="o">(</span><span class="n">method</span> <span class="o">-&gt;</span> <span class="n">method</span><span class="o">.</span><span class="na">parameters</span><span class="o">().</span><span class="na">size</span><span class="o">()</span> <span class="o">==</span> <span class="mi">1</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">collect</span><span class="o">(</span><span class="nc">Collectors</span><span class="o">.</span><span class="na">toList</span><span class="o">());</span>
+
+<span class="c1">// retrieves the ReflectoMethod for the static "sayHello" method with a String parameter from the type.</span>
+<span class="nc">ReflectoMethod</span> <span class="n">method</span> <span class="o">=</span> <span class="n">type</span><span class="o">.</span><span class="na">methods</span><span class="o">().</span><span class="na">get</span><span class="o">(</span><span class="s">"sayHello(?)"</span><span class="o">,</span> <span class="nc">String</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+
+<span class="c1">// converts the ReflectoMethod into a static method representation, as it doesn't require a target instance.</span>
+<span class="nc">TargetMethod</span> <span class="n">staticMethod</span> <span class="o">=</span> <span class="n">method</span><span class="o">.</span><span class="na">asStatic</span><span class="o">();</span>
+
+<span class="c1">// invokes the static "sayHello" method with the argument "World" and stores the result.</span>
+<span class="nc">String</span> <span class="n">result</span> <span class="o">=</span> <span class="n">staticMethod</span><span class="o">.</span><span class="na">invoke</span><span class="o">(</span><span class="s">"World"</span><span class="o">);</span>
+</code></pre></div></div>
+
+<h4 id="fields">Fields</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="c1">// list all fields</span>
+<span class="nc">List</span><span class="o">&lt;</span><span class="nc">ReflectoField</span><span class="o">&gt;</span> <span class="n">fields</span> <span class="o">=</span> <span class="n">type</span><span class="o">.</span><span class="na">fields</span><span class="o">().</span><span class="na">list</span><span class="o">();</span>
+
+<span class="c1">// list declared fields</span>
+<span class="nc">List</span><span class="o">&lt;</span><span class="nc">ReflectoField</span><span class="o">&gt;</span> <span class="n">declaredFields</span> <span class="o">=</span> <span class="n">type</span><span class="o">.</span><span class="na">fields</span><span class="o">().</span><span class="na">declared</span><span class="o">().</span><span class="na">list</span><span class="o">();</span>
+
+<span class="c1">// find field</span>
+<span class="nc">ReflectoField</span> <span class="n">field</span> <span class="o">=</span> <span class="n">type</span><span class="o">.</span><span class="na">fields</span><span class="o">().</span><span class="na">get</span><span class="o">(</span><span class="s">"username"</span><span class="o">);</span>
+
+<span class="c1">// binds the ReflectoField to the target object (user) and creates a TargetField.</span>
+<span class="nc">TargetField</span> <span class="n">targetField</span> <span class="o">=</span> <span class="n">field</span><span class="o">.</span><span class="na">withTarget</span><span class="o">(</span><span class="n">user</span><span class="o">);</span>
+
+<span class="c1">// retrieves the current value of the 'username' field from the target object (user).</span>
+<span class="nc">String</span> <span class="n">username</span> <span class="o">=</span> <span class="n">targetField</span><span class="o">.</span><span class="na">getValue</span><span class="o">();</span>
+
+<span class="c1">// sets a new value ("test_user") for the 'username' field on the target object (user).</span>
+<span class="n">targetField</span><span class="o">.</span>
+
+<span class="nf">setValue</span><span class="o">(</span><span class="s">"test_user"</span><span class="o">);</span>
+
+
+<span class="c1">// filter fields</span>
+<span class="nc">List</span><span class="o">&lt;</span><span class="nc">ReflectoField</span><span class="o">&gt;</span> <span class="n">fields</span> <span class="o">=</span> <span class="n">type</span><span class="o">.</span><span class="na">fields</span><span class="o">().</span><span class="na">declared</span><span class="o">().</span><span class="na">stream</span><span class="o">()</span>
+        <span class="o">.</span><span class="na">filter</span><span class="o">(</span><span class="n">field</span> <span class="o">-&gt;</span> <span class="n">field</span><span class="o">.</span><span class="na">modifiers</span><span class="o">().</span><span class="na">isPrivate</span><span class="o">())</span>
+        <span class="o">.</span><span class="na">filter</span><span class="o">(</span><span class="n">field</span> <span class="o">-&gt;</span> <span class="n">field</span><span class="o">.</span><span class="na">annotations</span><span class="o">().</span><span class="na">contains</span><span class="o">(</span><span class="nc">NotNull</span><span class="o">.</span><span class="na">class</span><span class="o">))</span>
+        <span class="o">.</span><span class="na">filter</span><span class="o">(</span><span class="n">field</span> <span class="o">-&gt;</span> <span class="n">field</span><span class="o">.</span><span class="na">type</span><span class="o">().</span><span class="na">is</span><span class="o">(</span><span class="nc">String</span><span class="o">.</span><span class="na">class</span><span class="o">))</span>
+        <span class="o">.</span><span class="na">collect</span><span class="o">(</span><span class="n">toList</span><span class="o">());</span>
+
+<span class="c1">// Retrieves the ReflectoField for the static field "NAME" of type String from the type.</span>
+<span class="nc">ReflectoField</span> <span class="n">field</span> <span class="o">=</span> <span class="n">type</span><span class="o">.</span><span class="na">fields</span><span class="o">().</span><span class="na">get</span><span class="o">(</span><span class="s">"NAME"</span><span class="o">,</span> <span class="nc">String</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+
+<span class="c1">// Converts the ReflectoField into a static field representation, as it doesn't require a target instance.</span>
+<span class="nc">TargetField</span> <span class="n">staticField</span> <span class="o">=</span> <span class="n">field</span><span class="o">.</span><span class="na">asStatic</span><span class="o">();</span>
+
+<span class="c1">// Retrieves the current value of the static field "NAME".</span>
+<span class="nc">String</span> <span class="n">name</span> <span class="o">=</span> <span class="n">staticField</span><span class="o">.</span><span class="na">getValue</span><span class="o">();</span>
+
+<span class="c1">// Sets a new value ("New Name") for the static field "NAME".</span>
+<span class="n">staticField</span><span class="o">.</span>
+
+<span class="nf">setValue</span><span class="o">(</span><span class="s">"New Name"</span><span class="o">);</span>
+</code></pre></div></div>
+
+<h4 id="working-with-arrays-and-enums">Working with Arrays and Enums</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="nc">ReflectoType</span> <span class="n">arrayType</span> <span class="o">=</span> <span class="nc">Reflecto</span><span class="o">.</span><span class="na">reflect</span><span class="o">(</span><span class="nc">String</span><span class="o">[].</span><span class="na">class</span><span class="o">);</span>
+<span class="kt">boolean</span> <span class="n">isArray</span> <span class="o">=</span> <span class="n">arrayType</span><span class="o">.</span><span class="na">isArray</span><span class="o">();</span>
+<span class="nc">ReflectoType</span> <span class="n">componentType</span> <span class="o">=</span> <span class="n">arrayType</span><span class="o">.</span><span class="na">asArray</span><span class="o">().</span><span class="na">componentType</span><span class="o">();</span>
+
+<span class="nc">ReflectoType</span> <span class="n">enumType</span> <span class="o">=</span> <span class="nc">Reflecto</span><span class="o">.</span><span class="na">reflect</span><span class="o">(</span><span class="nc">MyEnum</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+<span class="kt">boolean</span> <span class="n">isEnum</span> <span class="o">=</span> <span class="n">enumTypee</span><span class="o">.</span><span class="na">isEnum</span><span class="o">();</span>
+<span class="nc">List</span><span class="o">&lt;</span><span class="nc">Object</span><span class="o">&gt;</span> <span class="n">enumType</span> <span class="o">=</span> <span class="n">enumType</span><span class="o">.</span><span class="na">asEnum</span><span class="o">().</span><span class="na">constants</span><span class="o">();</span>
+</code></pre></div></div>
+
+<h4 id="methods-for-type-checking">Methods for Type Checking</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="c1">// Reflects the List&lt;String&gt; type.</span>
+<span class="nc">ReflectoType</span> <span class="n">type</span> <span class="o">=</span> <span class="nc">Reflecto</span><span class="o">.</span><span class="na">reflect</span><span class="o">(</span><span class="nc">Types</span><span class="o">.</span><span class="na">listOf</span><span class="o">(</span><span class="nc">String</span><span class="o">.</span><span class="na">class</span><span class="o">));</span>
+
+<span class="kt">boolean</span> <span class="n">isIterable</span> <span class="o">=</span> <span class="n">type</span><span class="o">.</span><span class="na">is</span><span class="o">(</span><span class="nc">Iterable</span><span class="o">.</span><span class="na">class</span><span class="o">);</span> <span class="c1">// true</span>
+<span class="kt">boolean</span> <span class="n">isIterableOfStrings</span> <span class="o">=</span> <span class="n">type</span><span class="o">.</span><span class="na">is</span><span class="o">(</span><span class="nc">Types</span><span class="o">.</span><span class="na">type</span><span class="o">(</span><span class="nc">Iterable</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="nc">String</span><span class="o">.</span><span class="na">class</span><span class="o">));</span> <span class="c1">// true</span>
+<span class="kt">boolean</span> <span class="n">isIterableOfLongs</span> <span class="o">=</span> <span class="n">type</span><span class="o">.</span><span class="na">is</span><span class="o">(</span><span class="nc">Types</span><span class="o">.</span><span class="na">type</span><span class="o">(</span><span class="nc">Iterable</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="nc">Long</span><span class="o">.</span><span class="na">class</span><span class="o">));</span> <span class="c1">// false</span>
+
+<span class="nc">Class</span><span class="o">&lt;?&gt;</span> <span class="n">firstGenericArgument</span> <span class="o">=</span> <span class="n">type</span><span class="o">.</span><span class="na">as</span><span class="o">(</span><span class="nc">Iterable</span><span class="o">.</span><span class="na">class</span><span class="o">).</span><span class="na">arguments</span><span class="o">().</span><span class="na">get</span><span class="o">(</span><span class="mi">0</span><span class="o">).</span><span class="na">actualType</span><span class="o">();</span> <span class="c1">// String.class</span>
+
+<span class="kt">boolean</span> <span class="n">isAssignableFromArrayList</span> <span class="o">=</span> <span class="n">type</span><span class="o">.</span><span class="na">isAssignableFrom</span><span class="o">(</span><span class="nc">ArrayList</span><span class="o">.</span><span class="na">class</span><span class="o">);</span> <span class="c1">// true</span>
+<span class="kt">boolean</span> <span class="n">isAssignableFromArrayListOfStrings</span> <span class="o">=</span> <span class="n">type</span><span class="o">.</span><span class="na">isAssignableFrom</span><span class="o">(</span><span class="nc">Types</span><span class="o">.</span><span class="na">type</span><span class="o">(</span><span class="nc">ArrayList</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="nc">String</span><span class="o">.</span><span class="na">class</span><span class="o">));</span> <span class="c1">// true</span>
+<span class="kt">boolean</span> <span class="n">isAssignableFromArrayListOfLongs</span> <span class="o">=</span> <span class="n">type</span><span class="o">.</span><span class="na">isAssignableFrom</span><span class="o">(</span><span class="nc">Types</span><span class="o">.</span><span class="na">type</span><span class="o">(</span><span class="nc">ArrayList</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="nc">Long</span><span class="o">.</span><span class="na">class</span><span class="o">));</span> <span class="c1">// false</span>
+
+<span class="kt">boolean</span> <span class="n">isInstanceOfArrayList</span> <span class="o">=</span> <span class="n">type</span><span class="o">.</span><span class="na">isInstance</span><span class="o">(</span><span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;&gt;());</span> <span class="c1">// true</span>
+</code></pre></div></div>
+
+<h4 id="inspecting-types">Inspecting Types</h4>
+
+<p>This example demonstrates how to use the Reflecto library to introspect generic types in Java, using a <code class="language-plaintext highlighter-rouge">Dto&lt;T&gt;</code> class as the case study.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="c1">// Example Dto class with generics</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">Dto</span><span class="o">&lt;</span><span class="no">T</span><span class="o">&gt;</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="no">T</span> <span class="n">value</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">Dto</span><span class="o">&lt;</span><span class="no">T</span><span class="o">&gt;</span> <span class="n">child</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">Set</span><span class="o">&lt;</span><span class="nc">Dto</span><span class="o">&lt;</span><span class="no">T</span><span class="o">&gt;&gt;</span> <span class="n">set</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">Map</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">Set</span><span class="o">&lt;</span><span class="nc">Dto</span><span class="o">&lt;</span><span class="no">T</span><span class="o">&gt;&gt;&gt;</span> <span class="n">map</span><span class="o">;</span>
+<span class="o">}</span>
+
+<span class="nc">Type</span> <span class="n">type</span> <span class="o">=</span> <span class="nc">Types</span><span class="o">.</span><span class="na">type</span><span class="o">(</span><span class="nc">Dto</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="nc">Integer</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+<span class="nc">ReflectoType</span> <span class="n">reflectoType</span> <span class="o">=</span> <span class="nc">Reflecto</span><span class="o">.</span><span class="na">reflect</span><span class="o">(</span><span class="n">type</span><span class="o">);</span>
+
+<span class="c1">// Get the actual type of the first generic argument (T), which is Integer</span>
+<span class="nc">Class</span><span class="o">&lt;?&gt;</span> <span class="n">firstGenericArgumentType</span> <span class="o">=</span> <span class="n">reflectoType</span><span class="o">.</span><span class="na">arguments</span><span class="o">().</span><span class="na">get</span><span class="o">(</span><span class="mi">0</span><span class="o">).</span><span class="na">actualType</span><span class="o">();</span> <span class="c1">// Integer.class</span>
+<span class="nc">Class</span><span class="o">&lt;?&gt;</span> <span class="n">firstArgumentFromPath</span> <span class="o">=</span> <span class="n">reflectoType</span><span class="o">.</span><span class="na">reflect</span><span class="o">(</span><span class="s">"[0]"</span><span class="o">).</span><span class="na">actualType</span><span class="o">();</span> <span class="c1">// Integer.class</span>
+
+<span class="c1">// Get the actual type of the 'value' field, which is Integer (matches T)</span>
+<span class="nc">Class</span><span class="o">&lt;?&gt;</span> <span class="n">valueFieldType</span> <span class="o">=</span> <span class="n">reflectoType</span><span class="o">.</span><span class="na">reflect</span><span class="o">(</span><span class="s">"value"</span><span class="o">).</span><span class="na">actualType</span><span class="o">();</span> <span class="c1">// Integer.class</span>
+
+<span class="c1">// Get the actual type of the 'child.value' field, which is Integer (nested access of generic field)</span>
+<span class="nc">Class</span><span class="o">&lt;?&gt;</span> <span class="n">childValueType</span> <span class="o">=</span> <span class="n">reflectoType</span><span class="o">.</span><span class="na">reflect</span><span class="o">(</span><span class="s">"child.value"</span><span class="o">).</span><span class="na">actualType</span><span class="o">();</span> <span class="c1">// Integer.class</span>
+
+<span class="c1">// Get the actual type of the first argument (T) of the first element in the 'set' (Set&lt;Dto&lt;T&gt;&gt;), which is Integer</span>
+<span class="nc">Class</span><span class="o">&lt;?&gt;</span> <span class="n">setElementType</span> <span class="o">=</span> <span class="n">reflectoType</span><span class="o">.</span><span class="na">reflect</span><span class="o">(</span><span class="s">"set[0][0]"</span><span class="o">).</span><span class="na">actualType</span><span class="o">();</span> <span class="c1">// Integer.class</span>
+
+<span class="c1">// Get the actual type of the 'value' field (T) within the first element of 'set' (Set&lt;Dto&lt;T&gt;&gt;), which is Integer</span>
+<span class="nc">Class</span><span class="o">&lt;?&gt;</span> <span class="n">setElementValueType</span> <span class="o">=</span> <span class="n">reflectoType</span><span class="o">.</span><span class="na">reflect</span><span class="o">(</span><span class="s">"set[0].value"</span><span class="o">).</span><span class="na">actualType</span><span class="o">();</span> <span class="c1">// Integer.class</span>
+
+<span class="c1">// Get the actual type of the first generic argument (String) in the 'child.map' field (Map&lt;String, Set&lt;Dto&lt;T&gt;&gt;&gt;)</span>
+<span class="nc">Class</span><span class="o">&lt;?&gt;</span> <span class="n">mapKeyType</span> <span class="o">=</span> <span class="n">reflectoType</span><span class="o">.</span><span class="na">reflect</span><span class="o">(</span><span class="s">"child.map[0]"</span><span class="o">).</span><span class="na">actualType</span><span class="o">();</span> <span class="c1">// String.class</span>
+
+<span class="c1">// Get the actual type of the 'value' field (T) within the first element of the second generic argument (Set&lt;Dto&lt;T&gt;&gt;) in the 'child.map' field, which is Integer</span>
+<span class="nc">Class</span><span class="o">&lt;?&gt;</span> <span class="n">mapElementValueType</span> <span class="o">=</span> <span class="n">reflectoType</span><span class="o">.</span><span class="na">reflect</span><span class="o">(</span><span class="s">"child.map[1][0].value"</span><span class="o">).</span><span class="na">actualType</span><span class="o">();</span> <span class="c1">// Integer.class</span>
+</code></pre></div></div>
+
+<h2 id="conclusion-1">Conclusion</h2>
+
+<p>The <code class="language-plaintext highlighter-rouge">ReflectoType</code> class from Cariochi Reflecto offers a comprehensive toolkit for working with Java types reflectively. It simplifies obtaining detailed information
+about types, their relationships, and their members, enabling developers to write more dynamic, type-safe, and intuitive reflective code. Whether dealing with complex
+generic types, navigating type hierarchies, or performing runtime type checks and conversions, <code class="language-plaintext highlighter-rouge">ReflectoType</code> provides all the necessary functionalities in an accessible
+manner.\</p>
+
+<h1 id="reflecting-objects">Reflecting Objects</h1>
+
+<h2 id="overview-3">Overview</h2>
+
+<p>The Cariochi Reflecto library simplifies Java reflection, allowing developers to access and manipulate object fields, invoke methods, and work with collections in a more
+intuitive way. Below are examples demonstrating the core functionalities of Reflecto.</p>
+
+<h2 id="example-usage-1">Example Usage</h2>
+
+<h3 id="initial-object-for-examples">Initial Object for Examples</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="nc">Bug</span> <span class="n">bug</span> <span class="o">=</span> <span class="nc">Bug</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
+        <span class="o">.</span><span class="na">id</span><span class="o">(</span><span class="mi">1</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">summary</span><span class="o">(</span><span class="s">"Invalid value"</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">reporter</span><span class="o">(</span><span class="k">new</span> <span class="nc">User</span><span class="o">(</span><span class="mi">100</span><span class="o">,</span> <span class="s">"qa"</span><span class="o">))</span>
+        <span class="o">.</span><span class="na">watchers</span><span class="o">(</span><span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;&gt;(</span><span class="nc">List</span><span class="o">.</span><span class="na">of</span><span class="o">(</span>
+                <span class="k">new</span> <span class="nf">User</span><span class="o">(</span><span class="mi">101</span><span class="o">,</span> <span class="s">"developer"</span><span class="o">),</span>
+                <span class="k">new</span> <span class="nf">User</span><span class="o">(</span><span class="mi">102</span><span class="o">,</span> <span class="s">"manager"</span><span class="o">)</span>
+        <span class="o">)))</span>
+        <span class="o">.</span><span class="na">details</span><span class="o">(</span><span class="k">new</span> <span class="nc">HashMap</span><span class="o">&lt;&gt;(</span><span class="nc">Map</span><span class="o">.</span><span class="na">of</span><span class="o">(</span>
+                <span class="s">"Sprint"</span><span class="o">,</span> <span class="k">new</span> <span class="nc">Details</span><span class="o">(</span><span class="s">"SPR-001"</span><span class="o">),</span>
+                <span class="s">"Component"</span><span class="o">,</span> <span class="k">new</span> <span class="nc">Details</span><span class="o">(</span><span class="s">"Authorization"</span><span class="o">)</span>
+        <span class="o">)))</span>
+        <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+</code></pre></div></div>
+
+<h3 id="methods-1">Methods</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="nc">List</span><span class="o">&lt;</span><span class="nc">TargetMethod</span><span class="o">&gt;</span> <span class="n">methods</span> <span class="o">=</span> <span class="nc">Reflecto</span><span class="o">.</span><span class="na">reflect</span><span class="o">(</span><span class="n">bug</span><span class="o">).</span><span class="na">methods</span><span class="o">().</span><span class="na">list</span><span class="o">();</span>
+
+<span class="nc">User</span> <span class="n">reporter</span> <span class="o">=</span> <span class="nc">Reflecto</span><span class="o">.</span><span class="na">reflect</span><span class="o">(</span><span class="n">bug</span><span class="o">).</span><span class="na">methods</span><span class="o">().</span><span class="na">find</span><span class="o">(</span><span class="s">"getReporter()"</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="nl">TargetMethod:</span><span class="o">:</span><span class="n">invoke</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="nc">User</span><span class="o">.</span><span class="na">class</span><span class="o">::</span><span class="n">cast</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">orElseThrow</span><span class="o">();</span>
+
+<span class="nc">Reflecto</span><span class="o">.</span><span class="na">reflect</span><span class="o">(</span><span class="n">bug</span><span class="o">).</span><span class="na">methods</span><span class="o">().</span><span class="na">find</span><span class="o">(</span><span class="s">"setReporter(?)"</span><span class="o">,</span><span class="nc">User</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+    <span class="o">.</span><span class="na">ifPresent</span><span class="o">(</span><span class="n">method</span> <span class="o">-&gt;</span> <span class="n">method</span><span class="o">.</span><span class="na">invoke</span><span class="o">(</span><span class="n">reporter</span><span class="o">));</span>    
+</code></pre></div></div>
+
+<h3 id="fields-1">Fields</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="nc">List</span><span class="o">&lt;</span><span class="nc">TargetField</span><span class="o">&gt;</span> <span class="n">fields</span> <span class="o">=</span> <span class="nc">Reflecto</span><span class="o">.</span><span class="na">reflect</span><span class="o">(</span><span class="n">bug</span><span class="o">).</span><span class="na">fields</span><span class="o">().</span><span class="na">list</span><span class="o">();</span>
+
+<span class="nc">User</span> <span class="n">reporter</span> <span class="o">=</span> <span class="nc">Reflecto</span><span class="o">.</span><span class="na">reflect</span><span class="o">(</span><span class="n">bug</span><span class="o">).</span><span class="na">fields</span><span class="o">().</span><span class="na">find</span><span class="o">(</span><span class="s">"reporter"</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="nl">TargetField:</span><span class="o">:</span><span class="n">getValue</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="nc">User</span><span class="o">.</span><span class="na">class</span><span class="o">::</span><span class="n">cast</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">orElseThrow</span><span class="o">();</span>
+    
+<span class="nc">Reflecto</span><span class="o">.</span><span class="na">reflect</span><span class="o">(</span><span class="n">bug</span><span class="o">).</span><span class="na">fields</span><span class="o">().</span><span class="na">find</span><span class="o">(</span><span class="s">"reporter"</span><span class="o">)</span>
+    <span class="o">.</span><span class="na">ifPresent</span><span class="o">(</span><span class="n">field</span> <span class="o">-&gt;</span> <span class="n">field</span><span class="o">.</span><span class="na">setValue</span><span class="o">(</span><span class="n">reporter</span><span class="o">));</span>
+</code></pre></div></div>
+
+<h3 id="simple-field-access-and-modification">Simple Field Access and Modification</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="c1">// Getting Value</span>
+
+<span class="nc">String</span> <span class="n">username</span> <span class="o">=</span> <span class="nc">Reflecto</span><span class="o">.</span><span class="na">reflect</span><span class="o">(</span><span class="n">bug</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">reflect</span><span class="o">(</span><span class="s">"reporter.username"</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">getValue</span><span class="o">();</span>
+
+<span class="nc">String</span> <span class="n">username</span> <span class="o">=</span> <span class="nc">Reflecto</span><span class="o">.</span><span class="na">reflect</span><span class="o">(</span><span class="n">bug</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">invoke</span><span class="o">(</span><span class="s">"reporter.username"</span><span class="o">);</span>
+
+<span class="c1">// Setting Value</span>
+
+<span class="nc">Reflecto</span><span class="o">.</span><span class="na">reflect</span><span class="o">(</span><span class="n">bug</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">reflect</span><span class="o">(</span><span class="s">"reporter.username"</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">setValue</span><span class="o">(</span><span class="s">"new_name"</span><span class="o">);</span>
+
+<span class="nc">Reflecto</span><span class="o">.</span><span class="na">reflect</span><span class="o">(</span><span class="n">bug</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">invoke</span><span class="o">(</span><span class="s">"reporter.username=?"</span><span class="o">,</span> <span class="s">"new_name"</span><span class="o">);</span>
+</code></pre></div></div>
+
+<h3 id="working-with-listsarrays">Working with Lists/Arrays</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Getting Value</span>
+
+<span class="nc">String</span> <span class="n">username</span> <span class="o">=</span> <span class="nc">Reflecto</span><span class="o">.</span><span class="na">reflect</span><span class="o">(</span><span class="n">bug</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">reflect</span><span class="o">(</span><span class="s">"watchers[0].username"</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">getValue</span><span class="o">();</span>
+
+<span class="nc">String</span> <span class="n">username</span> <span class="o">=</span> <span class="nc">Reflecto</span><span class="o">.</span><span class="na">reflect</span><span class="o">(</span><span class="n">bug</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">reflect</span><span class="o">(</span><span class="s">"watchers[?].username"</span><span class="o">,</span> <span class="mi">0</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">getValue</span><span class="o">();</span>
+
+<span class="nc">String</span> <span class="n">username</span> <span class="o">=</span> <span class="nc">Reflecto</span><span class="o">.</span><span class="na">reflect</span><span class="o">(</span><span class="n">bug</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">invoke</span><span class="o">(</span><span class="s">"watchers[0].username"</span><span class="o">);</span>
+
+<span class="nc">String</span> <span class="n">username</span> <span class="o">=</span> <span class="nc">Reflecto</span><span class="o">.</span><span class="na">reflect</span><span class="o">(</span><span class="n">bug</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">invoke</span><span class="o">(</span><span class="s">"watchers[?].username"</span><span class="o">,</span> <span class="mi">0</span><span class="o">);</span>
+
+<span class="c1">// Setting Value</span>
+
+<span class="nc">Reflecto</span><span class="o">.</span><span class="na">reflect</span><span class="o">(</span><span class="n">bug</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">reflect</span><span class="o">(</span><span class="s">"watchers[0]"</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">setValue</span><span class="o">(</span><span class="k">new</span> <span class="nc">User</span><span class="o">(</span><span class="s">"user4"</span><span class="o">));</span>
+
+<span class="nc">Reflecto</span><span class="o">.</span><span class="na">reflect</span><span class="o">(</span><span class="n">bug</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">reflect</span><span class="o">(</span><span class="s">"watchers[?]"</span><span class="o">,</span><span class="mi">0</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">setValue</span><span class="o">(</span><span class="k">new</span> <span class="nc">User</span><span class="o">(</span><span class="s">"user4"</span><span class="o">));</span>
+
+<span class="nc">Reflecto</span><span class="o">.</span><span class="na">reflect</span><span class="o">(</span><span class="n">bug</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">invoke</span><span class="o">(</span><span class="s">"watchers[0]=?"</span><span class="o">,</span> <span class="k">new</span> <span class="nc">User</span><span class="o">(</span><span class="s">"user4"</span><span class="o">));</span>
+
+<span class="nc">Reflecto</span><span class="o">.</span><span class="na">reflect</span><span class="o">(</span><span class="n">bug</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">invoke</span><span class="o">(</span><span class="s">"watchers[?]=?"</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="k">new</span> <span class="nc">User</span><span class="o">(</span><span class="s">"user4"</span><span class="o">));</span>
+</code></pre></div></div>
+
+<h3 id="working-with-maps">Working with Maps</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="c1">// Getting Value</span>
+
+<span class="nc">String</span> <span class="n">sprint</span> <span class="o">=</span> <span class="nc">Reflecto</span><span class="o">.</span><span class="na">reflect</span><span class="o">(</span><span class="n">bug</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">reflect</span><span class="o">(</span><span class="s">"details[Sprint].text"</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">getValue</span><span class="o">();</span>
+
+<span class="nc">String</span> <span class="n">sprint</span> <span class="o">=</span> <span class="nc">Reflecto</span><span class="o">.</span><span class="na">reflect</span><span class="o">(</span><span class="n">bug</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">reflect</span><span class="o">(</span><span class="s">"details[?].text"</span><span class="o">,</span> <span class="s">"Sprint"</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">getValue</span><span class="o">();</span>
+
+<span class="nc">String</span> <span class="n">sprint</span> <span class="o">=</span> <span class="nc">Reflecto</span><span class="o">.</span><span class="na">reflect</span><span class="o">(</span><span class="n">bug</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">invoke</span><span class="o">(</span><span class="s">"details[Sprint].text"</span><span class="o">);</span>
+
+<span class="nc">String</span> <span class="n">sprint</span> <span class="o">=</span> <span class="nc">Reflecto</span><span class="o">.</span><span class="na">reflect</span><span class="o">(</span><span class="n">bug</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">invoke</span><span class="o">(</span><span class="s">"details[?].text"</span><span class="o">,</span> <span class="s">"Sprint"</span><span class="o">);</span>
+
+<span class="c1">// Setting Value</span>
+
+<span class="nc">Reflecto</span><span class="o">.</span><span class="na">reflect</span><span class="o">(</span><span class="n">bug</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">reflect</span><span class="o">(</span><span class="s">"details[Sprint]"</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">setValue</span><span class="o">(</span><span class="k">new</span> <span class="nc">Details</span><span class="o">(</span><span class="s">"SPR-002"</span><span class="o">));</span>
+
+<span class="nc">Reflecto</span><span class="o">.</span><span class="na">reflect</span><span class="o">(</span><span class="n">bug</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">reflect</span><span class="o">(</span><span class="s">"details[?]"</span><span class="o">,</span> <span class="s">"Sprint"</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">setValue</span><span class="o">(</span><span class="k">new</span> <span class="nc">Details</span><span class="o">(</span><span class="s">"SPR-002"</span><span class="o">));</span>
+
+<span class="nc">Reflecto</span><span class="o">.</span><span class="na">reflect</span><span class="o">(</span><span class="n">bug</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">invoke</span><span class="o">(</span><span class="s">"details[Sprint]=?"</span><span class="o">,</span> <span class="k">new</span> <span class="nc">Details</span><span class="o">(</span><span class="s">"SPR-002"</span><span class="o">));</span>
+
+<span class="nc">Reflecto</span><span class="o">.</span><span class="na">reflect</span><span class="o">(</span><span class="n">bug</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">invoke</span><span class="o">(</span><span class="s">"details[?]=?"</span><span class="o">,</span><span class="s">"Sprint"</span><span class="o">,</span> <span class="k">new</span> <span class="nc">Details</span><span class="o">(</span><span class="s">"SPR-002"</span><span class="o">));</span>
+</code></pre></div></div>
+
+<h3 id="invoking-methods">Invoking Methods</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="nc">String</span> <span class="n">username</span> <span class="o">=</span> <span class="nc">Reflecto</span><span class="o">.</span><span class="na">reflect</span><span class="o">(</span><span class="n">bug</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">reflect</span><span class="o">(</span><span class="s">"getWatchers().get(?).getUsername()"</span><span class="o">,</span> <span class="mi">0</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">getValue</span><span class="o">();</span>
+
+<span class="nc">Reflecto</span><span class="o">.</span><span class="na">reflect</span><span class="o">(</span><span class="n">bug</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">invoke</span><span class="o">(</span><span class="s">"getWatchers().get(?).setUsername(?)"</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="s">"new_name"</span><span class="o">);</span>
+        
+<span class="nc">Reflecto</span><span class="o">.</span><span class="na">reflect</span><span class="o">(</span><span class="n">bug</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">invoke</span><span class="o">(</span><span class="s">"getDetails().remove(?)"</span><span class="o">,</span> <span class="s">"Sprint"</span><span class="o">);</span>
+        
+<span class="nc">Reflecto</span><span class="o">.</span><span class="na">reflect</span><span class="o">(</span><span class="n">bug</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">invoke</span><span class="o">(</span><span class="s">"getDetails().put(?, ?)"</span><span class="o">,</span> <span class="s">"Sprint"</span><span class="o">,</span> <span class="k">new</span> <span class="nc">Details</span><span class="o">(</span><span class="s">"SPR-002"</span><span class="o">));</span>
+</code></pre></div></div>
+
+<h3 id="mixed-usage">Mixed Usage</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="nc">String</span> <span class="n">username</span> <span class="o">=</span> <span class="nc">Reflecto</span><span class="o">.</span><span class="na">reflect</span><span class="o">(</span><span class="n">bug</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">reflect</span><span class="o">(</span><span class="s">"watchers[0].getUsername()"</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">getValue</span><span class="o">();</span>
+
+<span class="nc">String</span> <span class="n">username</span> <span class="o">=</span> <span class="nc">Reflecto</span><span class="o">.</span><span class="na">reflect</span><span class="o">(</span><span class="n">bug</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">reflect</span><span class="o">(</span><span class="s">"watchers[?].getUsername()"</span><span class="o">,</span> <span class="mi">0</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">getValue</span><span class="o">();</span>
+
+<span class="nc">String</span> <span class="n">username</span> <span class="o">=</span> <span class="nc">Reflecto</span><span class="o">.</span><span class="na">reflect</span><span class="o">(</span><span class="n">bug</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">reflect</span><span class="o">(</span><span class="s">"getWatchers()[0].getUsername()"</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">getValue</span><span class="o">();</span>
+
+<span class="nc">String</span> <span class="n">username</span> <span class="o">=</span> <span class="nc">Reflecto</span><span class="o">.</span><span class="na">reflect</span><span class="o">(</span><span class="n">bug</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">reflect</span><span class="o">(</span><span class="s">"getWatchers()[?].getUsername()"</span><span class="o">,</span> <span class="mi">0</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">getValue</span><span class="o">();</span>
+
+<span class="nc">Reflecto</span><span class="o">.</span><span class="na">reflect</span><span class="o">(</span><span class="n">bug</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">invoke</span><span class="o">(</span><span class="s">"getWatchers().get(?).username=?"</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="s">"new_name"</span><span class="o">);</span>
+        
+<span class="nc">Reflecto</span><span class="o">.</span><span class="na">reflect</span><span class="o">(</span><span class="n">bug</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">invoke</span><span class="o">(</span><span class="s">"details[Sprint].setText(?)"</span><span class="o">,</span> <span class="s">"SPR-002"</span><span class="o">);</span>
+        
+<span class="nc">Reflecto</span><span class="o">.</span><span class="na">reflect</span><span class="o">(</span><span class="n">bug</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">invoke</span><span class="o">(</span><span class="s">"details[?].setText(?)"</span><span class="o">,</span> <span class="s">"Sprint"</span><span class="o">,</span> <span class="s">"SPR-002"</span><span class="o">);</span>
+</code></pre></div></div>
+
+<h1 id="license">License</h1>
 
 <p><strong>Reflecto</strong> library is licensed under the <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a>.</p>
 
@@ -127,10 +657,12 @@ intuitive interface, making reflection tasks more accessible and developer-frien
     </article>
 </div>
 
-</main>
-<footer class="site-footer">
-    <div class="container">
-        <p>© 2025 Cariochi. Powered by <a href="https://jekyllrb.com/">Jekyll</a> & <a href="https://pages.github.com/">GitHub Pages</a></p>
+</main><footer class="site-footer">
+    <div class="container footer-inner">
+        <p class="copyright">© 2025 Cariochi.
+            Powered by <a href="https://jekyllrb.com/">Jekyll</a> & <a href="https://pages.github.com/">GitHub Pages</a>
+        </p>
+        <p class="contact">Contact: <a href="mailto:vadym@deineka.com">vadym@deineka.com</a></p>
     </div>
 </footer>
 <script src="/assets/js/toc.js"></script>
