@@ -12,6 +12,8 @@ title: REFLECTO
 
 These three ideas form the heart of Reflecto. Below you’ll find examples to get started quickly.
 
+👉 Source code is available on [GitHub](https://github.com/cariochi/reflecto).
+
 # Getting Started
 
 ## Maven Dependency
