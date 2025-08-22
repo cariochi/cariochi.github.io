@@ -60,9 +60,9 @@ a{color:var(--brand);text-decoration:none}
 /* =====================
    3) Code blocks
 ====================== */
-pre,code{font:16px/1.65 ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace}
-pre{overflow:auto;background:var(--brand-bg);border:1px solid var(--border);border-radius:8px;padding:6px}
-code{border-radius:4px;padding:0 4px}
+pre,code{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;background:var(--brand-bg)}
+pre{overflow:auto;border:1px solid var(--border);border-radius:8px;padding:6px}
+code{border-radius:4px;padding:4px}
 .highlight pre code{display:block;white-space:pre;font-size:12px}
 /* .highlight pre code::first-line{line-height:0} */
 
