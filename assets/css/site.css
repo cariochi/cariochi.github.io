@@ -8,28 +8,18 @@
 ====================== */
 :root{
   /* Core palette */
-  --white:#ffffff;
-  --bg:#FFFFFF;                 /* page bg */
-  --fg:#172B4D;                 /* primary text */
-  --ink-strong:#091E42;         /* strong headings */
-  --ink-mid:#253858;            /* mid text */
-  --muted:#6B778C;              /* muted text */
+  --bg: #ffffff;                        /* page bg */
+  --fg: rgba(23, 43, 77, 0.82);         /* primary text */
+  --muted: rgba(107, 119, 140, 0.88);   /* muted text */
 
   /* Accents */
   --brand:#f86f0a;              /* accent */
-  --brand-sub:#f86f0a;          /* secondary accent */
-  --hl:#f86f0a;                 /* heading underline */
 
   /* Surfaces */
-  --brand-bg:#F4F5F7;           /* subtle bg */
-  --panel:#F7F8FA;              /* callout bg */
-  --mono-bg:#F6F8FA;            /* code bg */
+  --brand-bg:#F7F8FA;           /* subtle bg */
 
   /* Borders */
-  --border:#e5e7eb;             /* neutral borders (legacy) */
-  --border-strong:#EBECF0;      /* strong layout borders */
-  --border-subtle:#F1F2F4;      /* table row borders */
-  --border-list:#F0F2F4;        /* mobile list separators */
+  --border:#EBECF0;             /* layout borders */
   --btn-border:#DFE1E6;         /* buttons */
   --btn-border-hover:#B3BAC5;   /* buttons hover */
 
@@ -57,10 +47,10 @@ body{margin:0;font:16px/1.65 -apple-system,system-ui,Segoe UI,Roboto,Ubuntu,Cant
 .container{max-width:none;margin:0 auto;padding:0 24px}
 
 /* Headings */
-article h1{margin:48px 0 16px;font-size:28px;line-height:1.25;font-weight:800;color:var(--ink-strong);border-bottom:2px solid var(--hl);padding-bottom:6px}
-article h2{margin:26px 0 12px;font-size:24px;line-height:1.3;font-weight:700;color:var(--ink-strong)}
-article h3{margin:22px 0 8px;font-size:18px;line-height:1.35;font-weight:700;color:var(--fg)}
-article h4{margin:18px 0 6px;font-size:16px;line-height:1.4;font-weight:700;color:var(--ink-mid)}
+article h1{margin:48px 0 16px;font-size:28px;line-height:1.25;font-weight:800;border-bottom:2px solid var(--brand);padding-bottom:6px}
+article h2{margin:26px 0 12px;font-size:24px;line-height:1.3;font-weight:700}
+article h3{margin:22px 0 8px;font-size:18px;line-height:1.35;font-weight:700}
+article h4{margin:18px 0 6px;font-size:16px;line-height:1.4;font-weight:700}
 
 .content ul{margin:8px 0 12px 20px}
 .content li{margin:4px 0}
@@ -71,7 +61,7 @@ a{color:var(--brand);text-decoration:none}
    3) Code blocks
 ====================== */
 pre,code{font:16px/1.65 ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace}
-pre{overflow:auto;background:var(--mono-bg);border:1px solid var(--border-strong);border-radius:8px;padding:6px}
+pre{overflow:auto;background:var(--brand-bg);border:1px solid var(--border);border-radius:8px;padding:6px}
 code{border-radius:4px;padding:0 4px}
 .highlight pre code{display:block;white-space:pre;font-size:12px}
 /* .highlight pre code::first-line{line-height:0} */
@@ -79,49 +69,49 @@ code{border-radius:4px;padding:0 4px}
 /* =====================
    4) Header (brand, nav, burger, GitHub)
 ====================== */
-.site-header{position:sticky;top:0;z-index:10;background:var(--white);border-bottom:1px solid var(--border-strong)}
+.site-header{position:sticky;top:0;z-index:10;background:var(--bg);border-bottom:1px solid var(--border);background:var(--brand-bg);}
 .site-header .container{display:flex;align-items:center;gap:16px;padding:10px 24px;flex-wrap:wrap}
 
-.brand{display:flex;align-items:center;gap:8px;color:var(--ink-strong);text-decoration:none;font-size:24px}
+.brand{display:flex;align-items:center;gap:8px;text-decoration:none;font-size:24px}
 .brand img{height:38px}
 
 /* main nav */
 .top-nav{margin-left:auto}
 .top-nav ul{display:flex;gap:20px;list-style:none;margin:0;padding:0}
 .toc .section-nav li{list-style:none}
-.top-nav a{display:inline-block;padding:6px 10px;color:var(--muted)}
+.top-nav a{display:inline-block;padding:6px 10px;color:var(--fg)}
 .top-nav a:hover{background:var(--brand-bg)}
-.top-nav .active a{font-weight:700;border-bottom:3px solid var(--hl);padding-bottom:6px}
+.top-nav .active a{font-weight:700;border-bottom:3px solid var(--brand);padding-bottom:6px}
 
 /* GitHub button */
-.header-github{display:flex;align-items:center;gap:6px;margin-left:12px;padding:6px 10px;border:1px solid var(--btn-border);border-radius:6px;text-decoration:none;background:var(--white);color:var(--link-muted);white-space:nowrap;line-height:1.3}
-.header-github:hover{background:var(--mono-bg);border-color:var(--btn-border-hover)}
+.header-github{display:flex;align-items:center;gap:6px;margin-left:12px;padding:6px 10px;border:1px solid var(--btn-border);border-radius:6px;text-decoration:none;background:var(--bg);color:var(--link-muted);white-space:nowrap;line-height:1.3}
+.header-github:hover{background:var(--brand-bg);border-color:var(--btn-border-hover)}
 .github-link{margin-left:1rem}
 
 /* burger checkbox — visually hidden but usable */
 .site-header .nav-toggle[type="checkbox"]{position:absolute;width:1px;height:1px;margin:-1px;padding:0;border:0;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;appearance:none}
 
 /* burger button */
-.menu-toggle{display:none;align-items:center;gap:8px;padding:6px 10px;border:1px solid var(--btn-border);border-radius:6px;cursor:pointer;color:var(--fg);background:var(--white);line-height:1.3}
+.menu-toggle{display:none;align-items:center;gap:8px;padding:6px 10px;border:1px solid var(--btn-border);border-radius:6px;cursor:pointer;color:var(--fg);background:var(--bg);line-height:1.3}
 
 /* =====================
    5) Layout grid (left menu + content)
 ====================== */
 .grid{display:grid;grid-template-columns:300px 1fr;gap:24px;margin:20px 0}
-.left{padding-right:12px;border-right:1px solid var(--border-strong)}
+.left{padding-right:12px;border-right:1px solid var(--border)}
 .content{min-width:0}
 
 /* =====================
    6) TOC (right sidebar)
 ====================== */
-.toc{border-right:1px solid var(--border-strong)}
+.toc{border-right:1px solid var(--border)}
 .toc-inner{position:sticky;top:64px;max-height:calc(100vh - 80px);overflow:auto;padding-left:16px}
 .toc h3{margin:6px 0 10px;color:var(--muted);font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.06em}
 .toc ul{padding-inline-start:20px}
 .toc .section-nav{list-style:none;margin:0;padding:0}
 .toc .section-nav a{display:block;padding:3px 8px;color:var(--link-muted);font-size:14px}
 .toc .section-nav a:hover{background:var(--brand-bg);color:var(--fg)}
-.toc a.active{border-left:3px solid var(--hl);padding-left:6px;background-color:var(--brand-bg)}
+.toc a.active{border-left:3px solid var(--brand);padding-left:6px;background-color:var(--brand-bg)}
 .toc .toc-entry.toc-h1 > a{margin-top:1rem;color:var(--muted);font-weight:700}
 .toc .toc-entry.toc-h3 > a{padding-left:14px;font-size:.95em}
 .toc .toc-entry.toc-h4 > a{padding-left:28px;font-size:.9em}
@@ -130,23 +120,23 @@ code{border-radius:4px;padding:0 4px}
 /* =====================
    7) Tables
 ====================== */
-.content table{width:100%;border-collapse:separate;border-spacing:0;background:var(--white);border:1px solid var(--border-strong);border-radius:8px;box-shadow:0 1px 0 var(--shadow-color)}
-.content thead th{position:sticky;top:0;background:#FAFBFC;color:var(--ink-strong);border-bottom:1px solid var(--border-strong);font-weight:700;padding:10px 12px;text-align:left}
+.content table{width:100%;border-collapse:separate;border-spacing:0;background:var(--bg);border:1px solid var(--border);border-radius:8px;box-shadow:0 1px 0 var(--shadow-color)}
+.content thead th{position:sticky;top:0;background:#FAFBFC;border-bottom:1px solid var(--border);font-weight:700;padding:10px 12px;text-align:left}
 .content thead th:first-child{border-top-left-radius:8px}
 .content thead th:last-child{border-top-right-radius:8px}
-.content tbody td{padding:10px 12px;border-top:1px solid var(--border-subtle);vertical-align:top}
+.content tbody td{padding:10px 12px;border-top:1px solid var(--border);vertical-align:top}
 .content tbody tr:nth-child(even){background:var(--table-alt)}
 .content tbody tr:hover{background:var(--table-hover)}
 
 /* =====================
    8) Callouts
 ====================== */
-blockquote{margin:12px 0;padding:12px 14px;background:var(--panel);border-left:4px solid var(--brand-sub);border-radius:6px;color:var(--ink-mid)}
+blockquote{margin:12px 0;padding:12px 14px;background:var(--brand-bg);border-left:4px solid var(--brand);border-radius:6px}
 
 /* =====================
    9) Footer
 ====================== */
-.site-footer{border-top:1px solid var(--border-strong);margin-top:24px}
+.site-footer{border-top:1px solid var(--border);margin-top:24px}
 .site-footer .container{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;padding:16px 24px;color:var(--muted);font-size:12px;line-height:0.4}
 
 /* =====================
@@ -158,8 +148,8 @@ blockquote{margin:12px 0;padding:12px 14px;background:var(--panel);border-left:4
 
 @media (max-width:1024px){
   .grid{grid-template-columns:1fr}
-  .left{border-right:0;padding-right:0;border-bottom:1px solid var(--border-strong);margin-bottom:16px}
-  .toc{border-left:0;border-top:1px solid var(--border-strong);margin-top:16px}
+  .left{border-right:0;padding-right:0;border-bottom:1px solid var(--border);margin-bottom:16px}
+  .toc{border-left:0;border-top:1px solid var(--border);margin-top:16px}
   .toc-inner{position:static;max-height:none;padding-left:0}
   .side-menu{position:static}
 }
@@ -173,7 +163,7 @@ blockquote{margin:12px 0;padding:12px 14px;background:var(--panel);border-left:4
   .nav-toggle:checked ~ .top-nav{display:block}
 
   .top-nav ul{flex-direction:column;gap:0;padding:8px 0;margin:0;width:100%}
-  .top-nav li{border-top:1px solid var(--border-list)}
+  .top-nav li{border-top:1px solid var(--border)}
   .top-nav a{display:block;padding:12px 6px}
 
   .site-footer .footer-inner {flex-direction:column;text-align:center;}
