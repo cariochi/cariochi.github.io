@@ -4,20 +4,23 @@ title: Spring Data Web Spec
 
 # Overview
 
-Annotation-based mapping from **web requests** (query parameters, headers, path variables, and security context) to **Spring Data JPA Specifications**.
+**Spring Data Web Spec** is an **open-source library** for annotation-based mapping from web requests (query parameters, headers, path variables, and security
+context) to Spring Data JPA Specifications.
 
-- Declare filters directly in controller method parameters
-- Integrates seamlessly with **Spring MVC** and **Spring Data JPA**
-- Extensible **operator** model (`Equal`, `In`, `ContainsIgnoreCase`, `IsNull`, etc.)
-- Built-in **access control** support via `@Spec.AccessControl` for security-based filters
-- Minimal runtime dependencies
-- **Spring Boot autoconfiguration** and optional `@EnableWebSpec` annotation for easy setup
+* Declare filters directly in controller method parameters
+* Integrates seamlessly with **Spring MVC** and **Spring Data JPA**
+* Extensible **operator** model (`Equal`, `In`, `ContainsIgnoreCase`, `IsNull`, etc.)
+* Built-in **access control** support via `@Spec.AccessControl` for security-based filters
+* Minimal runtime dependencies
+* **Spring Boot autoconfiguration** and optional `@EnableWebSpec` annotation for easy setup
+
+👉 Source code is available on [GitHub](https://github.com/cariochi/spring-data-web-spec).
 
 # Installation
 
 **Maven**
 
-```xml 
+```xml
 
 <!-- https://mvnrepository.com/artifact/com.cariochi.spec/spring-data-web-spec -->
 <dependency>
@@ -87,17 +90,17 @@ class DummyController {
 # How it works
 
 1. Annotate a `Specification<T>` method parameter with one or more source annotations:
-    - `@Spec.RequestParam` — query parameter
-    - `@Spec.RequestHeader` — HTTP header
-    - `@Spec.PathVariable` — URI path variable
-    - `@Spec.AccessControl` — security-based, no request value needed
 
+    * `@Spec.RequestParam` — query parameter
+    * `@Spec.RequestHeader` — HTTP header
+    * `@Spec.PathVariable` — URI path variable
+    * `@Spec.AccessControl` — security-based, no request value needed
 
 2. `SpecArgumentResolver`:
-    - Reads the values from the HTTP request or security context.
-    - Converts them using **Spring’s ConversionService**.
-    - Passes them to the chosen operator.
 
+    * Reads the values from the HTTP request or security context.
+    * Converts them using **Spring’s ConversionService**.
+    * Passes them to the chosen operator.
 
 3. An operator implements:
 
@@ -110,20 +113,16 @@ class DummyController {
 
 4. All generated specifications are combined with **AND** logic.
 
----
-
 # Built-in operators
 
-- Equal, NotEqual
-- In, NotIn
-- Contains, ContainsIgnoreCase
-- StartWith, StartWithIgnoreCase
-- IsNull, IsNotNull
-- GreaterThan, GreaterThanOrEqualTo, LessThan, LessThanOrEqualTo
+* Equal, NotEqual
+* In, NotIn
+* Contains, ContainsIgnoreCase
+* StartWith, StartWithIgnoreCase
+* IsNull, IsNotNull
+* GreaterThan, GreaterThanOrEqualTo, LessThan, LessThanOrEqualTo
 
 **You can also implement custom operators.**
-
----
 
 # Access control / security
 
@@ -161,9 +160,6 @@ Usage example:
 
 This will automatically restrict queries to allowed regions for the current user.
 
----
-
 # License
 
-The library is licensed under the [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0). 
-
+The library is licensed under the [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0).
