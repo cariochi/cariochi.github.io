@@ -107,15 +107,13 @@ code{border-radius:4px;padding:0 4px}
 ====================== */
 .toc{border-right:1px solid var(--border)}
 .toc-inner{position:sticky;top:64px;max-height:calc(100vh - 80px);overflow:auto;padding-left:16px}
-.toc h3{margin:6px 0 10px;color:var(--muted);font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.06em}
 .toc ul{padding-inline-start:20px}
 .toc .section-nav{list-style:none;margin:0;padding:0}
 .toc .section-nav a{display:block;padding:3px 8px;color:var(--link-muted);font-size:14px}
 .toc .section-nav a:hover{background:var(--brand-bg);color:var(--fg)}
+.toc .toc-entry.toc-h1 > a{margin-top:1rem;color:var(--fg);font-weight:700}
+.toc .toc-entry.toc-h2 > a{color:var(--fg);font-size:.95em;font-weight:200}
 .toc a.active{border-left:3px solid var(--brand);padding-left:6px;background-color:var(--brand-bg)}
-.toc .toc-entry.toc-h1 > a{margin-top:1rem;color:var(--muted);font-weight:700}
-.toc .toc-entry.toc-h3 > a{padding-left:14px;font-size:.95em}
-.toc .toc-entry.toc-h4 > a{padding-left:28px;font-size:.9em}
 :target{scroll-margin-top:72px}
 
 /* =====================
