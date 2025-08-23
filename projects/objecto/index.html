@@ -70,84 +70,480 @@
     <div class="toc-inner">
         <h3>OBJECTO</h3>
         <ul id="toc" class="section-nav">
-<li class="toc-entry toc-h1"><a href="#overview">Overview</a>
+<li class="toc-entry toc-h1"><a href="#introduction">Introduction</a></li>
+<li class="toc-entry toc-h1"><a href="#getting-started">Getting Started</a>
 <ul>
-<li class="toc-entry toc-h2"><a href="#introduction">Introduction</a></li>
 <li class="toc-entry toc-h2"><a href="#maven-dependency">Maven Dependency</a></li>
-<li class="toc-entry toc-h2"><a href="#key-concepts">Key Concepts</a></li>
-<li class="toc-entry toc-h2"><a href="#license">License</a></li>
+<li class="toc-entry toc-h2"><a href="#defining-a-factory">Defining a Factory</a></li>
 </ul>
 </li>
+<li class="toc-entry toc-h1"><a href="#annotations-and-configuration">Annotations and Configuration</a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#spec--unified-configuration">@Spec – Unified Configuration</a></li>
+<li class="toc-entry toc-h2"><a href="#faker--realistic-data">@Faker – Realistic Data</a></li>
+<li class="toc-entry toc-h2"><a href="#defaultgenerator--type-generators">@DefaultGenerator – Type Generators</a></li>
+<li class="toc-entry toc-h2"><a href="#generatefield--field-generators">@GenerateField – Field Generators</a></li>
+<li class="toc-entry toc-h2"><a href="#construct--custom-constructors">@Construct – Custom Constructors</a></li>
+<li class="toc-entry toc-h2"><a href="#modify--modifiers">@Modify – Modifiers</a></li>
+<li class="toc-entry toc-h2"><a href="#reference--linking-entities">@Reference – Linking Entities</a></li>
+<li class="toc-entry toc-h2"><a href="#seed--reproducible-randomness">@Seed – Reproducible Randomness</a></li>
+<li class="toc-entry toc-h2"><a href="#postgenerate--post-processing">@PostGenerate – Post Processing</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h1"><a href="#quick-recipes">Quick Recipes</a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#create-a-factory-and-generate-an-object">Create a factory and generate an object</a></li>
+<li class="toc-entry toc-h2"><a href="#generate-with-specific-values">Generate with specific values</a></li>
+<li class="toc-entry toc-h2"><a href="#set-constraints-with-spec">Set constraints with @Spec</a></li>
+<li class="toc-entry toc-h2"><a href="#use-datafaker-via-faker">Use Datafaker via @Faker</a></li>
+<li class="toc-entry toc-h2"><a href="#provide-custom-generators">Provide custom generators</a></li>
+<li class="toc-entry toc-h2"><a href="#link-related-entities">Link related entities</a></li>
+<li class="toc-entry toc-h2"><a href="#control-randomness">Control randomness</a></li>
+<li class="toc-entry toc-h2"><a href="#post-process-objects">Post-process objects</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h1"><a href="#license">License</a></li>
 </ul>
     </div>
 </aside>
     <article class="content">
 <!--        <h1>OBJECTO</h1>-->
-        <h1 id="overview">Overview</h1>
+        <h1 id="introduction">Introduction</h1>
 
-<h2 id="introduction">Introduction</h2>
+<p><strong>Objecto</strong> is an open-source Java library for generating random objects and data structures. It streamlines unit testing by letting you declare factories for your domain types and automatically produce randomized instances with flexible constraints.</p>
 
-<p><strong>Objecto</strong> is a powerful open-source Java library designed to streamline the generation of random objects and data structures. With a focus on simplicity and flexibility, <strong>Objecto</strong> allows developers to create random instances of objects for various use cases, including testing and data initialization.</p>
+<p>Key features at a glance:</p>
+
+<ul>
+  <li><strong>Factory interfaces:</strong> Define interfaces or abstract classes that describe how objects should be created, then call <code class="language-plaintext highlighter-rouge">Objecto.create()</code> to obtain a factory implementation. This instance provides methods to build random objects and collections.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">@Spec</code> annotation:</strong> Configure global and field-specific rules such as value ranges, collection sizes, nullability and maximum depth via one unified annotation. <code class="language-plaintext highlighter-rouge">@Spec</code> replaces the previous <code class="language-plaintext highlighter-rouge">@Settings</code>/<code class="language-plaintext highlighter-rouge">@Fields</code> annotations and supports nested configuration elements.</li>
+  <li><strong>Datafaker integration:</strong> The <code class="language-plaintext highlighter-rouge">@Faker</code> annotation binds a field to a <a href="https://www.datafaker.net/">Datafaker</a> expression (e.g. <code class="language-plaintext highlighter-rouge">Name.FULL_NAME</code> or <code class="language-plaintext highlighter-rouge">PhoneNumber.CELL_PHONE</code>) to populate realistic values. You can explore all available expressions in the <a href="https://www.datafaker.net/documentation/providers/">Datafaker documentation</a>.</li>
+  <li><strong>Custom generators:</strong> Use <code class="language-plaintext highlighter-rouge">@DefaultGenerator</code> to create bespoke instances of a type and <code class="language-plaintext highlighter-rouge">@GenerateField</code> to supply field-level random generators.</li>
+  <li><strong>Modifiers and references:</strong> The <code class="language-plaintext highlighter-rouge">@Modify</code> annotation and modifier methods let you set specific values or call methods on generated objects. With <code class="language-plaintext highlighter-rouge">@Reference</code> you can link entities together, ensuring bidirectional relationships.</li>
+  <li><strong>Seeds and reproducibility:</strong> Annotate a method or factory with <code class="language-plaintext highlighter-rouge">@Seed</code> to fix the random seed, or configure seeds at the factory instance or test level to reproduce test failures.</li>
+  <li><strong>Post processing:</strong> Apply additional logic after an object is created by marking a method with <code class="language-plaintext highlighter-rouge">@PostGenerate</code>.</li>
+</ul>
+
+<h1 id="getting-started">Getting Started</h1>
 
 <h2 id="maven-dependency">Maven Dependency</h2>
-
-<p>To add <strong>Reflecto</strong> to your project, include the following dependency in your <code class="language-plaintext highlighter-rouge">pom.xml</code></p>
 
 <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span>
     <span class="nt">&lt;groupId&gt;</span>com.cariochi.objecto<span class="nt">&lt;/groupId&gt;</span>
     <span class="nt">&lt;artifactId&gt;</span>objecto<span class="nt">&lt;/artifactId&gt;</span>
-    <span class="nt">&lt;version&gt;</span><span class="c">&lt;!-- Use the latest version --&gt;</span><span class="nt">&lt;/version&gt;</span>
+    <span class="nt">&lt;version&gt;</span>2.0.3<span class="nt">&lt;/version&gt;</span>
 <span class="nt">&lt;/dependency&gt;</span>
 </code></pre></div></div>
 
-<p>You can find the latest version on <a href="https://mvnrepository.com/artifact/com.cariochi.objecto/objecto">Maven Repository</a>.</p>
+<h2 id="defining-a-factory">Defining a Factory</h2>
 
-<h2 id="key-concepts">Key Concepts</h2>
+<p>A factory is an interface or abstract class that declares methods for creating your domain objects. You annotate these methods to describe how random instances should be generated.</p>
 
-<h3 id="object-factories">Object Factories</h3>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">com.cariochi.objecto.Spec</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.cariochi.objecto.Faker</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.cariochi.objecto.GenerateField</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.cariochi.objecto.Modify</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.cariochi.objecto.Reference</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.cariochi.objecto.DefaultGenerator</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.cariochi.objecto.Construct</span><span class="o">;</span>
 
-<p><strong>Objecto</strong> revolves around the concept of object factories, which are central to its design and functionality. Developers define interfaces or abstract classes known as factories to specify how objects should be generated. These factories serve as blueprints for creating objects with predetermined configurations, streamlining the object creation process, especially in testing scenarios.</p>
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">IssueFactory</span> <span class="o">{</span>
 
-<p>After defining a factory, the next step is to create an instance of this factory. <strong>Objecto</strong> provides a simple and intuitive way to instantiate these factories, enabling developers to generate random objects effortlessly. By leveraging the <code class="language-plaintext highlighter-rouge">Objecto.create()</code> method, developers can obtain an instance of their defined factory and use it to create objects according to the specifications laid out in the factory’s design.</p>
-
-<p><strong>Example Definition:</strong></p>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">IssueFactory</span> <span class="o">{</span>
+    <span class="c1">// Link subtasks back to their parent issue</span>
+    <span class="nd">@Reference</span><span class="o">(</span><span class="s">"subtasks[*].parent"</span><span class="o">)</span>
+    <span class="nd">@Faker</span><span class="o">(</span><span class="n">field</span> <span class="o">=</span> <span class="s">"key"</span><span class="o">,</span> <span class="n">expression</span> <span class="o">=</span> <span class="s">"#{numerify 'ID-####'}"</span><span class="o">)</span>
+    <span class="nd">@Faker</span><span class="o">(</span><span class="n">field</span> <span class="o">=</span> <span class="s">"creationDate"</span><span class="o">,</span> <span class="n">expression</span> <span class="o">=</span> <span class="nc">Faker</span><span class="o">.</span><span class="na">Base</span><span class="o">.</span><span class="na">TimeAndDate</span><span class="o">.</span><span class="na">PAST</span><span class="o">)</span>
     <span class="nc">Issue</span> <span class="nf">createIssue</span><span class="o">();</span>
-<span class="o">}</span>
 
-<span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">IssueFactory</span> <span class="o">{</span>
-    <span class="kd">public</span> <span class="kd">abstract</span> <span class="nc">Issue</span> <span class="nf">createIssue</span><span class="o">();</span>
+    <span class="c1">// Allow type to be modified via parameter</span>
+    <span class="nd">@Faker</span><span class="o">(</span><span class="n">field</span> <span class="o">=</span> <span class="s">"key"</span><span class="o">,</span> <span class="n">expression</span> <span class="o">=</span> <span class="s">"#{numerify 'ID-####'}"</span><span class="o">)</span>
+    <span class="nc">Issue</span> <span class="nf">createIssue</span><span class="o">(</span><span class="nd">@Modify</span><span class="o">(</span><span class="s">"type"</span><span class="o">)</span> <span class="nc">Type</span> <span class="n">type</span><span class="o">);</span>
+
+    <span class="c1">// Provide a custom constructor when a public constructor is unavailable</span>
+    <span class="nd">@Construct</span>
+    <span class="kd">private</span> <span class="nc">Attachment</span><span class="o">&lt;?&gt;</span> <span class="n">newAttachment</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="nc">Attachment</span><span class="o">.</span><span class="na">builder</span><span class="o">().</span><span class="na">fileContent</span><span class="o">(</span><span class="k">new</span> <span class="kt">byte</span><span class="o">[</span><span class="mi">0</span><span class="o">]).</span><span class="na">build</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="c1">// Provide a custom generator for a specific field</span>
+    <span class="nd">@GenerateField</span><span class="o">(</span><span class="n">type</span> <span class="o">=</span> <span class="nc">Attachment</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">field</span> <span class="o">=</span> <span class="s">"fileName"</span><span class="o">)</span>
+    <span class="nd">@Faker</span><span class="o">(</span><span class="n">expression</span> <span class="o">=</span> <span class="nc">Faker</span><span class="o">.</span><span class="na">Base</span><span class="o">.</span><span class="na">File</span><span class="o">.</span><span class="na">FILE_NAME</span><span class="o">)</span>
+    <span class="nc">String</span> <span class="nf">attachmentFileNameGenerator</span><span class="o">();</span>
+
+    <span class="c1">// Expose fluent modifier methods</span>
+    <span class="nd">@Modify</span><span class="o">(</span><span class="s">"type"</span><span class="o">)</span>
+    <span class="nc">IssueFactory</span> <span class="nf">withType</span><span class="o">(</span><span class="nc">Type</span> <span class="n">type</span><span class="o">);</span>
+
+    <span class="nd">@Modify</span><span class="o">(</span><span class="s">"setStatus(?)"</span><span class="o">)</span>
+    <span class="nc">IssueFactory</span> <span class="nf">withStatus</span><span class="o">(</span><span class="nc">Status</span> <span class="n">status</span><span class="o">);</span>
+
+    <span class="c1">// Limit recursion depth and set default Faker expressions when creating users</span>
+    <span class="nd">@Spec</span><span class="o">.</span><span class="na">MaxDepth</span><span class="o">(</span><span class="mi">5</span><span class="o">)</span>
+    <span class="nd">@Faker</span><span class="o">(</span><span class="n">field</span> <span class="o">=</span> <span class="s">"fullName"</span><span class="o">,</span> <span class="n">expression</span> <span class="o">=</span> <span class="nc">Faker</span><span class="o">.</span><span class="na">Base</span><span class="o">.</span><span class="na">Name</span><span class="o">.</span><span class="na">FULL_NAME</span><span class="o">)</span>
+    <span class="nd">@Faker</span><span class="o">(</span><span class="n">field</span> <span class="o">=</span> <span class="s">"phone"</span><span class="o">,</span> <span class="n">expression</span> <span class="o">=</span> <span class="nc">Faker</span><span class="o">.</span><span class="na">Base</span><span class="o">.</span><span class="na">PhoneNumber</span><span class="o">.</span><span class="na">CELL_PHONE</span><span class="o">)</span>
+    <span class="nc">User</span> <span class="nf">createUser</span><span class="o">();</span>
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p><strong>Example Usage:</strong></p>
+<p>To obtain a factory implementation, call <code class="language-plaintext highlighter-rouge">Objecto.create()</code>:</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">IssueFactory</span> <span class="n">issueFactory</span> <span class="o">=</span> <span class="nc">Objecto</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="nc">IssueFactory</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
 <span class="nc">Issue</span> <span class="n">randomIssue</span> <span class="o">=</span> <span class="n">issueFactory</span><span class="o">.</span><span class="na">createIssue</span><span class="o">();</span>
 </code></pre></div></div>
 
-<p>In addition to basic object generation, developers have the flexibility to customize their factories according to specific needs. <strong>Objecto’s</strong> “<a href="generation.md">Generation</a>” and “<a href="modification.md">Modification</a>” sections detail a variety of features that enable fine-tuning of the object creation process. These features allow for the modification of object properties, the generation of complex nested structures, and the application of custom generation logic, among others. By utilizing these capabilities, developers can tailor their factories to produce objects that precisely fit the requirements of their testing scenarios, ensuring comprehensive and effective tests.</p>
+<p>You can modify objects by supplying parameters to factory methods or by chaining modifier methods:</p>
 
-<h3 id="custom-factory-methods">Custom Factory Methods</h3>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Using a method parameter to set the issue type</span>
+<span class="nc">Issue</span> <span class="n">bug</span> <span class="o">=</span> <span class="n">issueFactory</span><span class="o">.</span><span class="na">createIssue</span><span class="o">(</span><span class="nc">Type</span><span class="o">.</span><span class="na">BUG</span><span class="o">);</span>
 
-<p>Developers can also implement their own factory methods to create objects with specific values. These factory methods can be <a href="modification.md#applying-modifications-to-custom-factory-methods">customized</a> according to the developer’s requirements.</p>
+<span class="c1">// Using modifier methods</span>
+<span class="nc">Issue</span> <span class="n">openBug</span> <span class="o">=</span> <span class="n">issueFactory</span>
+        <span class="o">.</span><span class="na">withType</span><span class="o">(</span><span class="nc">Type</span><span class="o">.</span><span class="na">BUG</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">withStatus</span><span class="o">(</span><span class="nc">Status</span><span class="o">.</span><span class="na">OPEN</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">createIssue</span><span class="o">();</span>
+</code></pre></div></div>
 
-<h4 id="example">Example</h4>
+<h1 id="annotations-and-configuration">Annotations and Configuration</h1>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">default</span> <span class="nc">Issue</span> <span class="nf">createDefaultIssue</span><span class="o">(</span><span class="nc">User</span> <span class="n">assignee</span><span class="o">)</span> <span class="o">{</span>
+<h2 id="spec--unified-configuration">@Spec – Unified Configuration</h2>
+
+<p><code class="language-plaintext highlighter-rouge">@Spec</code> is a single annotation for declaring constraints on random generation. You can place it on the factory interface or on individual methods. Nested annotations specify ranges, sizes, nullability and more. For field-specific rules, supply the <code class="language-plaintext highlighter-rouge">field</code> attribute.</p>
+
+<p>Example of global constraints:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Spec</span><span class="o">.</span><span class="na">MaxDepth</span><span class="o">(</span><span class="mi">5</span><span class="o">)</span>
+<span class="nd">@Spec</span><span class="o">.</span><span class="na">MaxRecursionDepth</span><span class="o">(</span><span class="mi">5</span><span class="o">)</span>
+<span class="nd">@Spec</span><span class="o">.</span><span class="na">Nullable</span><span class="o">(</span><span class="kc">true</span><span class="o">)</span>
+<span class="nd">@Spec</span><span class="o">.</span><span class="na">Collections</span><span class="o">.</span><span class="na">Size</span><span class="o">(</span><span class="mi">5</span><span class="o">)</span>
+<span class="nd">@Spec</span><span class="o">.</span><span class="na">Integers</span><span class="o">.</span><span class="na">Range</span><span class="o">(</span><span class="n">from</span> <span class="o">=</span> <span class="mi">1</span><span class="o">,</span> <span class="n">to</span> <span class="o">=</span> <span class="mi">10</span><span class="o">)</span>
+<span class="nd">@Spec</span><span class="o">.</span><span class="na">Strings</span><span class="o">.</span><span class="na">Length</span><span class="o">(</span><span class="mi">5</span><span class="o">)</span>
+<span class="nc">Issue</span> <span class="nf">createIssue</span><span class="o">();</span>
+</code></pre></div></div>
+
+<p>Field-specific configuration:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Spec</span><span class="o">.</span><span class="na">Nullable</span><span class="o">(</span><span class="n">field</span> <span class="o">=</span> <span class="s">"description"</span><span class="o">,</span> <span class="n">value</span> <span class="o">=</span> <span class="kc">true</span><span class="o">)</span>
+<span class="nd">@Spec</span><span class="o">.</span><span class="na">SetNull</span><span class="o">(</span><span class="n">field</span> <span class="o">=</span> <span class="s">"id"</span><span class="o">)</span>
+<span class="nd">@Spec</span><span class="o">.</span><span class="na">SetValue</span><span class="o">(</span><span class="n">field</span> <span class="o">=</span> <span class="s">"status"</span><span class="o">,</span> <span class="n">value</span> <span class="o">=</span> <span class="s">"OPEN"</span><span class="o">)</span>
+<span class="nd">@Spec</span><span class="o">.</span><span class="na">Collections</span><span class="o">.</span><span class="na">Size</span><span class="o">(</span><span class="n">field</span> <span class="o">=</span> <span class="s">"subtasks"</span><span class="o">,</span> <span class="n">value</span> <span class="o">=</span> <span class="mi">5</span><span class="o">)</span>
+<span class="nc">Issue</span> <span class="nf">createIssue</span><span class="o">();</span>
+</code></pre></div></div>
+
+<p>These constraints replace the older <code class="language-plaintext highlighter-rouge">@Settings</code> and <code class="language-plaintext highlighter-rouge">@Fields</code> annotations.</p>
+
+<h2 id="faker--realistic-data">@Faker – Realistic Data</h2>
+
+<p>The <code class="language-plaintext highlighter-rouge">@Faker</code> annotation binds a field to a <a href="https://www.datafaker.net/">Datafaker</a> expression. Expressions are grouped into categories such as <code class="language-plaintext highlighter-rouge">Name</code>, <code class="language-plaintext highlighter-rouge">PhoneNumber</code>, <code class="language-plaintext highlighter-rouge">Company</code>, <code class="language-plaintext highlighter-rouge">TimeAndDate</code> and many more. You can also specify a locale. A full list of available providers and expressions can be found in the <a href="https://www.datafaker.net/documentation/providers/">Datafaker documentation</a>.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Faker</span><span class="o">(</span><span class="n">field</span> <span class="o">=</span> <span class="s">"fullName"</span><span class="o">,</span> <span class="n">expression</span> <span class="o">=</span> <span class="nc">Faker</span><span class="o">.</span><span class="na">Base</span><span class="o">.</span><span class="na">Name</span><span class="o">.</span><span class="na">FULL_NAME</span><span class="o">)</span>
+<span class="nd">@Faker</span><span class="o">(</span><span class="n">field</span> <span class="o">=</span> <span class="s">"phone"</span><span class="o">,</span> <span class="n">expression</span> <span class="o">=</span> <span class="nc">Faker</span><span class="o">.</span><span class="na">Base</span><span class="o">.</span><span class="na">PhoneNumber</span><span class="o">.</span><span class="na">CELL_PHONE</span><span class="o">)</span>
+<span class="nd">@Faker</span><span class="o">(</span><span class="n">field</span> <span class="o">=</span> <span class="s">"companyName"</span><span class="o">,</span> <span class="n">expression</span> <span class="o">=</span> <span class="nc">Faker</span><span class="o">.</span><span class="na">Base</span><span class="o">.</span><span class="na">Company</span><span class="o">.</span><span class="na">NAME</span><span class="o">)</span>
+<span class="nc">Issue</span> <span class="nf">createIssue</span><span class="o">();</span>
+</code></pre></div></div>
+
+<p>Custom expressions can also be specified using the <code class="language-plaintext highlighter-rouge">#{...}</code> syntax, for example:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Faker</span><span class="o">(</span><span class="n">field</span> <span class="o">=</span> <span class="s">"key"</span><span class="o">,</span> <span class="n">expression</span> <span class="o">=</span> <span class="s">"#{numerify 'ID-####'}"</span><span class="o">)</span>
+</code></pre></div></div>
+
+<h2 id="defaultgenerator--type-generators">@DefaultGenerator – Type Generators</h2>
+
+<p>Use <code class="language-plaintext highlighter-rouge">@DefaultGenerator</code> to define a factory method that returns a fully initialized instance of a type. This method is used whenever an instance of that type is required (unless overridden by field generators, modifiers, etc.).</p>
+
+<h3 id="abstract-method">Abstract method</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@DefaultGenerator</span>
+<span class="nd">@Reference</span><span class="o">(</span><span class="s">"subtasks[*].parent"</span><span class="o">)</span>
+<span class="nd">@Faker</span><span class="o">(</span><span class="n">field</span> <span class="o">=</span> <span class="s">"key"</span><span class="o">,</span> <span class="n">expression</span> <span class="o">=</span> <span class="s">"#{numerify 'ID-####'}"</span><span class="o">)</span>
+<span class="nc">Issue</span> <span class="nf">createIssue</span><span class="o">();</span>
+</code></pre></div></div>
+
+<h3 id="custom-implementation">Custom implementation</h3>
+
+<p><strong>Parameters &amp; seeding:</strong> supported signatures are no-arg, <code class="language-plaintext highlighter-rouge">com.cariochi.objecto.random.ObjectoRandom</code>, or <code class="language-plaintext highlighter-rouge">java.util.Random</code>. See <a href="#random-parameters-and-seed-behavior">Random Parameters and Seed Behavior</a> in the <a href="#seed--reproducible-randomness">@Seed – Reproducible Randomness</a> section for details.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@DefaultGenerator</span>
+<span class="k">default</span> <span class="nc">Issue</span> <span class="nf">createIssue</span><span class="o">(</span><span class="nc">ObjectoRandom</span> <span class="n">random</span><span class="o">)</span> <span class="o">{</span>
     <span class="k">return</span> <span class="nc">Issue</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
-            <span class="o">.</span><span class="na">key</span><span class="o">(</span><span class="s">"DEFAULT"</span><span class="o">)</span>
-            <span class="o">.</span><span class="na">type</span><span class="o">(</span><span class="nc">Type</span><span class="o">.</span><span class="na">STORY</span><span class="o">)</span>
-            <span class="o">.</span><span class="na">status</span><span class="o">(</span><span class="nc">Status</span><span class="o">.</span><span class="na">OPEN</span><span class="o">)</span>
-            <span class="o">.</span><span class="na">assignee</span><span class="o">(</span><span class="n">assignee</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">key</span><span class="o">(</span><span class="s">"ID-"</span> <span class="o">+</span> <span class="n">random</span><span class="o">.</span><span class="na">nextInt</span><span class="o">(</span><span class="mi">1000</span><span class="o">,</span> <span class="mi">9999</span><span class="o">))</span>
+        <span class="o">.</span><span class="na">name</span><span class="o">(</span><span class="n">random</span><span class="o">.</span><span class="na">nextString</span><span class="o">())</span>
+        <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="generatefield--field-generators">@GenerateField – Field Generators</h2>
+
+<p><code class="language-plaintext highlighter-rouge">@GenerateField</code> defines a factory method for a specific field.</p>
+
+<p>It is useful for fine-grained control of how individual fields are generated.</p>
+
+<h3 id="abstract-method-1">Abstract method</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@GenerateField</span><span class="o">(</span><span class="n">type</span> <span class="o">=</span> <span class="nc">Attachment</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">field</span> <span class="o">=</span> <span class="s">"fileName"</span><span class="o">)</span>
+<span class="nd">@Faker</span><span class="o">(</span><span class="n">expression</span> <span class="o">=</span> <span class="nc">Faker</span><span class="o">.</span><span class="na">Base</span><span class="o">.</span><span class="na">File</span><span class="o">.</span><span class="na">FILE_NAME</span><span class="o">)</span>
+<span class="nc">String</span> <span class="nf">attachmentFileNameGenerator</span><span class="o">();</span>
+</code></pre></div></div>
+
+<h3 id="custom-implementation-1">Custom implementation</h3>
+
+<p><strong>Parameters &amp; seeding:</strong> the generator method may be no-arg, accept <code class="language-plaintext highlighter-rouge">com.cariochi.objecto.random.ObjectoRandom</code>, or <code class="language-plaintext highlighter-rouge">java.util.Random</code>. See <a href="#random-parameters-and-seed-behavior">Random Parameters and Seed Behavior</a> in the <a href="#seed--reproducible-randomness">@Seed – Reproducible Randomness</a> section for details.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@GenerateField</span><span class="o">(</span><span class="n">type</span> <span class="o">=</span> <span class="nc">Comment</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">field</span> <span class="o">=</span> <span class="s">"commenter"</span><span class="o">)</span>
+<span class="kd">private</span> <span class="nc">User</span> <span class="nf">commenterGenerator</span><span class="o">(</span><span class="nc">ObjectoRandom</span> <span class="n">random</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="nc">User</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
+            <span class="o">.</span><span class="na">fullName</span><span class="o">(</span><span class="s">"Vadym Deineka"</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">companyName</span><span class="o">(</span><span class="n">random</span><span class="o">.</span><span class="na">strings</span><span class="o">().</span><span class="na">faker</span><span class="o">().</span><span class="na">nextString</span><span class="o">(</span><span class="nc">Company</span><span class="o">.</span><span class="na">NAME</span><span class="o">))</span>
             <span class="o">.</span><span class="na">build</span><span class="o">();</span>
 <span class="o">}</span>
 </code></pre></div></div>
 
-<h2 id="license">License</h2>
+<h2 id="construct--custom-constructors">@Construct – Custom Constructors</h2>
 
-<p><strong>Objecto</strong> library is licensed under the <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a>.</p>
+<p>If an object cannot be instantiated via a public constructor or static factory, annotate a method with <code class="language-plaintext highlighter-rouge">@Construct</code> to supply a custom creation method. This method must return an instance of the type.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Construct</span>
+<span class="kd">private</span> <span class="nc">Attachment</span><span class="o">&lt;?&gt;</span> <span class="n">newAttachment</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="nc">Attachment</span><span class="o">.</span><span class="na">builder</span><span class="o">().</span><span class="na">fileContent</span><span class="o">(</span><span class="k">new</span> <span class="kt">byte</span><span class="o">[</span><span class="mi">0</span><span class="o">]).</span><span class="na">build</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="modify--modifiers">@Modify – Modifiers</h2>
+
+<p>The <code class="language-plaintext highlighter-rouge">@Modify</code> annotation is a powerful way to adjust generated objects. It can be applied in different contexts depending on whether you want to influence a single generation or configure a reusable factory.</p>
+
+<h3 id="1-as-a-parameter-of-a-factory-method">1. As a parameter of a factory method</h3>
+
+<p>This approach creates a random object but overrides selected values directly through method parameters.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Issue</span> <span class="nf">createIssue</span><span class="o">(</span><span class="nd">@Modify</span><span class="o">(</span><span class="s">"type"</span><span class="o">)</span> <span class="nc">Type</span> <span class="n">type</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p><strong>Usage:</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Issue</span> <span class="n">bug</span> <span class="o">=</span> <span class="n">factory</span><span class="o">.</span><span class="na">createIssue</span><span class="o">(</span><span class="nc">Type</span><span class="o">.</span><span class="na">BUG</span><span class="o">);</span>
+</code></pre></div></div>
+
+<h3 id="2-as-a-factory-interface-method">2. As a factory interface method</h3>
+
+<p>Here, the modifier is declared as part of the factory interface. Such methods must return the factory type itself, enabling fluent configuration chains.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Modify</span><span class="o">(</span><span class="s">"type"</span><span class="o">)</span>
+<span class="nc">IssueFactory</span> <span class="nf">withType</span><span class="o">(</span><span class="nc">Type</span> <span class="n">type</span><span class="o">);</span>
+
+<span class="nd">@Modify</span><span class="o">(</span><span class="s">"setStatus(?)"</span><span class="o">)</span>
+<span class="nc">IssueFactory</span> <span class="nf">withStatus</span><span class="o">(</span><span class="nc">Status</span> <span class="n">status</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p><strong>Usage:</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Issue</span> <span class="n">issue</span> <span class="o">=</span> <span class="n">factory</span><span class="o">.</span><span class="na">withType</span><span class="o">(</span><span class="nc">Type</span><span class="o">.</span><span class="na">BUG</span><span class="o">).</span><span class="na">withStatus</span><span class="o">(</span><span class="nc">Status</span><span class="o">.</span><span class="na">OPEN</span><span class="o">).</span><span class="na">createIssue</span><span class="o">();</span>
+</code></pre></div></div>
+
+<h3 id="3-calling-methods-on-generated-objects">3. Calling methods on generated objects</h3>
+
+<p><code class="language-plaintext highlighter-rouge">@Modify</code> can also invoke setter or custom methods during object creation.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Modify</span><span class="o">(</span><span class="s">"setAssignee(?)"</span><span class="o">)</span>
+<span class="nc">IssueFactory</span> <span class="nf">withAssignee</span><span class="o">(</span><span class="nc">User</span> <span class="n">assignee</span><span class="o">);</span>
+</code></pre></div></div>
+
+<h3 id="4-multiple-arguments">4. Multiple arguments</h3>
+
+<p>You can combine several <code class="language-plaintext highlighter-rouge">@Modify</code> annotations on different parameters of the same method.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">IssueFactory</span> <span class="nf">withTypeAndStatus</span><span class="o">(</span>
+        <span class="nd">@Modify</span><span class="o">(</span><span class="s">"setType(?)"</span><span class="o">)</span> <span class="nc">Type</span> <span class="n">type</span><span class="o">,</span>
+        <span class="nd">@Modify</span><span class="o">(</span><span class="s">"setStatus(?)"</span><span class="o">)</span> <span class="nc">Status</span> <span class="n">status</span>
+<span class="o">);</span>
+</code></pre></div></div>
+
+<h3 id="5-nested-and-collection-modifications">5. Nested and collection modifications</h3>
+
+<p>Expressions support deep navigation and collections.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Modify all subtasks' status</span>
+<span class="nd">@Modify</span><span class="o">(</span><span class="s">"subtasks[*].status"</span><span class="o">)</span>
+<span class="nc">IssueFactory</span> <span class="nf">withAllSubtaskStatuses</span><span class="o">(</span><span class="nc">Status</span> <span class="n">status</span><span class="o">);</span>
+
+<span class="c1">// Modify the commenter of the first comment</span>
+<span class="nd">@Modify</span><span class="o">(</span><span class="s">"comments[0].commenter=?"</span><span class="o">)</span>
+<span class="nc">IssueFactory</span> <span class="nf">withFirstCommenter</span><span class="o">(</span><span class="nc">User</span> <span class="n">commenter</span><span class="o">);</span>
+</code></pre></div></div>
+
+<h3 id="6-fluent-chaining">6. Fluent chaining</h3>
+
+<p>All factory interface methods annotated with <code class="language-plaintext highlighter-rouge">@Modify</code> return the factory itself. This allows combining multiple modifications before generating the final object.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Issue</span> <span class="n">inProgressBug</span> <span class="o">=</span> <span class="n">factory</span>
+        <span class="o">.</span><span class="na">withType</span><span class="o">(</span><span class="nc">Type</span><span class="o">.</span><span class="na">BUG</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">withStatus</span><span class="o">(</span><span class="nc">Status</span><span class="o">.</span><span class="na">IN_PROGRESS</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">withAssignee</span><span class="o">(</span><span class="k">new</span> <span class="nc">User</span><span class="o">(</span><span class="s">"qa"</span><span class="o">))</span>
+        <span class="o">.</span><span class="na">createIssue</span><span class="o">();</span>
+</code></pre></div></div>
+
+<h2 id="reference--linking-entities">@Reference – Linking Entities</h2>
+
+<p><code class="language-plaintext highlighter-rouge">@Reference</code> ensures relationships between generated objects are maintained. The value is an expression pointing to the fields that should refer back to the parent.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Reference</span><span class="o">(</span><span class="s">"subtasks[*].parent"</span><span class="o">)</span>
+<span class="nc">Issue</span> <span class="nf">createIssue</span><span class="o">();</span>
+</code></pre></div></div>
+
+<p>Multiple references can be specified in one annotation.</p>
+
+<h2 id="seed--reproducible-randomness">@Seed – Reproducible Randomness</h2>
+
+<p>The <code class="language-plaintext highlighter-rouge">@Seed</code> annotation makes random generation reproducible. You can apply it at different levels:</p>
+
+<ul>
+  <li>
+    <p><strong>On a factory method</strong> – fixes the random seed for objects created by that method.</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Seed</span><span class="o">(</span><span class="mi">12345</span><span class="o">)</span>
+<span class="nc">Issue</span> <span class="nf">createIssue</span><span class="o">();</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong>On the factory interface</strong> – sets a global seed for all generated objects in that factory.</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Seed</span><span class="o">(</span><span class="mi">999</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">IssueFactory</span> <span class="o">{</span>
+  <span class="nc">Issue</span> <span class="nf">createIssue</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong>Programmatically</strong> – supply a seed when creating a factory:</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">IssueFactory</span> <span class="n">factory</span> <span class="o">=</span> <span class="nc">Objecto</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="nc">IssueFactory</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="mi">100L</span><span class="o">);</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h3 id="random-parameters-and-seed-behavior">Random Parameters and Seed Behavior</h3>
+
+<p>Several annotations support generator methods that can take different parameters:</p>
+<ul>
+  <li><strong>No parameters</strong> — you can use any random inside the body. If you rely on your own random source, Objecto’s <code class="language-plaintext highlighter-rouge">@Seed</code> does not apply to that source.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">com.cariochi.objecto.random.ObjectoRandom</code> parameter</strong> — Objecto-managed random. <code class="language-plaintext highlighter-rouge">@Seed</code> applies (Objecto controls this RNG).</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">java.util.Random</code> parameter</strong> — standard Java RNG provided by Objecto. <code class="language-plaintext highlighter-rouge">@Seed</code> applies (Objecto seeds the provided <code class="language-plaintext highlighter-rouge">Random</code>).</li>
+</ul>
+
+<p>This logic is the same for methods annotated with <code class="language-plaintext highlighter-rouge">@DefaultGenerator</code>, <code class="language-plaintext highlighter-rouge">@GenerateField</code>, and <code class="language-plaintext highlighter-rouge">@PostGenerate</code>.</p>
+
+<h3 id="using-junit-5-extension">Using JUnit 5 Extension</h3>
+
+<p>When you run tests with JUnit 5, you can register the <code class="language-plaintext highlighter-rouge">ObjectoExtension</code>. The extension has a simple purpose: <strong>if a test fails, it automatically prints the current random seed to the console</strong>.</p>
+
+<p>This allows you to copy that seed and rerun the same test with it to reproduce the failure and debug it deterministically.</p>
+
+<p>The console output is provided via JUnit report entries. A typical log line looks like (this is a JUnit report entry that appears in the test logs):</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2025-08-23T12:04:22.349083  Objecto Seed = 4676741460335224710  Test Method = testCreateUser
+</code></pre></div></div>
+
+<p>This is implemented in the extension’s <code class="language-plaintext highlighter-rouge">afterEach</code> hook using <code class="language-plaintext highlighter-rouge">context.publishReportEntry(...)</code>.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@ExtendWith</span><span class="o">(</span><span class="nc">ObjectoExtension</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+<span class="kd">class</span> <span class="nc">IssueFactoryTest</span> <span class="o">{</span>
+
+    <span class="nd">@Test</span>
+    <span class="kt">void</span> <span class="nf">shouldCreateDeterministicIssue</span><span class="o">(</span><span class="nc">IssueFactory</span> <span class="n">factory</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">Issue</span> <span class="n">issue</span> <span class="o">=</span> <span class="n">factory</span><span class="o">.</span><span class="na">createIssue</span><span class="o">();</span>
+        <span class="c1">// assertions</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>In this example, if the test fails, the console will show the seed used. You can then rerun the test with that seed by applying <code class="language-plaintext highlighter-rouge">@Seed</code> on the factory or method, or by passing the seed programmatically to <code class="language-plaintext highlighter-rouge">Objecto.create(...)</code>. Seeds specified on methods override seeds defined on the factory.</p>
+
+<h2 id="postgenerate--post-processing">@PostGenerate – Post Processing</h2>
+
+<p>Methods annotated with <code class="language-plaintext highlighter-rouge">@PostGenerate</code> run after an object is fully generated and can perform additional transformations.</p>
+
+<p><strong>Parameters &amp; seeding:</strong> post-processing methods can be no-arg or accept <code class="language-plaintext highlighter-rouge">com.cariochi.objecto.random.ObjectoRandom</code> or <code class="language-plaintext highlighter-rouge">java.util.Random</code>. See <a href="#random-parameters-and-seed-behavior">Random Parameters and Seed Behavior</a> in the <a href="#seed--reproducible-randomness">@Seed – Reproducible Randomness</a> section for details.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@PostGenerate</span>
+<span class="kd">private</span> <span class="kt">void</span> <span class="nf">userPostProcessor</span><span class="o">(</span><span class="nc">User</span> <span class="n">user</span><span class="o">,</span> <span class="nc">ObjectoRandom</span> <span class="n">random</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nc">String</span> <span class="n">username</span> <span class="o">=</span> <span class="n">replace</span><span class="o">(</span><span class="n">replace</span><span class="o">(</span><span class="n">lowerCase</span><span class="o">(</span><span class="n">user</span><span class="o">.</span><span class="na">getFullName</span><span class="o">()),</span> <span class="s">"."</span><span class="o">,</span> <span class="s">""</span><span class="o">),</span> <span class="s">" "</span><span class="o">,</span> <span class="s">"."</span><span class="o">);</span>
+    <span class="n">user</span><span class="o">.</span><span class="na">setUsername</span><span class="o">(</span><span class="n">username</span><span class="o">);</span>
+    <span class="n">user</span><span class="o">.</span><span class="na">setEmail</span><span class="o">(</span><span class="n">username</span> <span class="o">+</span> <span class="s">"@"</span> <span class="o">+</span> <span class="n">random</span><span class="o">.</span><span class="na">strings</span><span class="o">().</span><span class="na">faker</span><span class="o">().</span><span class="na">nextString</span><span class="o">(</span><span class="nc">Internet</span><span class="o">.</span><span class="na">DOMAIN_NAME</span><span class="o">));</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h1 id="quick-recipes">Quick Recipes</h1>
+
+<h2 id="create-a-factory-and-generate-an-object">Create a factory and generate an object</h2>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">IssueFactory</span> <span class="n">factory</span> <span class="o">=</span> <span class="nc">Objecto</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="nc">IssueFactory</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+<span class="nc">Issue</span> <span class="n">issue</span> <span class="o">=</span> <span class="n">factory</span><span class="o">.</span><span class="na">createIssue</span><span class="o">();</span>
+</code></pre></div></div>
+
+<h2 id="generate-with-specific-values">Generate with specific values</h2>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Issue</span> <span class="n">bug</span> <span class="o">=</span> <span class="n">factory</span><span class="o">.</span><span class="na">createIssue</span><span class="o">(</span><span class="nc">Type</span><span class="o">.</span><span class="na">BUG</span><span class="o">);</span>
+
+<span class="nc">Issue</span> <span class="n">inProgressBug</span> <span class="o">=</span> <span class="n">factory</span>
+        <span class="o">.</span><span class="na">withType</span><span class="o">(</span><span class="nc">Type</span><span class="o">.</span><span class="na">BUG</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">withStatus</span><span class="o">(</span><span class="nc">Status</span><span class="o">.</span><span class="na">IN_PROGRESS</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">createIssue</span><span class="o">();</span>
+</code></pre></div></div>
+
+<h2 id="set-constraints-with-spec">Set constraints with @Spec</h2>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Spec</span><span class="o">.</span><span class="na">Integers</span><span class="o">.</span><span class="na">Range</span><span class="o">(</span><span class="n">from</span> <span class="o">=</span> <span class="mi">1</span><span class="o">,</span> <span class="n">to</span> <span class="o">=</span> <span class="mi">10</span><span class="o">)</span>
+<span class="nd">@Spec</span><span class="o">.</span><span class="na">Collections</span><span class="o">.</span><span class="na">Size</span><span class="o">(</span><span class="n">field</span> <span class="o">=</span> <span class="s">"subtasks"</span><span class="o">,</span> <span class="n">value</span> <span class="o">=</span> <span class="mi">3</span><span class="o">)</span>
+<span class="nc">Issue</span> <span class="nf">createIssue</span><span class="o">();</span>
+</code></pre></div></div>
+
+<h2 id="use-datafaker-via-faker">Use Datafaker via @Faker</h2>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Faker</span><span class="o">(</span><span class="n">field</span> <span class="o">=</span> <span class="s">"fullName"</span><span class="o">,</span> <span class="n">expression</span> <span class="o">=</span> <span class="nc">Faker</span><span class="o">.</span><span class="na">Base</span><span class="o">.</span><span class="na">Name</span><span class="o">.</span><span class="na">FULL_NAME</span><span class="o">)</span>
+<span class="nd">@Faker</span><span class="o">(</span><span class="n">field</span> <span class="o">=</span> <span class="s">"creationDate"</span><span class="o">,</span> <span class="n">expression</span> <span class="o">=</span> <span class="nc">Faker</span><span class="o">.</span><span class="na">Base</span><span class="o">.</span><span class="na">TimeAndDate</span><span class="o">.</span><span class="na">PAST</span><span class="o">)</span>
+<span class="nc">Issue</span> <span class="nf">createIssue</span><span class="o">();</span>
+</code></pre></div></div>
+
+<h2 id="provide-custom-generators">Provide custom generators</h2>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@DefaultGenerator</span>
+<span class="k">default</span> <span class="nc">User</span> <span class="nf">createUser</span><span class="o">(</span><span class="nc">ObjectoRandom</span> <span class="n">random</span><span class="o">)</span> <span class="o">{</span>
+<span class="k">return</span> <span class="nc">User</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
+        <span class="o">.</span><span class="na">fullName</span><span class="o">(</span><span class="n">random</span><span class="o">.</span><span class="na">strings</span><span class="o">().</span><span class="na">faker</span><span class="o">().</span><span class="na">nextString</span><span class="o">(</span><span class="nc">Faker</span><span class="o">.</span><span class="na">Base</span><span class="o">.</span><span class="na">Name</span><span class="o">.</span><span class="na">FULL_NAME</span><span class="o">))</span>
+        <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+<span class="o">}</span>
+
+<span class="nd">@GenerateField</span><span class="o">(</span><span class="n">type</span> <span class="o">=</span> <span class="nc">Issue</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">field</span> <span class="o">=</span> <span class="s">"key"</span><span class="o">)</span>
+<span class="nc">String</span> <span class="nf">generateKey</span><span class="o">(</span><span class="nc">ObjectoRandom</span> <span class="n">random</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="s">"ID-"</span> <span class="o">+</span> <span class="n">random</span><span class="o">.</span><span class="na">nextInt</span><span class="o">(</span><span class="mi">1000</span><span class="o">,</span> <span class="mi">10000</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="link-related-entities">Link related entities</h2>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Reference</span><span class="o">(</span><span class="s">"subtasks[*].parent"</span><span class="o">)</span>
+<span class="nc">Issue</span> <span class="nf">createIssue</span><span class="o">();</span>
+</code></pre></div></div>
+
+<h2 id="control-randomness">Control randomness</h2>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Seed</span><span class="o">(</span><span class="mi">42</span><span class="o">)</span>
+<span class="nc">Issue</span> <span class="nf">createIssue</span><span class="o">();</span>
+
+<span class="nc">IssueFactory</span> <span class="n">factory</span> <span class="o">=</span> <span class="nc">Objecto</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="nc">IssueFactory</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="mi">42L</span><span class="o">);</span>
+</code></pre></div></div>
+
+<h2 id="post-process-objects">Post-process objects</h2>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@PostGenerate</span>
+<span class="kd">private</span> <span class="kt">void</span> <span class="nf">normalize</span><span class="o">(</span><span class="nc">User</span> <span class="n">user</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">user</span><span class="o">.</span><span class="na">setUsername</span><span class="o">(</span><span class="n">user</span><span class="o">.</span><span class="na">getFullName</span><span class="o">().</span><span class="na">toLowerCase</span><span class="o">().</span><span class="na">replace</span><span class="o">(</span><span class="s">" "</span><span class="o">,</span> <span class="s">"."</span><span class="o">));</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h1 id="license">License</h1>
+
+<p>Objecto is distributed under the <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License 2.0</a>.</p>
+
 
     </article>
 </div>
