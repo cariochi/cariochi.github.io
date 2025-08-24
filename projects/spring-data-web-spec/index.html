@@ -47,10 +47,10 @@
                 <a href="/projects/objecto">OBJECTO</a>
                 </li><li>
                 <a href="/projects/recordo">RECORDO</a>
-                </li><li>
-                <a href="/projects/expresso">EXPRESSO</a>
                 </li><li class="active">
                 <a href="/projects/spring-data-web-spec">WEB SPEC</a>
+                </li><li>
+                <a href="/projects/expresso">EXPRESSO</a>
                 </li></ul>
         </nav><a class="header-github" href="https://github.com/cariochi/spring-data-web-spec" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" width="20" height="20" aria-hidden="true" fill="currentColor">
                 <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38
@@ -107,9 +107,7 @@ context) to Spring Data JPA Specifications.</p>
 
 <p><strong>Maven</strong></p>
 
-<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-<span class="c">&lt;!-- https://mvnrepository.com/artifact/com.cariochi.spec/spring-data-web-spec --&gt;</span>
-<span class="nt">&lt;dependency&gt;</span>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span>
     <span class="nt">&lt;groupId&gt;</span>com.cariochi.spec<span class="nt">&lt;/groupId&gt;</span>
     <span class="nt">&lt;artifactId&gt;</span>spring-data-web-spec<span class="nt">&lt;/artifactId&gt;</span>
     <span class="nt">&lt;version&gt;</span>1.0.2<span class="nt">&lt;/version&gt;</span>
@@ -127,16 +125,14 @@ context) to Spring Data JPA Specifications.</p>
 <p>If you use <strong>Spring Boot 3.x</strong> and have <strong>spring-data-web-spec</strong> on the classpath, the <code class="language-plaintext highlighter-rouge">SpecArgumentResolver</code> will be auto-registered.
 Autoconfiguration is enabled by default but can be disabled via:</p>
 
-<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-<span class="py">cariochi.spec.web.enabled</span><span class="p">=</span><span class="s">false</span>
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="py">cariochi.spec.web.enabled</span><span class="p">=</span><span class="s">false</span>
 </code></pre></div></div>
 
 <h3 id="2-manual-registration-via-enablewebspec">2. Manual registration via @EnableWebSpec</h3>
 
 <p>If you don’t want to rely on <strong>autoconfiguration</strong> (or you use plain <strong>Spring MVC without Boot</strong>), annotate your configuration class:</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-<span class="nd">@EnableWebSpec</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@EnableWebSpec</span>
 <span class="nd">@Configuration</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">WebConfig</span> <span class="o">{</span>
 <span class="o">}</span>
@@ -144,8 +140,7 @@ Autoconfiguration is enabled by default but can be disabled via:</p>
 
 <h2 id="example-usage">Example Usage</h2>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-<span class="nd">@RestController</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@RestController</span>
 <span class="nd">@RequiredArgsConstructor</span>
 <span class="kd">class</span> <span class="nc">DummyController</span> <span class="o">{</span>
 
@@ -195,8 +190,7 @@ Autoconfiguration is enabled by default but can be disabled via:</p>
   <li>
     <p>An operator implements:</p>
 
-    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   
-<span class="kd">interface</span> <span class="nc">SpecOperator</span><span class="o">&lt;</span><span class="no">T</span><span class="o">,</span> <span class="no">Y</span><span class="o">,</span> <span class="no">V</span><span class="o">&gt;</span> <span class="o">{</span>
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">interface</span> <span class="nc">SpecOperator</span><span class="o">&lt;</span><span class="no">T</span><span class="o">,</span> <span class="no">Y</span><span class="o">,</span> <span class="no">V</span><span class="o">&gt;</span> <span class="o">{</span>
   <span class="nc">Specification</span><span class="o">&lt;</span><span class="no">T</span><span class="o">&gt;</span> <span class="nf">buildSpecification</span><span class="o">(</span><span class="nc">SpecContext</span><span class="o">&lt;</span><span class="no">T</span><span class="o">,</span> <span class="no">Y</span><span class="o">,</span> <span class="no">V</span><span class="o">&gt;</span> <span class="n">ctx</span><span class="o">);</span>
 <span class="o">}</span>
 </code></pre></div>    </div>
@@ -227,8 +221,7 @@ Autoconfiguration is enabled by default but can be disabled via:</p>
 
 <p>Value Supplier can be a <code class="language-plaintext highlighter-rouge">Supplier&lt;List&lt;String&gt;&gt;</code> that returns the allowed regions for the current user:</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-<span class="nd">@Component</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Component</span>
 <span class="nd">@RequiredArgsConstructor</span>
 <span class="kd">class</span> <span class="nc">UserAllowedRegions</span> <span class="kd">implements</span> <span class="nc">Supplier</span><span class="o">&lt;</span><span class="nc">List</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;&gt;</span> <span class="o">{</span>
 
@@ -243,8 +236,7 @@ Autoconfiguration is enabled by default but can be disabled via:</p>
 
 <p>Usage example:</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-<span class="nd">@Spec</span><span class="o">.</span><span class="na">AccessControl</span><span class="o">(</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Spec</span><span class="o">.</span><span class="na">AccessControl</span><span class="o">(</span>
         <span class="n">path</span> <span class="o">=</span> <span class="s">"organization.region"</span><span class="o">,</span>
         <span class="n">valueSupplier</span> <span class="o">=</span> <span class="nc">UserAllowedRegions</span><span class="o">.</span><span class="na">class</span><span class="o">,</span>
         <span class="n">operator</span> <span class="o">=</span> <span class="nc">In</span><span class="o">.</span><span class="na">class</span>
@@ -255,7 +247,7 @@ Autoconfiguration is enabled by default but can be disabled via:</p>
 
 <h1 id="license">License</h1>
 
-<p>The library is licensed under the <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a>.</p>
+<p>The library is distributed under the <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a>.</p>
 
     </article>
 </div>
