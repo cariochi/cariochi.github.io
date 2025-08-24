@@ -7,9 +7,9 @@
 - title: RECORDO
   url: /projects/recordo
   github: https://github.com/cariochi/recordo
-- title: EXPRESSO
-  url: /projects/expresso
-  demo_url: https://expresso.cariochi.com
 - title: WEB SPEC
   url: /projects/spring-data-web-spec
   github: https://github.com/cariochi/spring-data-web-spec
+- title: EXPRESSO
+  url: /projects/expresso
+  demo_url: https://expresso.cariochi.com

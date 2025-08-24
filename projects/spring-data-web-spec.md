@@ -21,8 +21,6 @@ context) to Spring Data JPA Specifications.
 **Maven**
 
 ```xml
-
-<!-- https://mvnrepository.com/artifact/com.cariochi.spec/spring-data-web-spec -->
 <dependency>
     <groupId>com.cariochi.spec</groupId>
     <artifactId>spring-data-web-spec</artifactId>
@@ -42,7 +40,6 @@ If you use **Spring Boot 3.x** and have **spring-data-web-spec** on the classpat
 Autoconfiguration is enabled by default but can be disabled via:
 
 ```properties
-
 cariochi.spec.web.enabled=false
 ```
 
@@ -51,7 +48,6 @@ cariochi.spec.web.enabled=false
 If you don’t want to rely on **autoconfiguration** (or you use plain **Spring MVC without Boot**), annotate your configuration class:
 
 ```java
-
 @EnableWebSpec
 @Configuration
 public class WebConfig {
@@ -61,7 +57,6 @@ public class WebConfig {
 ## Example Usage
 
 ```java
-
 @RestController
 @RequiredArgsConstructor
 class DummyController {
@@ -105,7 +100,6 @@ class DummyController {
 3. An operator implements:
 
    ```java
-   
    interface SpecOperator<T, Y, V> {
      Specification<T> buildSpecification(SpecContext<T, Y, V> ctx);
    }
@@ -133,7 +127,6 @@ Use `@Spec.AccessControl` for filters without request input, e.g., enforcing use
 Value Supplier can be a `Supplier<List<String>>` that returns the allowed regions for the current user:
 
 ```java
-
 @Component
 @RequiredArgsConstructor
 class UserAllowedRegions implements Supplier<List<String>> {
@@ -150,7 +143,6 @@ class UserAllowedRegions implements Supplier<List<String>> {
 Usage example:
 
 ```java
-
 @Spec.AccessControl(
         path = "organization.region",
         valueSupplier = UserAllowedRegions.class,
@@ -162,4 +154,4 @@ This will automatically restrict queries to allowed regions for the current user
 
 # License
 
-The library is licensed under the [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0).
+The library is distributed under the [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0).

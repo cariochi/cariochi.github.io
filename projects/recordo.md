@@ -2,54 +2,36 @@
 title: RECORDO
 ---
 
-# Overview
+# Introduction
 
-**Recordo** is a **JUnit 5
-** extension that simplifies testing and json resource handling by implementing common functionality in a declarative manner. It can record or generate json files if they
-are absent, ensuring fast, deterministic, and accurate tests.
----
-title: RECORDO
----
+**Recordo** is a JUnit 5 extension that takes the pain out of dealing with test data and mock interactions. Instead of hard-coding DTOs, JSON strings or HTTP stubs in your tests, Recordo moves these resources into files and generates or records them when they don’t yet exist. On the first run, if the required files don’t exist, Recordo generates them (for objects or captured HTTP interactions). You review or adjust these files, and on subsequent runs Recordo loads or replays them as fixtures, making tests deterministic.
 
-## Concept
+Key benefits at a glance:
 
-The **Recordo** extension is designed to move certain test resources like DTOs, mocked or expected objects, mocked REST requests, and responses to files. This approach is
-similar to how we use the annotation `@Sql` to prepare DB data with an SQL script.
+* **Read Module** – annotate test parameters or fields with `@Read` to automatically load JSON, CSV, or ZIP resources into objects. Missing files are generated automatically, ensuring fast deterministic tests.
+* **Assertions Module** – assert JSON or CSV responses with expressive fluent APIs. Compare against expected files, filter fields, or ignore order with clear options.
+* **MockMvc Module** – build declarative HTTP clients for your controllers in tests. Use familiar Spring MVC annotations (`@GetMapping`, `@PostMapping`, etc.) and Recordo will generate typed clients, handle requests, and record responses.
+* **MockServer Module** – capture and replay HTTP traffic from real clients like `OkHttp` or `RestTemplate`. Save interactions to JSON files and replay them in tests for stable, reproducible scenarios.
 
-You don't need to manually create these files. They will be generated on the first test run.
+Recordo combines these modules into a single coherent testing toolkit. It is especially useful when working with complex DTOs, deeply nested JSON structures, or external HTTP APIs, reducing boilerplate and making tests both **readable** and **maintainable**.
 
-The most common scenario for test creation is as follows:&#x20;
+👉 Source code is available on [GitHub](https://github.com/cariochi/recordo).
 
-1. You create a test and run it for the first time. This will generate JSON or CSV files, but the test will fail.&#x20;
-2. Then, you need to examine and modify the files as needed.&#x20;
-3. Finally, you run the test for the second time, and it should pass.
-
-In case you have multiple test parameters provided by the **Recordo** extension, you may require multiple test preparation runs.
-
-## Modules
-
-There are four modules in the **Recordo** extension that can be used together or separately.
-
-[read.md](read.md)
-[assertions.md](assertions.md)
-[mockmvc.md](mockmvc.md)
-[mockserver.md](mockserver.md)
-
-# Setup
+# Getting Started
 
 ## Maven Dependencies
 
-You can include individual modules as needed or add all modules at once using the `recordo-all` artifact.
+Recordo is modular. You can either pull in **all modules** for convenience, or declare **only the ones you need**. This gives you flexibility to keep your build lean.
 
 ### All Modules
 
-To include all modules:
+Use the `recordo-all` artifact to include everything:
 
 ```xml
 <dependency>
     <groupId>com.cariochi.recordo</groupId>
     <artifactId>recordo-all</artifactId>
-    <version><!-- Use the latest version --></version>
+    <version>2.0.9</version>
     <type>pom</type>
     <scope>test</scope>
 </dependency>
@@ -57,1572 +39,667 @@ To include all modules:
 
 ### Individual Modules
 
-Alternatively, you can include any of the following modules separately:
+If you want to be explicit and import only what you actually use:
 
 ```xml
 <!-- Read Module -->
 <dependency>
     <groupId>com.cariochi.recordo</groupId>
     <artifactId>recordo-read</artifactId>
-    <version><!-- Use the latest version --></version>
+    <version>2.0.9</version>
     <scope>test</scope>
 </dependency>
 
 <!-- Assertions Module -->
 <dependency>
-<groupId>com.cariochi.recordo</groupId>
-<artifactId>recordo-assertions</artifactId>
-<version><!-- Use the latest version --></version>
-<scope>test</scope>
+    <groupId>com.cariochi.recordo</groupId>
+    <artifactId>recordo-assertions</artifactId>
+    <version>2.0.9</version>
+    <scope>test</scope>
 </dependency>
 
 <!-- MockMvc Module -->
 <dependency>
-<groupId>com.cariochi.recordo</groupId>
-<artifactId>recordo-spring-mockmvc</artifactId>
-<version><!-- Use the latest version --></version>
-<scope>test</scope>
+    <groupId>com.cariochi.recordo</groupId>
+    <artifactId>recordo-spring-mockmvc</artifactId>
+    <version>2.0.9</version>
+    <scope>test</scope>
 </dependency>
 
 <!-- MockServer Module -->
 <dependency>
-<groupId>com.cariochi.recordo</groupId>
-<artifactId>recordo-mockserver</artifactId>
-<version><!-- Use the latest version --></version>
-<scope>test</scope>
+    <groupId>com.cariochi.recordo</groupId>
+    <artifactId>recordo-mockserver</artifactId>
+    <version>2.0.9</version>
+    <scope>test</scope>
 </dependency>
 ```
 
-You can find the latest version on [Maven Repository](https://mvnrepository.com/artifact/com.cariochi.recordo).
-
 ## Compatibility
 
-* **Versions 1.x.x**: Compatible with **Java 11+** and **Spring 5.x** (**Spring Boot 2.x**).
-* **Versions 2.x.x**: Compatible with **Java 17+** and **Spring 6.x** (**Spring Boot 3.x**).
+* **1.x.x** — Java 11+ and Spring 5.x (Spring Boot 2.x)
+* **2.x.x** — Java 17+ and Spring 6.x (Spring Boot 3.x)
 
-**Important Note:** Three of the four modules (`recordo-read`, `recordo-assertions`, and `recordo-mockserver`) can be used in projects that do not utilize the **Spring
-Framework**. Only `recordo-spring-mockmvc` requires **Spring**.
+Note: the modules `recordo-read`, `recordo-assertions`, and `recordo-mockserver` work perfectly in projects **without Spring**. Only `recordo-spring-mockmvc` requires a Spring context.
 
 ## Initialize Extension
 
-To set up **Recordo** for your test, simply use the `RecordoExtension`.
+Register the JUnit 5 extension in tests:
 
 ```java
-
-@ExtendWith(RecordoExtension.class)
-class BookServiceTest {
-    ...
-}
-```
-
-## **ObjectMapper**
-
-**Recordo** uses the Jackson **ObjectMapper** for JSON operations. The logic for locating the **ObjectMapper** instance is as follows:
-
-1. As the highest priority, the **ObjectMapper** field annotated with the `@EnableRecordo` annotation will be used, if present.
-2. If **Spring** is being used and the test doesn't have a field, the library will use the **ObjectMapper** bean from the Spring context if available.
-3. In all cases other than the specific ones where a custom **ObjectMapper** instance is provided, the library will utilize its default **Recordo** **ObjectMapper**
-   instance.
-
-# Read Module
-
-The **Recordo Read** module is designed to enhance the testing experience in JUnit. This module introduces flexible and convenient ways to create test objects by
-seamlessly integrating external JSON data.
-
-If the specified JSON file is missing, **Recordo** will automatically create a new file with an object structure and populate it with random values. This feature
-streamlines test preparation, allowing developers to focus on establishing anticipated values without the need for manual file creation.
-
-The module provides three convenient approaches for reading objects:&#x20;
-
-[#interface-based-object-factory](read.md#interface-based-object-factory "mention")
-
-[#parameterized-object-factory](read.md#parameterized-object-factory "mention")
-
-[#direct-object-creation](read.md#direct-object-creation "mention")
-
-## **Annotation Parameters**
-
-The `@Read` annotation has two parameters:
-
-<table><thead><tr><th width="173">Name</th><th width="102">Type</th><th>Description</th></tr></thead><tbody><tr><td><strong>value</strong></td><td>String</td><td>Path to JSON file</td></tr><tr><td><strong>objectMapper</strong></td><td>String</td><td>Name of ObjectMapper bean or test class field</td></tr></tbody></table>
-
-## Interface-based **Object Factory**
-
-Developers can define interfaces with the `@RecordoObjectFactory` annotation to instruct **Recordo** on how to create objects. Here's an example interface:
-
-The **Interface-based Object Factories** feature is built upon the [Cariochi Objecto](broken-reference) library, inheriting all the capabilities of **Objecto** while
-expanding its functionality. Additionally, it introduces the usage of the `@Read` annotation for factory methods, altering the behavior of the method by transforming it
-from generating a random object on each invocation to generating it only upon the first usage and subsequently persisting it to a file.
-
-For detailed information and documentation regarding the **Objecto** library, please refer to the [Objecto documentation](broken-reference).
-
-### Declaration
-
-```java
-
-@RecordoObjectFactory
-public interface LogRecordObjectFactory {
-
-    // Factory methods with @Read annotation
-    @Read("/messages/log.json")
-    LogRecord getLogRecord();
-
-    @Read("/messages/log.json")
-    LogRecord getLogRecord(@Modifier("id") Long id);
-
-    @Read("/messages/logs.json")
-    List<LogRecord> getLogRecords();
-
-    @Read("/files/output.zip")
-    byte[] getOutputFile();
-
-    // Modification methods without @Read annotation
-    @Modifier("id")
-    LogRecordObjectFactory withId(Long id);
-
-    @Modifier("responses[0].status")
-    LogRecordObjectFactory withFirstResponseStatus(ResponseStatus status);
-
-    @Modifier("responses[*].status")
-    LogRecordObjectFactory withAllResponseStatuses(ResponseStatus status);
-
-}
-```
-
-**Factory Methods:**
-
-Methods annotated with `@Read` represent factory methods for creating objects, specifying the JSON file paths and parameters.
-
-* **Return Type:** The factory method's return type should be the object you want to create.
-* **@Read Annotation:** Apply the `@Read` annotation to specify the path to the JSON file containing the object's data.
-* **Parameters:** If the object creation involves parameters, use method parameters annotated with `@Modifier`  to specify the paths within the object that need to be
-  modified.
-
-**Modification Methods:**
-
-Methods annotated with `@Modifier` serve as modification methods, allowing developers to alter the factory object with specific parameters.
-
-* **Return Type:** The return type should be the same factory interface (`LogRecordObjectFactory` in this case).
-* **@Modifier Annotation:** Use the `@Modifier` annotation on methods to specify the paths within the object that need to be modified.
-
-### Usage
-
-```java
-
 @ExtendWith(RecordoExtension.class)
 class MyTest {
-
-    private TestDtoObjectFactory objectFactory = Recordo.create(TestDtoObjectFactory.class);
-
-    @Test
-    void createLogRecord() {
-
-        // Use factory methods to create LogRecord objects
-        LogRecord log = factory.getLogRecord();
-
-        // ...
-
-        // Create a new LogRecord using the modification methods
-        LogRecord modifiedLog = factory
-                .withId(123)
-                .withFirstResponseStatus(ResponseStatus.SUCCESS)
-                .getLogRecord()
-
-        // ...
-
-        // Use factory methods to read file content
-        byte[] fileContent = factory.getOutputFile();
-
-        // ...
-
-    }
-}
-```
-
-## Parameterized Object Factory
-
-Developers can use the `ObjectFactory` class along with the `@Read` annotation to create objects with specified parameters.&#x20;
-
-### Usage example
-
-```java
-@Read("/messages/log.json")
-private ObjectFactory<LogRecord> logFactory;
-
-@Test
-void shouldGetLogStats() {
-    // Given
-    List<LogRecord> logs = List.of(
-
-            // creates a LogRecord object with default values
-            logFactory.create(),
-
-            // creates a LogRecord object with the "id" field set to "TEST-100"
-            logFactory.with("id", "TEST-100").create(),
-
-            // creates a LogRecord object with the status of the second response set to FAILED
-            logFactory.with("responses[1].status", ResponseStatus.FAILED).create(),
-
-            // creates a LogRecord object with an empty list for the "responses" field
-            logFactory.with("responses", emptyList()).create()
-
-    );
-
-    // Perform additional test logic with the created LogRecord objects
     // ...
 }
 ```
 
-### How it Works
+## ObjectMapper
 
-1. **@Read Annotation:** Annotate a field of type `ObjectFactory<T>` with the `@Read` annotation, where `T` is the type of object to be created.
-2. **ObjectFactory Methods:**
-    * **create():** Create an object using the default values specified in the associated JSON file.
-    * **with(String key, Object value):** Specify a key-value pair to modify the object being created. The key uses a JSONPath-like syntax.
+Recordo uses Jackson `ObjectMapper` for JSON serialization and deserialization. The resolution order is:
 
-## Direct Object Creation
+1. If a test class has a field annotated with `@EnableRecordo`, that `ObjectMapper` instance will be used.
+2. If no such field is present and you run under Spring, Recordo will look for a single `ObjectMapper` bean in the application context.
+3. If neither is found, a built‑in default mapper is used.
 
-Among its features, the module offers a straightforward method for creating objects directly within test methods using the `@Read` annotation.
+You can register multiple mappers and reference them by name in annotations (e.g., `@Read(objectMapper = "customMapper")`).
 
-Developers can use the `@Read` annotation on test methods to effortlessly create objects with default values, simplifying the testing process. This method is suitable for
-scenarios where customization or modification of object values is not required.
+## Additional Properties
 
-### Usage Examples
+You can fine-tune behavior in `recordo.properties` on the test classpath:
 
-In the given examples, the test methods effortlessly create objects using the data from the JSON file. Developers can focus on writing test logic without additional setup
-or object instantiation.
+**`recordo.resources.root`**
+Overrides the base directory where Recordo **reads** expected files and **writes** generated/recorded ones.
+*Default:* `src/test/resources/`
 
-**Single object**
+Examples:
+
+```properties
+recordo.resources.root=src/it/resources
+```
+**`recordo.http.headers.included`**
+Comma‑separated list of header names that must be included into recordings and used for matching during replay.
+
+**`recordo.http.headers.sensitive`**
+Comma‑separated list of **sensitive** headers that should be masked in stored recordings (e.g., `Authorization`).
+
+Examples:
+
+```properties
+recordo.http.headers.included=Accept,Content-Type,Authorization
+recordo.http.headers.sensitive=Authorization,Set-Cookie
+```
+
+# Read Module
+
+The Read module lets you source test objects from external files and keep them under version control. If a referenced file is missing on the first run, Recordo generates it with a sensible structure and randomized values; on subsequent runs the same file is read back, keeping your tests deterministic.
+
+## Annotation Parameters
+
+`@Read` supports:
+
+* **`value`** – resource path (e.g. `/books/book.json`).
+* **`objectMapper`** – optional name of an `ObjectMapper` bean or test‑class field to use for (de)serialization.
+
+## Approach 1 — Interface‑based Object Factory
+
+Declare a factory interface with `@RecordoObjectFactory`. Mark factory methods with `@Read` to bind them to files. Use `@Modifier` methods for fluent tweaks.
 
 ```java
+@RecordoObjectFactory
+public interface LogRecordFactory {
 
-@Test
-void should_create_book(
-        @Read("/books/book.json") Book book
-) {
-    ...
+    // one object
+    @Read("/messages/log.json")
+    LogRecord logRecord();
+
+    // list of objects
+    @Read("/messages/logs.json")
+    List<LogRecord> list();
+
+    // raw bytes (e.g., zip archive)
+    @Read("/files/out.zip")
+    byte[] archive();
+
+    // fluent modifications
+    @Modifier("id")
+    LogRecordFactory withId(long id);
+
+    @Modifier("responses[0].status")
+    LogRecordFactory withFirstStatus(Status status);
 }
 ```
 
-**List of objects**
+**Usage**
 
 ```java
+@ExtendWith(RecordoExtension.class)
+class LogTests {
+    
+    LogRecordFactory factory = Recordo.create(LogRecordFactory.class);
 
-@Test
-void should_read_books(
-        @Read("/books/books.json") List<Book> books
-) {
-    ...
+    @Test
+    void creates_and_modifies() {
+        LogRecord base = factory.logRecord();
+        LogRecord modified = factory.withId(123).withFirstStatus(Status.SUCCESS).logRecord();
+        byte[] zip = factory.archive();
+    }
 }
 ```
 
-**Strings**
+## Approach 2 — Direct Object Creation
+
+Use `@Read` directly on test parameters for quick loading without factories.
 
 ```java
+@Test
+void single_object(@Read("/books/book.json") Book book) { /* ... */ }
 
 @Test
-void should_parse_string(
-        @Read("/books/text.txt") String string
-) {
-    ...
-}
-```
-
-**Bytes**
-
-```java
+void list_of_objects(@Read("/books/books.json") List<Book> books) { /* ... */ }
 
 @Test
-void should_upload_zip_archive(
-        @Read("/books/books.zip") byte[] content
-) {
-    ...
-}
+void as_string(@Read("/texts/info.txt") String text) { /* ... */ }
+
+@Test
+void as_bytes(@Read("/files/archive.zip") byte[] bytes) { /* ... */ }
 ```
 
-### **How it Works**
+## Supported Types
 
-* **@Read Annotation:** Apply the `@Read` annotation to a method parameter to signify that the associated JSON file should be used to create an object.
-* **Default Object Creation:** The `@Read` annotation, when applied directly to a test method parameter, signals Recordo to create an object with default values specified
-  in the associated JSON file.
+* POJOs/DTOs via Jackson
+* `List<T>` / arrays
+* `String`
+* `byte[]`
+
+## First‑Run Behavior
+
+* If the target file does not exist, Recordo **creates** it with a generated example that matches the return type.
+* You may edit the file to your needs; subsequent runs **read** it as a fixture.
+
+> Tip: prefer small, focused files per test scenario; this keeps diffs readable and reviewable.
 
 # Assertions Module
 
-## JsonAssertion
+The Assertions module compares objects and strings against JSON/CSV files using three classes:
 
-Asserts that the actual object is equal as JSON to the expected one stored in a file.
+* `JsonAssertion` — object ⇄ JSON file comparison.
+* `JsonCondition` — AssertJ `Condition` for object ⇄ JSON file comparison.
+* `CsvAssertion` — CSV string ⇄ CSV file comparison.
 
-If the expected JSON file is missing, the actual value will be saved as expected.
 
-All you need to do is verify the details, and the test will be ready.
+## JSON Assertions (`JsonAssertion`)
 
-If an assertion fails, the actual value will be saved in a new file for manual comparison.
-
-### JsonAssertion Parameters
-
-#### **.using**(ObjectMapper mapper)
-
-Sets the ObjectMapper to be used for JSON conversion.
-
-#### **.extensible**(boolean value)
-
-Sets whether the comparison should allow for additional properties in the expected JSON.&#x20;
-
-Defaults to false.
-
-#### **.withStrictOrder**(boolean value)
-
-Sets whether the order of elements in the JSON arrays should be strictly enforced.&#x20;
-
-Defaults to true.
-
-#### **.including**(String... fields)
-
-Specifies a list of fields to be included during comparison.&#x20;
-
-Fields can be specified with nested structures using dot notation (e.g., `parent.name`, `user.role.name`).&#x20;
-
-You can also use index for collections and arrays (e.g., `children[0].id`, `issues[0].tags[0].text`) or wildcard character `*` _to match any element (e.g.,_
-`children[*].name`, `issues[*].tags[*].text`).
-
-#### **.excluding**(String... fields)
-
-Specifies a list of fields to be excluded during comparison.&#x20;
-
-Fields can be specified with nested structures using dot notation (e.g., `parent.name`, `user.role.name`).&#x20;
-
-You can also use index for collections and arrays (e.g., `children[0].id`, `issues[0].tags[0].text`) or wildcard character `*` _to match any element (e.g.,_
-`children[*].name`, `issues[*].tags[*].text`).
-
-### Examples
-
-**Java**
+Pass any object (e.g., DTOs, collections, pages). Recordo will serialize it via Jackson and compare with the expected JSON file.
 
 ```java
+import static com.cariochi.recordo.assertions.JsonAssertion.assertAsJson;
 
 @Test
-void should_get_book_by_id() {
-    Book actual = bookService.getById(1L);
+void shouldMatchBooksShortView() {
+    Page<Book> books = bookService.findAllByAuthor(author);
 
-    JsonAssertion.assertAsJson(actual)
-            .isEqualTo("/books/book.json");
+    assertAsJson(books)
+        .including("content[*].id", "content[*].title", "content[*].author.id")
+        .isEqualTo("/books/short_books.json");
 }
 ```
 
-**book.json**
+### Options
 
-```javascript
-{
-  "id"
-:
-  1,
-      "title"
-:
-  "Othello",
-      "author"
-:
-  {
-    "id"
-  :
-    1,
-        "firstName"
-  :
-    "William",
-        "lastName"
-  :
-    "Shakespeare"
-  }
-}
-```
+* `.including(paths...)` — compare only the listed JSON paths.
+* `.excluding(paths...)` — ignore listed paths.
+* `.extensible(true)` — allow extra fields.
+* `.withStrictOrder(true)` — require array order to match.
+* `.using(ObjectMapper)` — custom mapper.
 
-**Java**
+
+## JSON Assertions as AssertJ Condition (`JsonCondition`)
+
+`JsonCondition` provides an alternative syntax for the same functionality. It supports the same options as `JsonAssertion`.
 
 ```java
+import static com.cariochi.recordo.assertions.JsonCondition.equalAsJsonTo;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @Test
-void should_get_books_by_author(
-        @Read("/books/author.json") Author author
-) {
-    Page<Book> actual = bookService.findAllByAuthor(author);
+void shouldMatchBooksShortView_withCondition() {
+    Page<Book> books = bookService.findAllByAuthor(author);
 
-    JsonAssertion.assertAsJson(actual)
-            .using(objectMapper)
-            .extensible(true)
+    assertThat(books)
+        .is(equalAsJsonTo("/books/short_books.json")
             .including("content[*].id", "content[*].title", "content[*].author.id")
-            .isEqualTo("/books/short_books.json");
+        );
 }
 ```
 
-**author.json**
 
-```javascript
-{
-  "id"
-:
-  1,
-      "firstName"
-:
-  "William",
-      "lastName"
-:
-  "Shakespeare"
-}
-```
+## CSV Assertions (`CsvAssertion`)
 
-**short:books.json**
-
-```javascript
-{
-  "content"
-:
-  [
-    {
-      "id": 1,
-      "title": "Othello",
-      "author": {
-        "id": 1
-      }
-    },
-    {
-      "id": 2,
-      "title": "Macbeth",
-      "author": {
-        "id": 1
-      }
-    },
-    {
-      "id": 3,
-      "title": "Richard II",
-      "author": {
-        "id": 1
-      }
-    }
-  ]
-}
-```
-
-**Java**
+Compare an **actual CSV string** with an expected CSV file.
 
 ```java
+import static com.cariochi.recordo.assertions.CsvAssertion.assertCsv;
 
 @Test
-void should_get_all_books() {
-    List<Book> actual = bookService.findAll();
+void shouldMatchCsv() {
+    String actualCsv = "id,name\n1,John\n";
 
-    JsonAssertion.assertAsJson(actual)
-            .excluding("author.firstName", "author.lastName")
-            .withStrictOrder(false)
-            .isEqualTo("/books/short_books.json");
+    assertCsv(actualCsv)
+        .withHeaders(true)
+        .withStrictOrder(true)
+        .withColumnSeparator(';')
+        .withLineSeparator("\r\n")
+        .isEqualsTo("/expected/users.csv");
 }
 ```
 
-**short:books.json**
+### Options
 
-```javascript
-{
-  "content"
-:
-  [
-    {
-      "id": 1,
-      "title": "Othello",
-      "author": {
-        "id": 1
-      }
-    },
-    {
-      "id": 2,
-      "title": "Macbeth",
-      "author": {
-        "id": 1
-      }
-    },
-    {
-      "id": 3,
-      "title": "Richard II",
-      "author": {
-        "id": 1
-      }
-    }
-  ]
-}
+* `.withHeaders(boolean)` — treat the first row as a header.
+* `.withStrictOrder(boolean)` — require rows to appear in the same order.
+* `.withColumnSeparator(char)` — set a custom column separator (default is comma).
+* `.withLineSeparator(String)` — set a custom line separator.
+
+
+## First Run & Debugging Failures
+
+* **First run (or if the expected file was deleted)**: Recordo serializes the actual data (object or CSV string) and creates the corresponding JSON/CSV file automatically.
+* **When a comparison fails**: Recordo writes the actual data into an `ACTUAL/` subfolder next to the expected file, using the same file name as in `isEqualTo`. For example, `/books/short_books.json` will produce `/books/ACTUAL/short_books.json`. This allows you to diff expected vs actual in your IDE. The `ACTUAL/` folder is only for debugging — delete it after review and never commit it to version control.
+
+## Recommended .gitignore additions
+
 ```
-
-## CsvAssertion
-
-Asserts that the CSV string matches the expected one from a file.
-
-If the expected CSV file is missing, the actual value will be saved as expected.
-
-You only need to verify them, and then the test will be ready.
-
-If an assertion fails, the actual value will be saved for manual comparison.
-
-### CsvAssertion Parameters
-
-|                         |                                                                       |
-|-------------------------|-----------------------------------------------------------------------|
-| **withHeaders**         | With header line. Default value is `false`.                           |
-| **withStrictOrder**     | Requires strict ordering of array elements. Default value is `false`. |
-| **withColumnSeparator** | Default value is `,`                                                  |
-| **withLineSeparator**   | Default value is                                                      |
-
-### Examples
-
-```java
-
-@Test
-void test() {
-    String csv = ...
-    CsvAssertion.assertCsv(csv)
-            .withHeaders(true)
-            .withStrictOrder(false)
-            .isEqualsTo("/expected.csv");
-}
+# Recordo temporary outputs
+**/ACTUAL/
 ```
 
 # MockMvc Module
 
-The **Recordo MockMvc** module empowers developers to streamline the testing of controllers using the MockMvc framework, offering two powerful mechanisms for testing
-flexibility:
+This module lets you call Spring MVC controllers via **type‑safe clients** defined as annotated interfaces and executed with Spring `MockMvc`.
 
-[#api-client-interfaces](mockmvc.md#api-client-interfaces "mention")
+⚠️ Recordo will work only if there is a **single `MockMvc` instance** available in the Spring context.
 
-[#test-parameters](mockmvc.md#test-parameters "mention")
 
-## API Client Interfaces
-
-Developers can define an interface where they specify the API endpoints they want to test using standard Spring annotations. This intuitive approach simplifies the
-testing process, as **Recordo** handles the underlying logic. Developers only need to autowire this interface in their test classes.
-
-### **Example Interface**
+## Define the client interface
 
 ```java
-
-@RecordoApiClient(interceptors = AuthInterceptor.class)
+@RecordoApiClient(
+    objectMapper = "customMapper",                                      // bean name (optional)
+    interceptors = { LocaleInterceptor.class, AuthInterceptor.class }   // optional
+)
 @RequestMapping("/users")
-public interface UserApiClient {
+interface UserApiClient {
 
     @GetMapping("/{id}")
-    UserDto findById(@PathVariable int id);
-
-    @GetMapping("/{id}")
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    ErrorDto findById_NotFound(@PathVariable int id);
-
-    @GetMapping
-    Page<UserDto> findAll(@RequestParam("q") String query, Pageable pageable);
-
-    @PostMapping("/{id}/pic")
-    void uploadPic(@PathVariable int id, @RequestParam Request.File file);
+    UserDto findById(@PathVariable("id") Long id);
 
     @PostMapping
-    UserDto create(@RequestBody UserDto userDto);
+    @ResponseStatus(HttpStatus.CREATED)
+    UserDto create(@RequestBody UserDto user);
 
     @DeleteMapping("/{id}")
-    void delete(@PathVariable int id);
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    void delete(@PathVariable("id") Long id);
+
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    ErrorDto getById_withErrors(@PathVariable int id,
+                                @RequestParam("name") String name,
+                                @RequestHeader("Authorization") String auth);
 }
 ```
 
-### Usage Examples
+**Notes**
+
+* In `@RecordoApiClient` interfaces you use **standard Spring annotations**: `@RequestMapping`, `@GetMapping`, `@PostMapping`, `@DeleteMapping`, `@PathVariable`, `@RequestParam`, `@RequestBody`, `@RequestHeader`, `@ResponseStatus`.
+* Recordo executes requests via `MockMvc`, automatically verifies the HTTP status, and maps the response body into the declared return type.
+* The expected status is declared with `@ResponseStatus`. This allows you to write not only positive tests but also **error handling** or **security tests**.
+
+
+## Create and use the client
 
 ```java
-
-@ExtendWith(RecordoExtension.class)
 @WebMvcTest(UserController.class)
+@ExtendWith(RecordoExtension.class)
 class UserControllerTest {
-
-    @Autowired
-    private UserApiClient apiClient;
-
-    @Test
-    void should_find_by_id() {
-        // ...
-        UserDto user = apiClient.findById(1L);
-        // ...
-    }
+    
+    private final UserApiClient api = Recordo.create(UserApiClient.class);
 
     @Test
-    void should_get_not_found_error() {
-        // ...
-        ErrorDto error = apiClient.findById_NotFound(1L);
-        // ...
+    void shouldCreateAndFetch() {
+        UserDto created = api.create(new UserDto("John"));   // 201 CREATED (from @ResponseStatus)
+        UserDto loaded  = api.findById(created.getId());     // 200 OK (default)
     }
-
-    @Test
-    void should_find_all() {
-        // ...
-        PageRequest pageRequest = PageRequest.of(0, 20, Sort.by(asc("name")));
-        Page<UserDto> users = apiClient.findAll("john", pageRequest);
-        // ...
-    }
-
-    @Test
-    void should_create_user(
-            @Read("/users/new_user.json") UserDto newUser
-    ) {
-        // ...
-        UserDto createdUser = apiClient.create(newUser);
-        // ...
-    }
-
-    @Test
-    void should_upload_pic() {
-        // ...      
-        Request.File file = Request.File.builder()
-                .name("pic.png")
-                .content(fileBytes)
-                .build();
-
-        apiClient.uploadPic(1L, file);
-        // ...
-    }
-
 }
-
 ```
 
-## Test Parameters
 
-Developers can declare necessary requests directly as parameters in their test methods, specifying the HTTP method, URI, request body, and other details. This approach
-provides fine-grained control over requests.
+## Return types
 
-### **Annotation Parameters**
+Recordo MockMvc clients support three styles of return values:
 
-<table><thead><tr><th width="167">Name</th><th width="241">Type</th><th>Description</th></tr></thead><tbody><tr><td><strong>value</strong></td><td>String</td><td>Request path</td></tr><tr><td><strong>headers</strong></td><td>String[]</td><td>List of headers</td></tr><tr><td><strong>expectedStatus</strong></td><td>HttpStatus</td><td>Expected HTTP status (OK by default)</td></tr><tr><td><strong>interceptors</strong></td><td>Class&#x3C;? extends RequestInterceptor>[]</td><td>List of request Interceptors</td></tr><tr><td><strong>objectMapper</strong></td><td>String</td><td>Name of ObjectMapper bean or test class field</td></tr></tbody></table>
-
-### Usage Examples
+**Direct result**
 
 ```java
-
-@Test
-void shouldGetBooks(
-        @Get("/users/1/books?page=2") Page<Book> books
-) {
-    // Perform test assertions using the retrieved books
-    // ...
-}
-
-@Test
-void shouldGetNotFound(
-        @Get(value = "/users/1/books?page=2", expectedStatus = HttpStatus.NOT_FOUND) ErrorDto errorDto
-) {
-    // ...
-}
-
-@Test
-void shouldCreateBook(
-        @Post(value = "/books", expectedStatus = HttpStatus.CREATED) Request<Book> request
-) {
-    // Create a book instance
-    Book book = ...
-
-    // Perform the request and retrieve the response
-    Response<Book> response = request.body(book).perform();
-    Book createdBook = response.getBody();
-    // Perform test assertions using the created book
-    // ...
-}
-
-@Test
-void shouldUpdateBook(
-        @Put(value = "/books", body = @Content(file = "/book.json")) Book updatedBook
-) {
-    // Perform test assertions using the updated book
-    // ...
-}
-
-@Test
-void shouldDeleteBook(
-        @Delete(value = "/books/{id}", expectedStatus = HttpStatus.NO_CONTENT) Response<Void> response
-) {
-    // Perform test assertions for successful deletion
-    // ...
-}
-
-```
-
-## Type Options
-
-Available in both the API client interfaces and when declaring requests as test parameters
-
-Developers have flexibility in choosing how they handle response and request types. Result Type Options offer a convenient way to interact with API responses for diverse
-testing scenarios.
-
-#### 1. Object Result Type (`Page<Book>`, `Book`)
-
-Developers can directly retrieve the response body as an object, simplifying test assertions.&#x20;
-
-**Interface Usage:**
-
-```java
-
+// Declaration
 @GetMapping("/{id}")
-UserDto findById(@PathVariable int id);
+UserDto getById(@PathVariable int id, @RequestParam("name") String name);
+
+// Usage
+UserDto user = apiClient.getById(1, "Test User");
 ```
 
-**Test Parameter Usage:**
+**Response wrapper**
 
 ```java
-@Get("/users/1/books?page=2") Page<Book> books
-```
-
-#### 2. Response Object (`Response<Book>`, `Response<Void>`)
-
-Developers can declare the response type as an object to access detailed information such as status and headers.&#x20;
-
-**Interface Usage:**
-
-```java
-
+// Declaration
 @GetMapping("/{id}")
-Response<UserDto> findById(@PathVariable int id);
+Response<UserDto> getById(@PathVariable int id, @RequestParam("name") String name);
+
+// Usage
+Response<UserDto> response = apiClient.getById(1, "Test User");
+UserDto userDto = response.getBody();
+Map<String, String> headers = response.getHeaders();
+HttpStatus status = response.getStatus();
 ```
 
-**Test Parameter Usage:**
+**Request object**
 
 ```java
-@Get("/users/1/books?page=2") Response<Page<Book>> booksResponse
-```
-
-#### 3. Request Object (`Request<Book>`)
-
-Developers can use the `Request` type to perform additional customizations before executing the request.&#x20;
-
-**Interface Usage:**
-
-```java
-
+// Declaration
 @GetMapping("/{id}")
-Request<UserDto> findById(@PathVariable int id);
+Request<UserDto> getById(@PathVariable int id, @RequestParam("name") String name);
+
+// Usage
+Request<UserDto> request = apiClient.getById(1, "Test User");
+Response<UserDto> response = request.header("Authorization", "Bearer ...").perform();
 ```
 
-**Test Parameter Usage:**
+
+## Request interceptors
+
+Declare interceptors in `@RecordoApiClient(interceptors = {...})`. Resolution order:
+
+1. if a Spring bean of that type exists in the context — it is used;
+2. otherwise, the interceptor is **instantiated via default constructor**.
+
+Interceptors can mutate outgoing requests (e.g., add headers) before they are executed by `MockMvc`.
+
+**Example:**
 
 ```java
-@Get("/users/1/books?page=2") Request<Page<Book>> booksRequest
-```
+@Component
+@RequiredArgsConstructor
+public class AuthInterceptor implements RequestInterceptor {
 
+    private static SecurityService securityService;
+    
+    @Override
+    public Request<?> apply(Request<?> request) {
+        if (request.headers().get("Authorization") == null) {
+            request = request.header("Authorization", "Bearer " + securityService.currentToken());
+        }
+        return request;
+    }
+}
+```
 # MockServer Module
 
-During the first test run or in the absence of a file, all real interactions are recorded into a file.
+Recordo can **record** real HTTP interactions on the first run and **replay** them on subsequent runs. Interactions are persisted as JSON and kept under version control, so your tests remain deterministic.
 
-Once the file is saved, it is automatically utilized for mocking purposes.
+## How it works on test runs
 
-## Setup
+* **First run (or if the file is missing)** — real HTTP calls are executed; Recordo captures request/response pairs and writes them to the configured file/folder.
+* **Subsequent runs** — HTTP calls are **not** sent to the network; responses are taken from the saved JSON.
 
-### HTTP Interceptor
+This module keeps your integration tests fast, repeatable, and reviewable (recordings are plain JSON files).
 
-**Recordo** adds an interceptor to your HTTP client to capture and replay HTTP requests and responses.
 
-\
-At present, three HTTP clients are supported:
+## Setup with Spring
 
-* Spring RestTemplate
-* OkHttp Client
-* Apache HTTP Client
+### Interceptor-first integration (primary)
 
-**Recordo** searches for an HTTP client in the application context. If you are not using the **Spring** **Framework** or if you don't have an HTTP client or have multiple
-ones, you can specify which HTTP client to use by explicitly adding the `@EnableRecordo` annotatio&#x6E;**.**
+Recordo integrates via a **dedicated HTTP interceptor bean** that you attach to your HTTP client. The main idea: **create an interceptor bean and add it to the client**, so that Recordo can intercept requests/responses.
 
-If you need to use multiple MockServers for different HTTP clients, you can specify the HTTP client bean or the name of the test class field in the \`httpClient\`
-annotation parameter.
+Available interceptors:
 
-**RestTemplate**
+* `ApacheRecordoInterceptor`
+* `RestClientRecordoInterceptor`
+* `RestTemplateRecordoInterceptor`
+* `OkhttpRecordoInterceptor`
+
+> Make the interceptor a Spring **bean** and wire it into the client you use.
+
+**OkHttp (OkHttpClient)**
 
 ```java
-@Autowired
-@EnableRecordo
-private RestTemplate restTemplate;
+@Bean
+OkhttpRecordoInterceptor recordoOkhttpInterceptor() { return new OkhttpRecordoInterceptor(); }
+
+@Bean
+OkHttpClient okHttpClient(OkhttpRecordoInterceptor interceptor) {
+    return new OkHttpClient.Builder()
+        .addInterceptor(interceptor)
+        .build();
+}
 ```
 
-**OkHttp**
+**Apache HttpClient (client5)**
 
 ```java
-@Autowired
-@EnableRecordo
-private OkHttpClient okHttpClient;
+@Bean
+ApacheRecordoInterceptor recordoApacheInterceptor() { return new ApacheRecordoInterceptor(); }
+
+@Bean
+org.apache.hc.client5.http.classic.HttpClient apacheHttpClient(ApacheRecordoInterceptor interceptor) {
+    return HttpClients.custom()
+        .addRequestInterceptorFirst(interceptor)
+        .build();
+}
 ```
 
-**Apache HttpClient**
+**Spring RestTemplate**
 
 ```java
-@Autowired
-@EnableRecordo
-private HttpClient httpClient;
+@Bean
+RestTemplateRecordoInterceptor recordoRestTemplateInterceptor() { return new RestTemplateRecordoInterceptor(); }
+
+@Bean
+RestTemplate restTemplate(RestTemplateRecordoInterceptor interceptor) {
+    var restTemplate = new RestTemplate();
+    restTemplate.getInterceptors().add(interceptor);
+    return restTemplate;
+}
 ```
 
-### OpenFeign Client definition example
-
-You can use an HTTP client that has been intercepted underneath **OpenFeign** or other high-level clients.
-
-**OkHttp**
+**Spring RestClient**
 
 ```java
+@Bean
+RestClientRecordoInterceptor recordoRestClientInterceptor() { return new RestClientRecordoInterceptor(); }
 
+@Bean
+RestClient restClient(RestClientRecordoInterceptor interceptor) {
+    return RestClient.builder()
+        .requestInterceptor(interceptor)
+        .build();
+}
+```
+
+### Auto-wiring client bean (alternative)
+
+As an alternative, Recordo can **search for an HTTP client bean** in the Spring context and automatically attach its interceptor. This requires no explicit interceptor wiring, but works only when there is a **single supported client bean** of that type in the context.
+
+Example with `RestTemplate`:
+
+```java
+@SpringBootTest
+class BookServiceTest {
+
+    @Autowired
+    private RestTemplate restTemplate; // Recordo will detect and wrap it automatically
+
+    @Test
+    @MockServer("/mock_servers/books.json")
+    void should_retrieve_books() {
+        List<Book> books = bookClient.getBooks();
+        // interactions recorded or replayed automatically
+    }
+}
+```
+
+## Using Recordo without Spring
+
+Recordo can also be used in projects **without Spring**. In this case you annotate the HTTP client or interceptor field with `@EnableRecordo`, and Recordo will instrument it directly.
+
+### With explicit interceptor
+
+```java
+@ExtendWith(RecordoExtension.class)
+class GitHubServiceTest {
+
+    @EnableRecordo
+    private final OkhttpRecordoInterceptor recordoInterceptor = new OkhttpRecordoInterceptor();
+
+    private final OkHttpClient client = new OkHttpClient.Builder()
+            .addInterceptor(recordoInterceptor)
+            .build();
+
+    private final GitHubService service = new GitHubService(client);
+
+    @Test
+    @MockServer("/mockserver/gists.mock.json")
+    void test_mock_server() {
+        List<GistDto> gists = service.getGists();
+        // first run records, next runs replay
+    }
+}
+```
+
+### Without explicit interceptor
+
+```java
+@ExtendWith(RecordoExtension.class)
+class GitHubServiceTest {
+
+    @EnableRecordo
+    private final OkHttpClient client = new OkHttpClient();
+
+    private final GitHubService service = new GitHubService(client);
+
+    @Test
+    @MockServer("/mockserver/gists.mock.json")
+    void test_mock_server() {
+        List<GistDto> gists = service.getGists();
+        // first run records, next runs replay
+    }
+}
+```
+
+In both cases, `@EnableRecordo` tells Recordo to wrap the client or interceptor so that interactions can be recorded and replayed during tests.
+
+
+## OpenFeign (via supported HTTP clients)
+
+OpenFeign can be used together with Recordo by wiring it to one of the **supported HTTP clients** (OkHttp or Apache HttpClient). Recordo will attach its interceptors to the underlying client and capture/replay calls.
+
+**OkHttp setup**
+
+```java
 @Bean
 public okhttp3.OkHttpClient okHttpClient() {
     return new okhttp3.OkHttpClient();
 }
 
 @Bean
-public feign.Client feignClient(OkHttpClient okHttpClient) {
+public feign.Client feignClient(okhttp3.OkHttpClient okHttpClient) {
     return new feign.okhttp.OkHttpClient(okHttpClient);
 }
 ```
 
-**Apache HttpClient**
+**Apache HttpClient setup**
 
 ```java
-
 @Bean
-public HttpClient apacheHttpClient() {
+public org.apache.hc.client5.http.classic.HttpClient apacheHttpClient() {
     return HttpClients.createDefault();
 }
 
 @Bean
-public feign.Client feignClient(HttpClient apacheHttpClient) {
+public feign.Client feignClient(org.apache.hc.client5.http.classic.HttpClient httpClient) {
     return new feign.httpclient.ApacheHttpClient(httpClient);
 }
 ```
 
+> Note: Recordo interacts with Feign **through** the configured OkHttp/Apache client by inserting its interceptors. Make sure these clients are the ones used by Feign in the Spring context.
+
+
 ## Annotation Parameters
 
-The `@MockServer` annotation has 4 parameters:
+Use `@MockServer` on a test method (or class). Parameters:
 
-<table><thead><tr><th width="156">Name</th><th width="109">Type</th><th>Description</th></tr></thead><tbody><tr><td><strong>value</strong></td><td>String</td><td><p></p><p>The <code>value</code> property in the MockServer annotation can specify both file and folder paths:</p><ul><li><strong>File Path (<code>.json</code>):</strong> <br>Records and replays multiple requests in a single file.</li><li><strong>Folder Path (No <code>.json</code>):</strong> <br>Creates individual JSON files for each request in the folder.</li></ul></td></tr><tr><td><strong>urlPattern</strong></td><td>String</td><td>The mapping matches URLs using the following rules:<br><code>?</code> matches one character<br><code>*</code>matches zero or more characters<br><code>**</code> matches zero or more directories in a path</td></tr><tr><td><strong>httpClient</strong></td><td>String</td><td>Name of RestTemplate, OkHttp, or Apache HTTP Client bean or test class field</td></tr><tr><td><strong>objectMapper</strong></td><td>String</td><td>Name of ObjectMapper bean or test class field</td></tr></tbody></table>
+* **`value`** (String) — path to the storage location:
+  * **File path** ending with `.json` → *all interactions* are recorded into a **single file**.
+  * **Folder path** (no `.json`) → each interaction is recorded as a **separate JSON file** inside the folder.
+
+
+* **`urlPattern`** (String) — optional URL matcher; supports `?` (one char), `*` (zero or more chars), `**` (zero or more path segments).
+
+
+* **`beanName`** (String) — bean name, which can be either the name of the interceptor bean (in interceptor-first mode) or the client bean (in auto-wiring mode).
+
+
+* **`objectMapper`** (String) — name of `ObjectMapper` bean or test field.
+
 
 ## Examples
 
-#### Single Server
-
-**Java**
+### Single server (file storage)
 
 ```java
-
 @Test
 @MockServer("/mock_servers/get_gists.json")
 void should_retrieve_gists() {
-    ...
     List<GistResponse> gists = gitHubClient.getGists();
-    ...
+    // first run records, next runs replay
 }
 ```
 
-**get_gists.json (recorded)**
-
-```javascript
-[
-  {
-    "request": {
-      "method": "GET",
-      "url": "https://api.github.com/gists",
-      "headers": {
-        "authorization": "********",
-        "accept": "application/json, application/*+json"
-      },
-      "body": null
-    },
-    "response": {
-      "protocol": "HTTP/1.1",
-      "statusCode": 200,
-      "statusText": "OK",
-      "headers": {
-        "content-type": "application/json; charset=utf-8"
-      },
-      "body": [
-        {
-          "url": "https://api.github.com/gists/77c974bae1167df5c880f4849b7e001c",
-          "forks_url": "https://api.github.com/gists/77c974bae1167df5c880f4849b7e001c/forks",
-          "commits_url": "https://api.github.com/gists/77c974bae1167df5c880f4849b7e001c/commits",
-          "id": "77c974bae1167df5c880f4849b7e001c",
-          "node_id": "MDQ6R2lzdDc3Yzk3NGJhZTExNjdkZjVjODgwZjQ4NDliN2UwMDFj",
-          "git_pull_url": "https://gist.github.com/77c974bae1167df5c880f4849b7e001c.git",
-          "git_push_url": "https://gist.github.com/77c974bae1167df5c880f4849b7e001c.git",
-          "html_url": "https://gist.github.com/77c974bae1167df5c880f4849b7e001c",
-          "files": {
-            "hello_world.txt": {
-              "filename": "hello_world.txt",
-              "type": "text/plain",
-              "language": "Text",
-              "raw_url": "https://gist.githubusercontent.com/vadimdeineka/77c974bae1167df5c880f4849b7e001c/raw/d66c8d4d32962340839b015b7849e067d0f79479/hello_world.txt",
-              "size": 14
-            }
-          },
-          "public": false,
-          "created_at": "2020-06-26T14:19:30Z",
-          "updated_at": "2020-06-26T14:19:32Z",
-          "description": "Hello World!",
-          "comments": 0,
-          "user": null,
-          "comments_url": "https://api.github.com/gists/77c974bae1167df5c880f4849b7e001c/comments",
-          "owner": {
-            "login": "vadimdeineka",
-            "id": 9740075,
-            "node_id": "MDQ6VXNlcjk3NDAwNzU=",
-            "avatar_url": "https://avatars3.githubusercontent.com/u/9740075?v=4",
-            "gravatar_id": "",
-            "url": "https://api.github.com/users/vadimdeineka",
-            "html_url": "https://github.com/vadimdeineka",
-            "followers_url": "https://api.github.com/users/vadimdeineka/followers",
-            "following_url": "https://api.github.com/users/vadimdeineka/following{/other_user}",
-            "gists_url": "https://api.github.com/users/vadimdeineka/gists{/gist_id}",
-            "starred_url": "https://api.github.com/users/vadimdeineka/starred{/owner}{/repo}",
-            "subscriptions_url": "https://api.github.com/users/vadimdeineka/subscriptions",
-            "organizations_url": "https://api.github.com/users/vadimdeineka/orgs",
-            "repos_url": "https://api.github.com/users/vadimdeineka/repos",
-            "events_url": "https://api.github.com/users/vadimdeineka/events{/privacy}",
-            "received_events_url": "https://api.github.com/users/vadimdeineka/received_events",
-            "type": "User",
-            "site_admin": false
-          },
-          "truncated": false
-        }
-      ]
-    }
-  }
-]
-```
-
-**Java**
+### Single server (folder storage)
 
 ```java
-
 @Test
-@MockServer("/mock_servers/create_and_delete_gist.json")
-    // File Path
-void should_create_and_delete_gist() {
-    ...
-    GistResponse response = gitHubClient.createGist(gist);
-    Gist created = gitHubClient.getGist(response.getId());
-    gitHubClient.deleteGist(response.getId());
-    ...
+@MockServer("/mock_servers/gists/") // folder
+void should_retrieve_gists_in_folder_mode() {
+    List<GistResponse> gists = gitHubClient.getGists();
 }
 ```
 
-**create_and_delete_gist.json (recorded)**
-
-```javascript
-[
-  {
-    "request": {
-      "method": "POST",
-      "url": "https://api.github.com/gists",
-      "headers": {
-        "authorization": "********",
-        "content-type": "application/json",
-        "accept": "application/json, application/*+json"
-      },
-      "body": {
-        "description": "Hello World!",
-        "files": {
-          "hello_world.txt": {
-            "content": "Hello \nWorld\n!"
-          }
-        }
-      }
-    },
-    "response": {
-      "protocol": "HTTP/1.1",
-      "statusCode": 201,
-      "statusText": "Created",
-      "headers": {
-        "content-type": "application/json; charset=utf-8",
-        "location": "https://api.github.com/gists/4c16188cd8b6bc2de6ea2eec953ed7ca"
-      },
-      "body": {
-        "url": "https://api.github.com/gists/4c16188cd8b6bc2de6ea2eec953ed7ca",
-        "forks_url": "https://api.github.com/gists/4c16188cd8b6bc2de6ea2eec953ed7ca/forks",
-        "commits_url": "https://api.github.com/gists/4c16188cd8b6bc2de6ea2eec953ed7ca/commits",
-        "id": "4c16188cd8b6bc2de6ea2eec953ed7ca",
-        "node_id": "MDQ6R2lzdDRjMTYxODhjZDhiNmJjMmRlNmVhMmVlYzk1M2VkN2Nh",
-        "git_pull_url": "https://gist.github.com/4c16188cd8b6bc2de6ea2eec953ed7ca.git",
-        "git_push_url": "https://gist.github.com/4c16188cd8b6bc2de6ea2eec953ed7ca.git",
-        "html_url": "https://gist.github.com/4c16188cd8b6bc2de6ea2eec953ed7ca",
-        "files": {
-          "hello_world.txt": {
-            "filename": "hello_world.txt",
-            "type": "text/plain",
-            "language": "Text",
-            "raw_url": "https://gist.githubusercontent.com/vadimdeineka/4c16188cd8b6bc2de6ea2eec953ed7ca/raw/d66c8d4d32962340839b015b7849e067d0f79479/hello_world.txt",
-            "size": 14,
-            "truncated": false,
-            "content": "Hello \nWorld\n!"
-          }
-        },
-        "public": false,
-        "created_at": "2020-07-06T08:34:56Z",
-        "updated_at": "2020-07-06T08:34:56Z",
-        "description": "Hello World!",
-        "comments": 0,
-        "user": null,
-        "comments_url": "https://api.github.com/gists/4c16188cd8b6bc2de6ea2eec953ed7ca/comments",
-        "owner": {
-          "login": "vadimdeineka",
-          "id": 9740075,
-          "node_id": "MDQ6VXNlcjk3NDAwNzU=",
-          "avatar_url": "https://avatars3.githubusercontent.com/u/9740075?v=4",
-          "gravatar_id": "",
-          "url": "https://api.github.com/users/vadimdeineka",
-          "html_url": "https://github.com/vadimdeineka",
-          "followers_url": "https://api.github.com/users/vadimdeineka/followers",
-          "following_url": "https://api.github.com/users/vadimdeineka/following{/other_user}",
-          "gists_url": "https://api.github.com/users/vadimdeineka/gists{/gist_id}",
-          "starred_url": "https://api.github.com/users/vadimdeineka/starred{/owner}{/repo}",
-          "subscriptions_url": "https://api.github.com/users/vadimdeineka/subscriptions",
-          "organizations_url": "https://api.github.com/users/vadimdeineka/orgs",
-          "repos_url": "https://api.github.com/users/vadimdeineka/repos",
-          "events_url": "https://api.github.com/users/vadimdeineka/events{/privacy}",
-          "received_events_url": "https://api.github.com/users/vadimdeineka/received_events",
-          "type": "User",
-          "site_admin": false
-        },
-        "forks": [],
-        "history": [],
-        "truncated": false
-      }
-    }
-  },
-  {
-    "request": {
-      "method": "GET",
-      "url": "https://api.github.com/gists/4c16188cd8b6bc2de6ea2eec953ed7ca",
-      "headers": {
-        "authorization": "********",
-        "accept": "application/json, application/*+json"
-      },
-      "body": null
-    },
-    "response": {
-      "protocol": "HTTP/1.1",
-      "statusCode": 200,
-      "statusText": "OK",
-      "headers": {
-        "content-type": "application/json; charset=utf-8"
-      },
-      "body": {
-        "url": "https://api.github.com/gists/4c16188cd8b6bc2de6ea2eec953ed7ca",
-        "forks_url": "https://api.github.com/gists/4c16188cd8b6bc2de6ea2eec953ed7ca/forks",
-        "commits_url": "https://api.github.com/gists/4c16188cd8b6bc2de6ea2eec953ed7ca/commits",
-        "id": "4c16188cd8b6bc2de6ea2eec953ed7ca",
-        "node_id": "MDQ6R2lzdDRjMTYxODhjZDhiNmJjMmRlNmVhMmVlYzk1M2VkN2Nh",
-        "git_pull_url": "https://gist.github.com/4c16188cd8b6bc2de6ea2eec953ed7ca.git",
-        "git_push_url": "https://gist.github.com/4c16188cd8b6bc2de6ea2eec953ed7ca.git",
-        "html_url": "https://gist.github.com/4c16188cd8b6bc2de6ea2eec953ed7ca",
-        "files": {
-          "hello_world.txt": {
-            "filename": "hello_world.txt",
-            "type": "text/plain",
-            "language": "Text",
-            "raw_url": "https://gist.githubusercontent.com/vadimdeineka/4c16188cd8b6bc2de6ea2eec953ed7ca/raw/d66c8d4d32962340839b015b7849e067d0f79479/hello_world.txt",
-            "size": 14,
-            "truncated": false,
-            "content": "Hello \nWorld\n!"
-          }
-        },
-        "public": false,
-        "created_at": "2020-07-06T08:34:56Z",
-        "updated_at": "2020-07-06T08:34:56Z",
-        "description": "Hello World!",
-        "comments": 0,
-        "user": null,
-        "comments_url": "https://api.github.com/gists/4c16188cd8b6bc2de6ea2eec953ed7ca/comments",
-        "owner": {
-          "login": "vadimdeineka",
-          "id": 9740075,
-          "node_id": "MDQ6VXNlcjk3NDAwNzU=",
-          "avatar_url": "https://avatars3.githubusercontent.com/u/9740075?v=4",
-          "gravatar_id": "",
-          "url": "https://api.github.com/users/vadimdeineka",
-          "html_url": "https://github.com/vadimdeineka",
-          "followers_url": "https://api.github.com/users/vadimdeineka/followers",
-          "following_url": "https://api.github.com/users/vadimdeineka/following{/other_user}",
-          "gists_url": "https://api.github.com/users/vadimdeineka/gists{/gist_id}",
-          "starred_url": "https://api.github.com/users/vadimdeineka/starred{/owner}{/repo}",
-          "subscriptions_url": "https://api.github.com/users/vadimdeineka/subscriptions",
-          "organizations_url": "https://api.github.com/users/vadimdeineka/orgs",
-          "repos_url": "https://api.github.com/users/vadimdeineka/repos",
-          "events_url": "https://api.github.com/users/vadimdeineka/events{/privacy}",
-          "received_events_url": "https://api.github.com/users/vadimdeineka/received_events",
-          "type": "User",
-          "site_admin": false
-        },
-        "forks": [],
-        "history": [],
-        "truncated": false
-      }
-    }
-  },
-  {
-    "request": {
-      "method": "DELETE",
-      "url": "https://api.github.com/gists/4c16188cd8b6bc2de6ea2eec953ed7ca",
-      "headers": {
-        "authorization": "********",
-        "accept": "application/json, application/*+json"
-      },
-      "body": null
-    },
-    "response": {
-      "protocol": "HTTP/1.1",
-      "statusCode": 204,
-      "statusText": "No Content",
-      "headers": {},
-      "body": null
-    }
-  }
-]
-```
-
-**Java**
+### Multiple HTTP clients
 
 ```java
-
-@Test
-@MockServer("/mock_servers/gists/")
-    // Folder Path
-void should_create_and_delete_gist() {
-    ...
-    GistResponse response = gitHubClient.createGist(gist);
-    Gist created = gitHubClient.getGist(response.getId());
-    gitHubClient.deleteGist(response.getId());
-    ...
-}
-```
-
-**001__POST__api.github.com__gists.json**
-
-```json
-{
-  "request": {
-    "method": "POST",
-    "url": "https://api.github.com/gists",
-    "headers": {
-      "authorization": "********",
-      "accept": "*/*"
-    },
-    "body": {
-      "description": "Hello World!",
-      "files": {
-        "hello_world.txt": {
-          "content": "Hello \nWorld\n!"
-        }
-      }
-    }
-  },
-  "response": {
-    "protocol": "h2",
-    "statusCode": 201,
-    "headers": {
-      "content-type": "application/json; charset=utf-8",
-      "location": "https://api.github.com/gists/31e4458e2fbb1e073787790766268622"
-    },
-    "body": {
-      "url": "https://api.github.com/gists/31e4458e2fbb1e073787790766268622",
-      "forks_url": "https://api.github.com/gists/31e4458e2fbb1e073787790766268622/forks",
-      "commits_url": "https://api.github.com/gists/31e4458e2fbb1e073787790766268622/commits",
-      "id": "31e4458e2fbb1e073787790766268622",
-      "node_id": "G_kwDOAJSfK9oAIDMxZTQ0NThlMmZiYjFlMDczNzg3NzkwNzY2MjY4NjIy",
-      "git_pull_url": "https://gist.github.com/31e4458e2fbb1e073787790766268622.git",
-      "git_push_url": "https://gist.github.com/31e4458e2fbb1e073787790766268622.git",
-      "html_url": "https://gist.github.com/vadimdeineka/31e4458e2fbb1e073787790766268622",
-      "files": {
-        "hello_world.txt": {
-          "filename": "hello_world.txt",
-          "type": "text/plain",
-          "language": "Text",
-          "raw_url": "https://gist.githubusercontent.com/vadimdeineka/31e4458e2fbb1e073787790766268622/raw/d66c8d4d32962340839b015b7849e067d0f79479/hello_world.txt",
-          "size": 14,
-          "truncated": false,
-          "content": "Hello \nWorld\n!"
-        }
-      },
-      "public": false,
-      "created_at": "2024-03-22T10:32:21Z",
-      "updated_at": "2024-03-22T10:32:22Z",
-      "description": "Hello World!",
-      "comments": 0,
-      "user": null,
-      "comments_url": "https://api.github.com/gists/31e4458e2fbb1e073787790766268622/comments",
-      "owner": {
-        "login": "vadimdeineka",
-        "id": 9740075,
-        "node_id": "MDQ6VXNlcjk3NDAwNzU=",
-        "avatar_url": "https://avatars.githubusercontent.com/u/9740075?v=4",
-        "gravatar_id": "",
-        "url": "https://api.github.com/users/vadimdeineka",
-        "html_url": "https://github.com/vadimdeineka",
-        "followers_url": "https://api.github.com/users/vadimdeineka/followers",
-        "following_url": "https://api.github.com/users/vadimdeineka/following{/other_user}",
-        "gists_url": "https://api.github.com/users/vadimdeineka/gists{/gist_id}",
-        "starred_url": "https://api.github.com/users/vadimdeineka/starred{/owner}{/repo}",
-        "subscriptions_url": "https://api.github.com/users/vadimdeineka/subscriptions",
-        "organizations_url": "https://api.github.com/users/vadimdeineka/orgs",
-        "repos_url": "https://api.github.com/users/vadimdeineka/repos",
-        "events_url": "https://api.github.com/users/vadimdeineka/events{/privacy}",
-        "received_events_url": "https://api.github.com/users/vadimdeineka/received_events",
-        "type": "User",
-        "site_admin": false
-      },
-      "forks": [],
-      "history": [
-        {
-          "user": {
-            "login": "vadimdeineka",
-            "id": 9740075,
-            "node_id": "MDQ6VXNlcjk3NDAwNzU=",
-            "avatar_url": "https://avatars.githubusercontent.com/u/9740075?v=4",
-            "gravatar_id": "",
-            "url": "https://api.github.com/users/vadimdeineka",
-            "html_url": "https://github.com/vadimdeineka",
-            "followers_url": "https://api.github.com/users/vadimdeineka/followers",
-            "following_url": "https://api.github.com/users/vadimdeineka/following{/other_user}",
-            "gists_url": "https://api.github.com/users/vadimdeineka/gists{/gist_id}",
-            "starred_url": "https://api.github.com/users/vadimdeineka/starred{/owner}{/repo}",
-            "subscriptions_url": "https://api.github.com/users/vadimdeineka/subscriptions",
-            "organizations_url": "https://api.github.com/users/vadimdeineka/orgs",
-            "repos_url": "https://api.github.com/users/vadimdeineka/repos",
-            "events_url": "https://api.github.com/users/vadimdeineka/events{/privacy}",
-            "received_events_url": "https://api.github.com/users/vadimdeineka/received_events",
-            "type": "User",
-            "site_admin": false
-          },
-          "version": "8763d463517eef559e7fd7daf653ffc5c1e7245f",
-          "committed_at": "2024-03-22T10:32:21Z",
-          "change_status": {
-            "total": 3,
-            "additions": 3,
-            "deletions": 0
-          },
-          "url": "https://api.github.com/gists/31e4458e2fbb1e073787790766268622/8763d463517eef559e7fd7daf653ffc5c1e7245f"
-        }
-      ],
-      "truncated": false
-    }
-  }
-}
-
-```
-
-**002__GET__api.github.com__gists_31e4458e2fbb1e073787790766268622.json**
-
-```json
-{
-  "request": {
-    "method": "GET",
-    "url": "https://api.github.com/gists/31e4458e2fbb1e073787790766268622?rand=hello%20world",
-    "headers": {
-      "authorization": "********",
-      "accept": "*/*"
-    }
-  },
-  "response": {
-    "protocol": "h2",
-    "statusCode": 200,
-    "headers": {
-      "content-type": "application/json; charset=utf-8"
-    },
-    "body": {
-      "url": "https://api.github.com/gists/31e4458e2fbb1e073787790766268622",
-      "forks_url": "https://api.github.com/gists/31e4458e2fbb1e073787790766268622/forks",
-      "commits_url": "https://api.github.com/gists/31e4458e2fbb1e073787790766268622/commits",
-      "id": "31e4458e2fbb1e073787790766268622",
-      "node_id": "G_kwDOAJSfK9oAIDMxZTQ0NThlMmZiYjFlMDczNzg3NzkwNzY2MjY4NjIy",
-      "git_pull_url": "https://gist.github.com/31e4458e2fbb1e073787790766268622.git",
-      "git_push_url": "https://gist.github.com/31e4458e2fbb1e073787790766268622.git",
-      "html_url": "https://gist.github.com/vadimdeineka/31e4458e2fbb1e073787790766268622",
-      "files": {
-        "hello_world.txt": {
-          "filename": "hello_world.txt",
-          "type": "text/plain",
-          "language": "Text",
-          "raw_url": "https://gist.githubusercontent.com/vadimdeineka/31e4458e2fbb1e073787790766268622/raw/d66c8d4d32962340839b015b7849e067d0f79479/hello_world.txt",
-          "size": 14,
-          "truncated": false,
-          "content": "Hello \nWorld\n!"
-        }
-      },
-      "public": false,
-      "created_at": "2024-03-22T10:32:21Z",
-      "updated_at": "2024-03-22T10:32:22Z",
-      "description": "Hello World!",
-      "comments": 0,
-      "user": null,
-      "comments_url": "https://api.github.com/gists/31e4458e2fbb1e073787790766268622/comments",
-      "owner": {
-        "login": "vadimdeineka",
-        "id": 9740075,
-        "node_id": "MDQ6VXNlcjk3NDAwNzU=",
-        "avatar_url": "https://avatars.githubusercontent.com/u/9740075?v=4",
-        "gravatar_id": "",
-        "url": "https://api.github.com/users/vadimdeineka",
-        "html_url": "https://github.com/vadimdeineka",
-        "followers_url": "https://api.github.com/users/vadimdeineka/followers",
-        "following_url": "https://api.github.com/users/vadimdeineka/following{/other_user}",
-        "gists_url": "https://api.github.com/users/vadimdeineka/gists{/gist_id}",
-        "starred_url": "https://api.github.com/users/vadimdeineka/starred{/owner}{/repo}",
-        "subscriptions_url": "https://api.github.com/users/vadimdeineka/subscriptions",
-        "organizations_url": "https://api.github.com/users/vadimdeineka/orgs",
-        "repos_url": "https://api.github.com/users/vadimdeineka/repos",
-        "events_url": "https://api.github.com/users/vadimdeineka/events{/privacy}",
-        "received_events_url": "https://api.github.com/users/vadimdeineka/received_events",
-        "type": "User",
-        "site_admin": false
-      },
-      "forks": [],
-      "history": [
-        {
-          "user": {
-            "login": "vadimdeineka",
-            "id": 9740075,
-            "node_id": "MDQ6VXNlcjk3NDAwNzU=",
-            "avatar_url": "https://avatars.githubusercontent.com/u/9740075?v=4",
-            "gravatar_id": "",
-            "url": "https://api.github.com/users/vadimdeineka",
-            "html_url": "https://github.com/vadimdeineka",
-            "followers_url": "https://api.github.com/users/vadimdeineka/followers",
-            "following_url": "https://api.github.com/users/vadimdeineka/following{/other_user}",
-            "gists_url": "https://api.github.com/users/vadimdeineka/gists{/gist_id}",
-            "starred_url": "https://api.github.com/users/vadimdeineka/starred{/owner}{/repo}",
-            "subscriptions_url": "https://api.github.com/users/vadimdeineka/subscriptions",
-            "organizations_url": "https://api.github.com/users/vadimdeineka/orgs",
-            "repos_url": "https://api.github.com/users/vadimdeineka/repos",
-            "events_url": "https://api.github.com/users/vadimdeineka/events{/privacy}",
-            "received_events_url": "https://api.github.com/users/vadimdeineka/received_events",
-            "type": "User",
-            "site_admin": false
-          },
-          "version": "3e02b0d2032e3972744b9393c0287b41dcda6959",
-          "committed_at": "2024-03-22T10:32:22Z",
-          "change_status": {
-            "total": 0,
-            "additions": 0,
-            "deletions": 0
-          },
-          "url": "https://api.github.com/gists/31e4458e2fbb1e073787790766268622/3e02b0d2032e3972744b9393c0287b41dcda6959"
-        },
-        {
-          "user": {
-            "login": "vadimdeineka",
-            "id": 9740075,
-            "node_id": "MDQ6VXNlcjk3NDAwNzU=",
-            "avatar_url": "https://avatars.githubusercontent.com/u/9740075?v=4",
-            "gravatar_id": "",
-            "url": "https://api.github.com/users/vadimdeineka",
-            "html_url": "https://github.com/vadimdeineka",
-            "followers_url": "https://api.github.com/users/vadimdeineka/followers",
-            "following_url": "https://api.github.com/users/vadimdeineka/following{/other_user}",
-            "gists_url": "https://api.github.com/users/vadimdeineka/gists{/gist_id}",
-            "starred_url": "https://api.github.com/users/vadimdeineka/starred{/owner}{/repo}",
-            "subscriptions_url": "https://api.github.com/users/vadimdeineka/subscriptions",
-            "organizations_url": "https://api.github.com/users/vadimdeineka/orgs",
-            "repos_url": "https://api.github.com/users/vadimdeineka/repos",
-            "events_url": "https://api.github.com/users/vadimdeineka/events{/privacy}",
-            "received_events_url": "https://api.github.com/users/vadimdeineka/received_events",
-            "type": "User",
-            "site_admin": false
-          },
-          "version": "8763d463517eef559e7fd7daf653ffc5c1e7245f",
-          "committed_at": "2024-03-22T10:32:21Z",
-          "change_status": {
-            "total": 3,
-            "additions": 3,
-            "deletions": 0
-          },
-          "url": "https://api.github.com/gists/31e4458e2fbb1e073787790766268622/8763d463517eef559e7fd7daf653ffc5c1e7245f"
-        }
-      ],
-      "truncated": false
-    }
-  }
-}
-
-```
-
-**003__DELETE__api.github.com__gists_31e4458e2fbb1e073787790766268622.json**
-
-```json
-{
-  "request": {
-    "method": "DELETE",
-    "url": "https://api.github.com/gists/31e4458e2fbb1e073787790766268622",
-    "headers": {
-      "authorization": "********",
-      "accept": "*/*"
-    }
-  },
-  "response": {
-    "protocol": "h2",
-    "statusCode": 204
-  }
-}
-
-```
-
-#### Multiple HTTP clients
-
-**Java**
-
-```java
-@Autowired
-private RestTemplate bookServerRestTemplate;
-
-@Autowired
-private RestTemplate authorServerRestTemplate;
+@Autowired private RestTemplate bookServerRestTemplate;
+@Autowired private RestTemplate authorServerRestTemplate;
 
 @Test
 @MockServer(httpClient = "bookServerRestTemplate", value = "/mockserver/multiservers/books-server.rest.json")
 @MockServer(httpClient = "authorServerRestTemplate", value = "/mockserver/multiservers/authors-server.rest.json")
-void should_retrieve_books() {
-    ...
-    List<Book> allBooks = restClient.get("https://books.server/books", listOf(Book.class));
-    List<Author> allAuthors = restClient.get("https://authors.server/authors", listOf(Author.class));
-    Book book = restClient.get("https://books.server/books/129649986932158", typeOf(Book.class));
-    Author author = restClient.get("https://authors.server/authors/1", typeOf(Author.class));
-    ...
+void should_retrieve_books_and_authors() {
+    // calls using two different clients are recorded into two files
 }
 ```
 
-#### Multiple Servers
-
-**Java**
+### Multiple servers (URL pattern)
 
 ```java
-
 @Test
-@MockServer(urlPattern = "https://books.server/**", value = "/mockserver/multiservers/books-server.rest.json")
-@MockServer(urlPattern = "https://authors.server/**", value = "/mockserver/multiservers/authors-server.rest.json")
-void should_retrieve_books() {
-    ...
-    List<Book> allBooks = restClient.get("https://books.server/books", listOf(Book.class));
-    List<Author> allAuthors = restClient.get("https://authors.server/authors", listOf(Author.class));
-    Book book = restClient.get("https://books.server/books/129649986932158", typeOf(Book.class));
-    Author author = restClient.get("https://authors.server/authors/1", typeOf(Author.class));
-    ...
+@MockServer(beanName = "https://books.server/**",  value = "/mockserver/multiservers/books-server.rest.json")
+@MockServer(beanName = "https://authors.server/**", value = "/mockserver/multiservers/authors-server.rest.json")
+void should_retrieve_from_multiple_servers() {
+    // calls to matching hosts go into the respective files
 }
-```
-
-**books-server.rest.json**
-
-```json
-[
-  {
-    "request": {
-      "method": "GET",
-      "url": "https://books.server/books",
-      "headers": {
-        "accept": "application/json, application/*+json"
-      }
-    },
-    "response": {
-      "statusCode": 200,
-      "statusText": "OK",
-      "headers": {
-        "content-type": "application/json; charset=utf-8"
-      },
-      "body": [
-        {
-          "id": 129649986932158,
-          "author": {
-            "id": 129649985822335,
-            "firstName": "3vRRjH5Eir",
-            "lastName": "v4qcdNu87_"
-          },
-          "title": "lIEE41TMJh"
-        },
-        {
-          "id": 129649988384959,
-          "author": {
-            "id": 129649987758738,
-            "firstName": "0ddAM5PDcp",
-            "lastName": "Q2DXdR9DdB"
-          },
-          "title": "Oin7c_WtHq"
-        }
-      ]
-    }
-  },
-  {
-    "request": {
-      "method": "GET",
-      "url": "https://books.server/books/129649986932158",
-      "headers": {
-        "accept": "application/json, application/*+json"
-      }
-    },
-    "response": {
-      "statusCode": 200,
-      "statusText": "OK",
-      "headers": {
-        "content-type": "application/json; charset=utf-8"
-      },
-      "body": {
-        "id": 129649986932158,
-        "author": {
-          "id": 129649985822335,
-          "firstName": "3vRRjH5Eir",
-          "lastName": "v4qcdNu87_"
-        },
-        "title": "lIEE41TMJh"
-      }
-    }
-  }
-]
-
-```
-
-**authors-server.rest.json**
-
-```json
-[
-  {
-    "request": {
-      "method": "GET",
-      "url": "https://authors.server/authors",
-      "headers": {
-        "accept": "application/json, application/*+json"
-      }
-    },
-    "response": {
-      "statusCode": 200,
-      "statusText": "OK",
-      "headers": {
-        "content-type": "application/json; charset=utf-8"
-      },
-      "body": [
-        {
-          "id": 1,
-          "firstName": "William",
-          "lastName": "Shakespeare"
-        }
-      ]
-    }
-  },
-  {
-    "request": {
-      "method": "GET",
-      "url": "https://authors.server/authors/1",
-      "headers": {
-        "accept": "application/json, application/*+json"
-      }
-    },
-    "response": {
-      "statusCode": 200,
-      "statusText": "OK",
-      "headers": {
-        "content-type": "application/json; charset=utf-8"
-      },
-      "body": {
-        "id": 1,
-        "firstName": "William",
-        "lastName": "Shakespeare"
-      }
-    }
-  }
-]
-
 ```
 
 # License
 
-&#x20;**Recordo** library is licensed under the [Apache License, Version 2.0](https://github.com/cariochi/recordo/blob/master/LICENSE).
+Recordo is distributed under the [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0).

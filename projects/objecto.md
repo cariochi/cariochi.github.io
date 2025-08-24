@@ -16,6 +16,8 @@ Key features at a glance:
 * **Seeds and reproducibility:** Annotate a method or factory with `@Seed` to fix the random seed, or configure seeds at the factory instance or test level to reproduce test failures.
 * **Post processing:** Apply additional logic after an object is created by marking a method with `@PostGenerate`.
 
+👉 Source code is available on [GitHub](https://github.com/cariochi/objecto).
+
 # Getting Started
 
 ## Maven Dependency
