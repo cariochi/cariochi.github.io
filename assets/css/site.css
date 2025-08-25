@@ -64,7 +64,7 @@ pre,code{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberati
 pre{overflow:auto;border:1px solid var(--border);border-radius:8px;padding:6px}
 code{border-radius:4px;padding:4px}
 .highlight pre code{display:block;white-space:pre;font-size:12px}
-/* .highlight pre code::first-line{line-height:0} */
+.highlight .err {background-color:inherit;color:#24292f}
 
 /* =====================
    4) Header (brand, nav, burger, GitHub)
