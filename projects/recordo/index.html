@@ -66,9 +66,9 @@
 </header>
 <main class="container">
     <div class="grid">
-    <aside class="toc" aria-label="Table of contents">
+    <aside class="toc toc-desktop" aria-label="Table of contents">
     <div class="toc-inner">
-        <h3>RECORDO</h3>
+        <h3>RECORDO </h3>
         <ul id="toc" class="section-nav">
 <li class="toc-entry toc-h1"><a href="#introduction">Introduction</a></li>
 <li class="toc-entry toc-h1"><a href="#getting-started">Getting Started</a>
@@ -120,6 +120,63 @@
 </ul>
     </div>
 </aside>
+
+<details class="toc-mobile">
+    <summary>Table of Contents</summary>
+    <aside class="toc" aria-label="Table of contents">
+        <div class="toc-inner">
+            <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h1"><a href="#introduction">Introduction</a></li>
+<li class="toc-entry toc-h1"><a href="#getting-started">Getting Started</a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#maven-dependencies">Maven Dependencies</a></li>
+<li class="toc-entry toc-h2"><a href="#compatibility">Compatibility</a></li>
+<li class="toc-entry toc-h2"><a href="#initialize-extension">Initialize Extension</a></li>
+<li class="toc-entry toc-h2"><a href="#objectmapper">ObjectMapper</a></li>
+<li class="toc-entry toc-h2"><a href="#additional-properties">Additional Properties</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h1"><a href="#read-module">Read Module</a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#annotation-parameters">Annotation Parameters</a></li>
+<li class="toc-entry toc-h2"><a href="#approach1--interfacebased-object-factory">Approach 1 — Interface‑based Object Factory</a></li>
+<li class="toc-entry toc-h2"><a href="#approach2--direct-object-creation">Approach 2 — Direct Object Creation</a></li>
+<li class="toc-entry toc-h2"><a href="#supported-types">Supported Types</a></li>
+<li class="toc-entry toc-h2"><a href="#firstrun-behavior">First‑Run Behavior</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h1"><a href="#assertions-module">Assertions Module</a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#json-assertions-jsonassertion">JSON Assertions (JsonAssertion)</a></li>
+<li class="toc-entry toc-h2"><a href="#json-assertions-as-assertj-condition-jsoncondition">JSON Assertions as AssertJ Condition (JsonCondition)</a></li>
+<li class="toc-entry toc-h2"><a href="#csv-assertions-csvassertion">CSV Assertions (CsvAssertion)</a></li>
+<li class="toc-entry toc-h2"><a href="#first-run--debugging-failures">First Run &amp; Debugging Failures</a></li>
+<li class="toc-entry toc-h2"><a href="#recommended-gitignore-additions">Recommended .gitignore additions</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h1"><a href="#mockmvc-module">MockMvc Module</a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#define-the-client-interface">Define the client interface</a></li>
+<li class="toc-entry toc-h2"><a href="#create-and-use-the-client">Create and use the client</a></li>
+<li class="toc-entry toc-h2"><a href="#return-types">Return types</a></li>
+<li class="toc-entry toc-h2"><a href="#request-interceptors">Request interceptors</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h1"><a href="#mockserver-module">MockServer Module</a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#how-it-works-on-test-runs">How it works on test runs</a></li>
+<li class="toc-entry toc-h2"><a href="#setup-with-spring">Setup with Spring</a></li>
+<li class="toc-entry toc-h2"><a href="#using-recordo-without-spring">Using Recordo without Spring</a></li>
+<li class="toc-entry toc-h2"><a href="#openfeign-via-supported-http-clients">OpenFeign (via supported HTTP clients)</a></li>
+<li class="toc-entry toc-h2"><a href="#annotation-parameters-1">Annotation Parameters</a></li>
+<li class="toc-entry toc-h2"><a href="#examples">Examples</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h1"><a href="#license">License</a></li>
+</ul>
+        </div>
+    </aside>
+</details>
     <article class="content">
 <!--        <h1>RECORDO</h1>-->
         <h1 id="introduction">Introduction</h1>
@@ -819,6 +876,7 @@ Comma‑separated list of <strong>sensitive</strong> headers that should be mask
 <p>Recordo is distributed under the <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License 2.0</a>.</p>
 
     </article>
+    <a href="#top" class="back-to-top" title="Back to top">↑</a>
 </div>
 
 </main><footer class="site-footer">
@@ -830,5 +888,6 @@ Comma‑separated list of <strong>sensitive</strong> headers that should be mask
     </div>
 </footer>
 <script src="/assets/js/toc.js"></script>
+<script src="/assets/js/copy-buttons.js"></script>
 </body>
 </html>

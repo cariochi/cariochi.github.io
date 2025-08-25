@@ -60,9 +60,9 @@
 </header>
 <main class="container">
     <div class="grid">
-    <aside class="toc" aria-label="Table of contents">
+    <aside class="toc toc-desktop" aria-label="Table of contents">
     <div class="toc-inner">
-        <h3>EXPRESSO</h3>
+        <h3>EXPRESSO </h3>
         <ul id="toc" class="section-nav">
 <li class="toc-entry toc-h1"><a href="#introduction">Introduction</a>
 <ul>
@@ -127,6 +127,76 @@
 </ul>
     </div>
 </aside>
+
+<details class="toc-mobile">
+    <summary>Table of Contents</summary>
+    <aside class="toc" aria-label="Table of contents">
+        <div class="toc-inner">
+            <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h1"><a href="#introduction">Introduction</a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#what-expresso-is">What Expresso is</a></li>
+<li class="toc-entry toc-h2"><a href="#what-expresso-is-not">What Expresso is not</a></li>
+<li class="toc-entry toc-h2"><a href="#why-it-matters">Why it matters</a></li>
+<li class="toc-entry toc-h2"><a href="#positioning">Positioning</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h1"><a href="#installation--setup">Installation &amp; Setup</a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#distribution-options">Distribution options</a></li>
+<li class="toc-entry toc-h2"><a href="#live-demo">Live Demo</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h1"><a href="#quick-start">Quick Start</a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#using-the-core-api">Using the Core API</a></li>
+<li class="toc-entry toc-h2"><a href="#using-the-rest-service">Using the REST service</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h1"><a href="#core-concepts">Core Concepts</a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#classes-and-hierarchy">Classes and Hierarchy</a></li>
+<li class="toc-entry toc-h2"><a href="#composition">Composition</a></li>
+<li class="toc-entry toc-h2"><a href="#named-groups-as-fields">Named Groups as Fields</a></li>
+<li class="toc-entry toc-h2"><a href="#non-capturing-classes">Non-Capturing Classes</a></li>
+<li class="toc-entry toc-h2"><a href="#explicit-capturing">Explicit Capturing</a></li>
+<li class="toc-entry toc-h2"><a href="#flags-inline">Flags (Inline)</a></li>
+<li class="toc-entry toc-h2"><a href="#result-tree">Result Tree</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h1"><a href="#yaml-dsl">YAML DSL</a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#structure">Structure</a></li>
+<li class="toc-entry toc-h2"><a href="#imports">Imports</a></li>
+<li class="toc-entry toc-h2"><a href="#flags-file-level">Flags (File-level)</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h1"><a href="#applying-patterns--results">Applying Patterns &amp; Results</a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#in-java-matcher--group">In Java (Matcher / Group)</a></li>
+<li class="toc-entry toc-h2"><a href="#via-rest-json-results">Via REST (JSON results)</a></li>
+<li class="toc-entry toc-h2"><a href="#choosing-the-format">Choosing the format</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h1"><a href="#advanced-usage">Advanced Usage</a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#building-libraries-of-patterns">Building libraries of patterns</a></li>
+<li class="toc-entry toc-h2"><a href="#multi-level-hierarchy-in-practice">Multi-level hierarchy in practice</a></li>
+<li class="toc-entry toc-h2"><a href="#combining-named-groups-with-references">Combining named groups with references</a></li>
+<li class="toc-entry toc-h2"><a href="#handling-variations-in-input-formats">Handling variations in input formats</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h1"><a href="#examples">Examples</a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#log-parsing">Log Parsing</a></li>
+<li class="toc-entry toc-h2"><a href="#financial-transactions">Financial Transactions</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h1"><a href="#summary">Summary</a></li>
+</ul>
+        </div>
+    </aside>
+</details>
     <article class="content">
 <!--        <h1>EXPRESSO</h1>-->
         <h1 id="introduction">Introduction</h1>
@@ -275,11 +345,10 @@
 
 <p>Example:</p>
 
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">classes</span><span class="pi">:</span>
-  <span class="na">Integer</span><span class="pi">:</span> <span class="pi">[</span> <span class="s2">"</span><span class="se">\\</span><span class="s">d+"</span> <span class="pi">]</span>
-  <span class="na">Decimal</span><span class="pi">:</span>
-    <span class="na">Common</span><span class="pi">:</span> <span class="pi">[</span> <span class="s2">"</span><span class="se">\\</span><span class="s">d+</span><span class="se">\\</span><span class="s">.</span><span class="se">\\</span><span class="s">d+"</span> <span class="pi">]</span>
-    <span class="na">Scientific</span><span class="pi">:</span> <span class="pi">[</span> <span class="s2">"</span><span class="se">\\</span><span class="s">d+</span><span class="se">\\</span><span class="s">.</span><span class="se">\\</span><span class="s">d+e[+-]?</span><span class="se">\\</span><span class="s">d+"</span> <span class="pi">]</span>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">Integer</span><span class="pi">:</span> <span class="pi">[</span> <span class="s2">"</span><span class="se">\\</span><span class="s">d+"</span> <span class="pi">]</span>
+<span class="na">Decimal</span><span class="pi">:</span>
+  <span class="na">Common</span><span class="pi">:</span> <span class="pi">[</span> <span class="s2">"</span><span class="se">\\</span><span class="s">d+</span><span class="se">\\</span><span class="s">.</span><span class="se">\\</span><span class="s">d+"</span> <span class="pi">]</span>
+  <span class="na">Scientific</span><span class="pi">:</span> <span class="pi">[</span> <span class="s2">"</span><span class="se">\\</span><span class="s">d+</span><span class="se">\\</span><span class="s">.</span><span class="se">\\</span><span class="s">d+e[+-]?</span><span class="se">\\</span><span class="s">d+"</span> <span class="pi">]</span>
 </code></pre></div></div>
 
 <p>This defines <code class="language-plaintext highlighter-rouge">Number.Integer</code>, <code class="language-plaintext highlighter-rouge">Number.Decimal</code>, <code class="language-plaintext highlighter-rouge">Number.Decimal.Common</code> and <code class="language-plaintext highlighter-rouge">Number.Decimal.Scientific</code> as part of the same hierarchy.</p>
@@ -293,18 +362,18 @@
 
 <p>Example:</p>
 
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="na">Currency</span><span class="pi">:</span>
-    <span class="na">USD</span><span class="pi">:</span> <span class="pi">[</span> <span class="s2">"</span><span class="se">\\</span><span class="s">$"</span> <span class="pi">]</span>
-    <span class="na">EUR</span><span class="pi">:</span> <span class="pi">[</span> <span class="s2">"</span><span class="s">€"</span> <span class="pi">]</span>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">Currency</span><span class="pi">:</span>
+  <span class="na">USD</span><span class="pi">:</span> <span class="pi">[</span> <span class="s2">"</span><span class="se">\\</span><span class="s">$"</span> <span class="pi">]</span>
+  <span class="na">EUR</span><span class="pi">:</span> <span class="pi">[</span> <span class="s2">"</span><span class="s">€"</span> <span class="pi">]</span>
 
-  <span class="na">Number</span><span class="pi">:</span>
-    <span class="na">Integer</span><span class="pi">:</span> <span class="pi">[</span> <span class="s2">"</span><span class="se">\\</span><span class="s">d+"</span> <span class="pi">]</span>
-    <span class="na">Decimal</span><span class="pi">:</span>
-      <span class="na">Scientific</span><span class="pi">:</span> <span class="pi">[</span> <span class="s2">"</span><span class="se">\\</span><span class="s">d+</span><span class="se">\\</span><span class="s">.</span><span class="se">\\</span><span class="s">d+e[+-]?</span><span class="se">\\</span><span class="s">d+"</span> <span class="pi">]</span>
+<span class="na">Number</span><span class="pi">:</span>
+  <span class="na">Integer</span><span class="pi">:</span> <span class="pi">[</span> <span class="s2">"</span><span class="se">\\</span><span class="s">d+"</span> <span class="pi">]</span>
+  <span class="na">Decimal</span><span class="pi">:</span>
+    <span class="na">Scientific</span><span class="pi">:</span> <span class="pi">[</span> <span class="s2">"</span><span class="se">\\</span><span class="s">d+</span><span class="se">\\</span><span class="s">.</span><span class="se">\\</span><span class="s">d+e[+-]?</span><span class="se">\\</span><span class="s">d+"</span> <span class="pi">]</span>
 
-  <span class="na">Price</span><span class="pi">:</span> <span class="pi">[</span> <span class="s2">"</span><span class="s">${Currency}${Number}"</span> <span class="pi">]</span>                               <span class="c1"># use whole classes</span>
-  <span class="na">PriceUSD</span><span class="pi">:</span> <span class="pi">[</span> <span class="s2">"</span><span class="s">${Currency.USD}${Number}"</span> <span class="pi">]</span>                        <span class="c1"># reference a specific subclass</span>
-  <span class="na">ScientificPrice</span><span class="pi">:</span> <span class="pi">[</span> <span class="s2">"</span><span class="s">${Currency}${Number.Decimal.Scientific}"</span> <span class="pi">]</span>  <span class="c1"># reference a deep child</span>
+<span class="na">Price</span><span class="pi">:</span> <span class="pi">[</span> <span class="s2">"</span><span class="s">${Currency}${Number}"</span> <span class="pi">]</span>                               <span class="c1"># use whole classes</span>
+<span class="na">PriceUSD</span><span class="pi">:</span> <span class="pi">[</span> <span class="s2">"</span><span class="s">${Currency.USD}${Number}"</span> <span class="pi">]</span>                        <span class="c1"># reference a specific subclass</span>
+<span class="na">ScientificPrice</span><span class="pi">:</span> <span class="pi">[</span> <span class="s2">"</span><span class="s">${Currency}${Number.Decimal.Scientific}"</span> <span class="pi">]</span>  <span class="c1"># reference a deep child</span>
 </code></pre></div></div>
 
 <p>Here, <code class="language-plaintext highlighter-rouge">Price</code> composes from entire classes, <code class="language-plaintext highlighter-rouge">PriceUSD</code> targets a specific subclass, and <code class="language-plaintext highlighter-rouge">ScientificPrice</code> references a deeper level in the hierarchy.</p>
@@ -318,16 +387,16 @@
 
 <p>Examples:</p>
 
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="na">Date</span><span class="pi">:</span> <span class="pi">[</span> <span class="s2">"</span><span class="s">(?&lt;year&gt;</span><span class="se">\\</span><span class="s">d{4})-(?&lt;month&gt;</span><span class="se">\\</span><span class="s">d{2})-(?&lt;day&gt;</span><span class="se">\\</span><span class="s">d{2})"</span> <span class="pi">]</span>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">Date</span><span class="pi">:</span> <span class="pi">[</span> <span class="s2">"</span><span class="s">(?&lt;year&gt;</span><span class="se">\\</span><span class="s">d{4})-(?&lt;month&gt;</span><span class="se">\\</span><span class="s">d{2})-(?&lt;day&gt;</span><span class="se">\\</span><span class="s">d{2})"</span> <span class="pi">]</span>
 
-  <span class="na">Currency</span><span class="pi">:</span>
-    <span class="na">USD</span><span class="pi">:</span> <span class="pi">[</span> <span class="s2">"</span><span class="se">\\</span><span class="s">$"</span> <span class="pi">]</span>
-    <span class="na">EUR</span><span class="pi">:</span> <span class="pi">[</span> <span class="s2">"</span><span class="s">€"</span> <span class="pi">]</span>
+<span class="na">Currency</span><span class="pi">:</span>
+  <span class="na">USD</span><span class="pi">:</span> <span class="pi">[</span> <span class="s2">"</span><span class="se">\\</span><span class="s">$"</span> <span class="pi">]</span>
+  <span class="na">EUR</span><span class="pi">:</span> <span class="pi">[</span> <span class="s2">"</span><span class="s">€"</span> <span class="pi">]</span>
 
-  <span class="na">Number</span><span class="pi">:</span>
-    <span class="na">Integer</span><span class="pi">:</span> <span class="pi">[</span> <span class="s2">"</span><span class="se">\\</span><span class="s">d+"</span> <span class="pi">]</span>
+<span class="na">Number</span><span class="pi">:</span>
+  <span class="na">Integer</span><span class="pi">:</span> <span class="pi">[</span> <span class="s2">"</span><span class="se">\\</span><span class="s">d+"</span> <span class="pi">]</span>
 
-  <span class="na">Transaction</span><span class="pi">:</span> <span class="pi">[</span> <span class="s2">"</span><span class="s">(?&lt;amount&gt;${Number.Integer})(?&lt;currency&gt;${Currency})"</span> <span class="pi">]</span>
+<span class="na">Transaction</span><span class="pi">:</span> <span class="pi">[</span> <span class="s2">"</span><span class="s">(?&lt;amount&gt;${Number.Integer})(?&lt;currency&gt;${Currency})"</span> <span class="pi">]</span>
 </code></pre></div></div>
 
 <ul>
@@ -399,12 +468,11 @@
 
 <p>Examples:</p>
 
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">classes</span><span class="pi">:</span>
-  <span class="na">Line</span><span class="pi">:</span> <span class="pi">[</span> <span class="s1">'</span><span class="s">(?m)^(.*)$'</span> <span class="pi">]</span>               <span class="c1"># (?m) enables multiline mode</span>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">Line</span><span class="pi">:</span> <span class="pi">[</span> <span class="s1">'</span><span class="s">(?m)^(.*)$'</span> <span class="pi">]</span>               <span class="c1"># (?m) enables multiline mode</span>
 
-  <span class="na">Pet</span><span class="pi">:</span>
-    <span class="na">Dog</span><span class="pi">:</span> <span class="pi">[</span> <span class="s1">'</span><span class="s">(?i)do(ggies|ggy|gs|g)'</span> <span class="pi">]</span>  <span class="c1"># (?i) makes the match case‑insensitive</span>
-    <span class="na">Cat</span><span class="pi">:</span> <span class="pi">[</span> <span class="s1">'</span><span class="s">(?i)cats?'</span><span class="pi">,</span> <span class="s1">'</span><span class="s">(?i)kitt(ies|y)'</span> <span class="pi">]</span>
+<span class="na">Pet</span><span class="pi">:</span>
+  <span class="na">Dog</span><span class="pi">:</span> <span class="pi">[</span> <span class="s1">'</span><span class="s">(?i)do(ggies|ggy|gs|g)'</span> <span class="pi">]</span>  <span class="c1"># (?i) makes the match case‑insensitive</span>
+  <span class="na">Cat</span><span class="pi">:</span> <span class="pi">[</span> <span class="s1">'</span><span class="s">(?i)cats?'</span><span class="pi">,</span> <span class="s1">'</span><span class="s">(?i)kitt(ies|y)'</span> <span class="pi">]</span>
 </code></pre></div></div>
 
 <h2 id="result-tree">Result Tree</h2>
@@ -616,9 +684,9 @@
 
 <p>Example:</p>
 
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="na">Number</span><span class="pi">:</span>
-    <span class="na">Decimal</span><span class="pi">:</span>
-      <span class="na">Scientific</span><span class="pi">:</span> <span class="pi">[</span> <span class="s2">"</span><span class="se">\\</span><span class="s">d+</span><span class="se">\\</span><span class="s">.</span><span class="se">\\</span><span class="s">d+e[+-]?</span><span class="se">\\</span><span class="s">d+"</span> <span class="pi">]</span>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">Number</span><span class="pi">:</span>
+  <span class="na">Decimal</span><span class="pi">:</span>
+    <span class="na">Scientific</span><span class="pi">:</span> <span class="pi">[</span> <span class="s2">"</span><span class="se">\\</span><span class="s">d+</span><span class="se">\\</span><span class="s">.</span><span class="se">\\</span><span class="s">d+e[+-]?</span><span class="se">\\</span><span class="s">d+"</span> <span class="pi">]</span>
 </code></pre></div></div>
 
 <p>Here <code class="language-plaintext highlighter-rouge">Number.Decimal.Scientific</code> is a precise subtype of <code class="language-plaintext highlighter-rouge">Number.Decimal</code>, which itself is under <code class="language-plaintext highlighter-rouge">Number</code>.</p>
@@ -631,7 +699,7 @@
 
 <p>Example:</p>
 
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="na">Transaction</span><span class="pi">:</span> <span class="pi">[</span> <span class="s2">"</span><span class="s">(?&lt;amount&gt;${Number})(?&lt;currency&gt;${Currency})"</span> <span class="pi">]</span>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">Transaction</span><span class="pi">:</span> <span class="pi">[</span> <span class="s2">"</span><span class="s">(?&lt;amount&gt;${Number})(?&lt;currency&gt;${Currency})"</span> <span class="pi">]</span>
 </code></pre></div></div>
 
 <p>This produces a tree with a <code class="language-plaintext highlighter-rouge">Transaction</code> node containing two child groups, <code class="language-plaintext highlighter-rouge">amount</code> and <code class="language-plaintext highlighter-rouge">currency</code>, which in turn resolve into their respective class matches.</p>
@@ -644,9 +712,9 @@
 
 <p>Example:</p>
 
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="na">Date</span><span class="pi">:</span>
-    <span class="na">ISO</span><span class="pi">:</span> <span class="pi">[</span> <span class="s2">"</span><span class="s">(?&lt;year&gt;</span><span class="se">\\</span><span class="s">d{4})-(?&lt;month&gt;</span><span class="se">\\</span><span class="s">d{2})-(?&lt;day&gt;</span><span class="se">\\</span><span class="s">d{2})"</span> <span class="pi">]</span>
-    <span class="na">US</span><span class="pi">:</span>  <span class="pi">[</span> <span class="s2">"</span><span class="s">(?&lt;month&gt;</span><span class="se">\\</span><span class="s">d{2})/(?&lt;day&gt;</span><span class="se">\\</span><span class="s">d{2})/(?&lt;year&gt;</span><span class="se">\\</span><span class="s">d{4})"</span> <span class="pi">]</span>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">Date</span><span class="pi">:</span>
+  <span class="na">ISO</span><span class="pi">:</span> <span class="pi">[</span> <span class="s2">"</span><span class="s">(?&lt;year&gt;</span><span class="se">\\</span><span class="s">d{4})-(?&lt;month&gt;</span><span class="se">\\</span><span class="s">d{2})-(?&lt;day&gt;</span><span class="se">\\</span><span class="s">d{2})"</span> <span class="pi">]</span>
+  <span class="na">US</span><span class="pi">:</span>  <span class="pi">[</span> <span class="s2">"</span><span class="s">(?&lt;month&gt;</span><span class="se">\\</span><span class="s">d{2})/(?&lt;day&gt;</span><span class="se">\\</span><span class="s">d{2})/(?&lt;year&gt;</span><span class="se">\\</span><span class="s">d{4})"</span> <span class="pi">]</span>
 </code></pre></div></div>
 
 <p>This allows <code class="language-plaintext highlighter-rouge">Date</code> to match either ISO (<code class="language-plaintext highlighter-rouge">2024-12-31</code>) or US (<code class="language-plaintext highlighter-rouge">12/31/2024</code>) style inputs.</p>
@@ -670,11 +738,10 @@
 
 <p>Pattern (simplified):</p>
 
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">classes</span><span class="pi">:</span>
-  <span class="na">Timestamp</span><span class="pi">:</span> <span class="pi">[</span> <span class="s2">"</span><span class="se">\\</span><span class="s">d{4}-</span><span class="se">\\</span><span class="s">d{2}-</span><span class="se">\\</span><span class="s">d{2}</span><span class="nv"> </span><span class="se">\\</span><span class="s">d{2}:</span><span class="se">\\</span><span class="s">d{2}:</span><span class="se">\\</span><span class="s">d{2}"</span> <span class="pi">]</span>
-  <span class="na">Level</span><span class="pi">:</span> <span class="pi">[</span> <span class="s2">"</span><span class="s">INFO"</span><span class="pi">,</span> <span class="s2">"</span><span class="s">WARN"</span><span class="pi">,</span> <span class="s2">"</span><span class="s">ERROR"</span> <span class="pi">]</span>
-  <span class="na">Thread</span><span class="pi">:</span> <span class="pi">[</span> <span class="s2">"</span><span class="se">\\</span><span class="s">[.*?</span><span class="se">\\</span><span class="s">]"</span> <span class="pi">]</span>
-  <span class="na">LogEntry</span><span class="pi">:</span> <span class="pi">[</span> <span class="s2">"</span><span class="s">${Timestamp}</span><span class="nv"> </span><span class="s">${Level}</span><span class="nv"> </span><span class="s">${Thread}</span><span class="nv"> </span><span class="s">(?&lt;message&gt;.*)"</span> <span class="pi">]</span>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">Timestamp</span><span class="pi">:</span> <span class="pi">[</span> <span class="s2">"</span><span class="se">\\</span><span class="s">d{4}-</span><span class="se">\\</span><span class="s">d{2}-</span><span class="se">\\</span><span class="s">d{2}</span><span class="nv"> </span><span class="se">\\</span><span class="s">d{2}:</span><span class="se">\\</span><span class="s">d{2}:</span><span class="se">\\</span><span class="s">d{2}"</span> <span class="pi">]</span>
+<span class="na">Level</span><span class="pi">:</span> <span class="pi">[</span> <span class="s2">"</span><span class="s">INFO"</span><span class="pi">,</span> <span class="s2">"</span><span class="s">WARN"</span><span class="pi">,</span> <span class="s2">"</span><span class="s">ERROR"</span> <span class="pi">]</span>
+<span class="na">Thread</span><span class="pi">:</span> <span class="pi">[</span> <span class="s2">"</span><span class="se">\\</span><span class="s">[.*?</span><span class="se">\\</span><span class="s">]"</span> <span class="pi">]</span>
+<span class="na">LogEntry</span><span class="pi">:</span> <span class="pi">[</span> <span class="s2">"</span><span class="s">${Timestamp}</span><span class="nv"> </span><span class="s">${Level}</span><span class="nv"> </span><span class="s">${Thread}</span><span class="nv"> </span><span class="s">(?&lt;message&gt;.*)"</span> <span class="pi">]</span>
 </code></pre></div></div>
 
 <p>Result (model):</p>
@@ -700,15 +767,14 @@
 
 <p>Pattern (simplified):</p>
 
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">classes</span><span class="pi">:</span>
-  <span class="na">Id</span><span class="pi">:</span> <span class="pi">[</span> <span class="s2">"</span><span class="s">TXN-</span><span class="se">\\</span><span class="s">d+"</span> <span class="pi">]</span>
-  <span class="na">Type</span><span class="pi">:</span> <span class="pi">[</span> <span class="s2">"</span><span class="s">DEBIT"</span><span class="pi">,</span> <span class="s2">"</span><span class="s">CREDIT"</span> <span class="pi">]</span>
-  <span class="na">Currency</span><span class="pi">:</span>
-    <span class="na">USD</span><span class="pi">:</span> <span class="pi">[</span> <span class="s2">"</span><span class="s">USD"</span> <span class="pi">]</span>
-    <span class="na">EUR</span><span class="pi">:</span> <span class="pi">[</span> <span class="s2">"</span><span class="s">EUR"</span> <span class="pi">]</span>
-  <span class="na">Number</span><span class="pi">:</span>
-    <span class="na">Decimal</span><span class="pi">:</span> <span class="pi">[</span> <span class="s2">"</span><span class="se">\\</span><span class="s">d+</span><span class="se">\\</span><span class="s">.</span><span class="se">\\</span><span class="s">d+"</span> <span class="pi">]</span>
-  <span class="na">Transaction</span><span class="pi">:</span> <span class="pi">[</span> <span class="s2">"</span><span class="s">${Id}</span><span class="nv"> </span><span class="s">${Type}</span><span class="nv"> </span><span class="s">${Number}</span><span class="nv"> </span><span class="s">${Currency}</span><span class="nv"> </span><span class="s">(?&lt;category&gt;.*)"</span> <span class="pi">]</span>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">Id</span><span class="pi">:</span> <span class="pi">[</span> <span class="s2">"</span><span class="s">TXN-</span><span class="se">\\</span><span class="s">d+"</span> <span class="pi">]</span>
+<span class="na">Type</span><span class="pi">:</span> <span class="pi">[</span> <span class="s2">"</span><span class="s">DEBIT"</span><span class="pi">,</span> <span class="s2">"</span><span class="s">CREDIT"</span> <span class="pi">]</span>
+<span class="na">Currency</span><span class="pi">:</span>
+  <span class="na">USD</span><span class="pi">:</span> <span class="pi">[</span> <span class="s2">"</span><span class="s">USD"</span> <span class="pi">]</span>
+  <span class="na">EUR</span><span class="pi">:</span> <span class="pi">[</span> <span class="s2">"</span><span class="s">EUR"</span> <span class="pi">]</span>
+<span class="na">Number</span><span class="pi">:</span>
+  <span class="na">Decimal</span><span class="pi">:</span> <span class="pi">[</span> <span class="s2">"</span><span class="se">\\</span><span class="s">d+</span><span class="se">\\</span><span class="s">.</span><span class="se">\\</span><span class="s">d+"</span> <span class="pi">]</span>
+<span class="na">Transaction</span><span class="pi">:</span> <span class="pi">[</span> <span class="s2">"</span><span class="s">${Id}</span><span class="nv"> </span><span class="s">${Type}</span><span class="nv"> </span><span class="s">${Number}</span><span class="nv"> </span><span class="s">${Currency}</span><span class="nv"> </span><span class="s">(?&lt;category&gt;.*)"</span> <span class="pi">]</span>
 </code></pre></div></div>
 
 <p>Result (model):</p>
@@ -745,6 +811,7 @@
 <p>Expresso, like regex itself, is domain-agnostic. It is not a pre-built grammar, but a <strong>tool</strong>: it provides an object-oriented way to describe patterns in any kind of text. Using classes, hierarchy, composition, and named groups, you can model structures across diverse domains.</p>
 
     </article>
+    <a href="#top" class="back-to-top" title="Back to top">↑</a>
 </div>
 
 </main><footer class="site-footer">
@@ -756,5 +823,6 @@
     </div>
 </footer>
 <script src="/assets/js/toc.js"></script>
+<script src="/assets/js/copy-buttons.js"></script>
 </body>
 </html>

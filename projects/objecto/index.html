@@ -66,9 +66,9 @@
 </header>
 <main class="container">
     <div class="grid">
-    <aside class="toc" aria-label="Table of contents">
+    <aside class="toc toc-desktop" aria-label="Table of contents">
     <div class="toc-inner">
-        <h3>OBJECTO</h3>
+        <h3>OBJECTO </h3>
         <ul id="toc" class="section-nav">
 <li class="toc-entry toc-h1"><a href="#introduction">Introduction</a></li>
 <li class="toc-entry toc-h1"><a href="#getting-started">Getting Started</a>
@@ -106,6 +106,49 @@
 </ul>
     </div>
 </aside>
+
+<details class="toc-mobile">
+    <summary>Table of Contents</summary>
+    <aside class="toc" aria-label="Table of contents">
+        <div class="toc-inner">
+            <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h1"><a href="#introduction">Introduction</a></li>
+<li class="toc-entry toc-h1"><a href="#getting-started">Getting Started</a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#maven-dependency">Maven Dependency</a></li>
+<li class="toc-entry toc-h2"><a href="#defining-a-factory">Defining a Factory</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h1"><a href="#annotations-and-configuration">Annotations and Configuration</a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#spec--unified-configuration">@Spec – Unified Configuration</a></li>
+<li class="toc-entry toc-h2"><a href="#faker--realistic-data">@Faker – Realistic Data</a></li>
+<li class="toc-entry toc-h2"><a href="#defaultgenerator--type-generators">@DefaultGenerator – Type Generators</a></li>
+<li class="toc-entry toc-h2"><a href="#generatefield--field-generators">@GenerateField – Field Generators</a></li>
+<li class="toc-entry toc-h2"><a href="#construct--custom-constructors">@Construct – Custom Constructors</a></li>
+<li class="toc-entry toc-h2"><a href="#modify--modifiers">@Modify – Modifiers</a></li>
+<li class="toc-entry toc-h2"><a href="#reference--linking-entities">@Reference – Linking Entities</a></li>
+<li class="toc-entry toc-h2"><a href="#seed--reproducible-randomness">@Seed – Reproducible Randomness</a></li>
+<li class="toc-entry toc-h2"><a href="#postgenerate--post-processing">@PostGenerate – Post Processing</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h1"><a href="#quick-recipes">Quick Recipes</a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#create-a-factory-and-generate-an-object">Create a factory and generate an object</a></li>
+<li class="toc-entry toc-h2"><a href="#generate-with-specific-values">Generate with specific values</a></li>
+<li class="toc-entry toc-h2"><a href="#set-constraints-with-spec">Set constraints with @Spec</a></li>
+<li class="toc-entry toc-h2"><a href="#use-datafaker-via-faker">Use Datafaker via @Faker</a></li>
+<li class="toc-entry toc-h2"><a href="#provide-custom-generators">Provide custom generators</a></li>
+<li class="toc-entry toc-h2"><a href="#link-related-entities">Link related entities</a></li>
+<li class="toc-entry toc-h2"><a href="#control-randomness">Control randomness</a></li>
+<li class="toc-entry toc-h2"><a href="#post-process-objects">Post-process objects</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h1"><a href="#license">License</a></li>
+</ul>
+        </div>
+    </aside>
+</details>
     <article class="content">
 <!--        <h1>OBJECTO</h1>-->
         <h1 id="introduction">Introduction</h1>
@@ -548,6 +591,7 @@
 
 
     </article>
+    <a href="#top" class="back-to-top" title="Back to top">↑</a>
 </div>
 
 </main><footer class="site-footer">
@@ -559,5 +603,6 @@
     </div>
 </footer>
 <script src="/assets/js/toc.js"></script>
+<script src="/assets/js/copy-buttons.js"></script>
 </body>
 </html>
