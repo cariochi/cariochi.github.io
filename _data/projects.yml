@@ -1,15 +1,15 @@
 - title: REFLECTO
-  url: /projects/reflecto
+  url: /reflecto
   github: https://github.com/cariochi/reflecto
 - title: OBJECTO
-  url: /projects/objecto
+  url: /objecto
   github: https://github.com/cariochi/objecto
 - title: RECORDO
-  url: /projects/recordo
+  url: /recordo
   github: https://github.com/cariochi/recordo
 - title: WEB SPEC
-  url: /projects/spring-data-web-spec
+  url: /spring-data-web-spec
   github: https://github.com/cariochi/spring-data-web-spec
 - title: EXPRESSO
-  url: /projects/expresso
+  url: /expresso
   demo_url: https://expresso.cariochi.com

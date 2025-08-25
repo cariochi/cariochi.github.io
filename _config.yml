@@ -38,7 +38,7 @@ toc:
 # Defaults for all project pages
 defaults:
   - scope:
-      path: "projects"
+      path: ""
       type: pages
     values:
       layout: project
