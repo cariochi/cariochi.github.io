@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
-<loc>https://cariochi.github.io/projects/expresso/</loc>
+<loc>https://cariochi.github.io/expresso/</loc>
 </url>
 <url>
 <loc>https://cariochi.github.io/</loc>
 </url>
 <url>
-<loc>https://cariochi.github.io/projects/objecto/</loc>
+<loc>https://cariochi.github.io/objecto/</loc>
 </url>
 <url>
-<loc>https://cariochi.github.io/projects/recordo/</loc>
+<loc>https://cariochi.github.io/recordo/</loc>
 </url>
 <url>
-<loc>https://cariochi.github.io/projects/reflecto/</loc>
+<loc>https://cariochi.github.io/reflecto/</loc>
 </url>
 <url>
-<loc>https://cariochi.github.io/projects/spring-data-web-spec/</loc>
+<loc>https://cariochi.github.io/spring-data-web-spec/</loc>
 </url>
 </urlset>
