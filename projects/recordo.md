@@ -8,10 +8,10 @@ title: RECORDO
 
 Key benefits at a glance:
 
-* **Read Module** – annotate test parameters or fields with `@Read` to automatically load JSON, CSV, or ZIP resources into objects. Missing files are generated automatically, ensuring fast deterministic tests.
-* **Assertions Module** – assert JSON or CSV responses with expressive fluent APIs. Compare against expected files, filter fields, or ignore order with clear options.
-* **MockMvc Module** – build declarative HTTP clients for your controllers in tests. Use familiar Spring MVC annotations (`@GetMapping`, `@PostMapping`, etc.) and Recordo will generate typed clients, handle requests, and record responses.
-* **MockServer Module** – capture and replay HTTP traffic from real clients like `OkHttp` or `RestTemplate`. Save interactions to JSON files and replay them in tests for stable, reproducible scenarios.
+* [**Read Module**](#read-module) – annotate test parameters or fields with `@Read` to automatically load JSON, CSV, or ZIP resources into objects. Missing files are generated automatically, ensuring fast deterministic tests.
+* [**Assertions Module**](#assertions-module) – assert JSON or CSV responses with expressive fluent APIs. Compare against expected files, filter fields, or ignore order with clear options.
+* [**MockMvc Module**](#mockmvc-module) – build declarative HTTP clients for your controllers in tests. Use familiar Spring MVC annotations (`@GetMapping`, `@PostMapping`, etc.) and Recordo will generate typed clients, handle requests, and record responses.
+* [**MockServer Module**](#mockserver-module) – capture and replay HTTP traffic from real clients like `OkHttp` or `RestTemplate`. Save interactions to JSON files and replay them in tests for stable, reproducible scenarios.
 
 Recordo combines these modules into a single coherent testing toolkit. It is especially useful when working with complex DTOs, deeply nested JSON structures, or external HTTP APIs, reducing boilerplate and making tests both **readable** and **maintainable**.
 
