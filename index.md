@@ -29,7 +29,7 @@ title: Cariochi Projects
 
 ---
 
-**[Spring Data Web Spec](/spring-data-web-spec)** 🟢 Open source  
+**[Spring Data Web Spec](/spec)** 🟢 Open source  
   Annotation-driven mapping from web requests to **Spring Data JPA Specifications**. Simplifies controllers, adds type-safe filtering, and supports access control.
 
 ---

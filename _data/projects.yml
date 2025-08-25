@@ -8,8 +8,8 @@
   url: /recordo
   github: https://github.com/cariochi/recordo
 - title: WEB SPEC
-  url: /spring-data-web-spec
-  github: https://github.com/cariochi/spring-data-web-spec
+  url: /spec
+  github: https://github.com/cariochi/spec
 - title: EXPRESSO
   url: /expresso
   demo_url: https://expresso.cariochi.com
