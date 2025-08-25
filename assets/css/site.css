@@ -8,9 +8,9 @@
 ====================== */
 :root{
   /* Core palette */
-  --bg: #ffffff;                        /* page bg */
-  --fg: rgba(23, 43, 77, 0.82);         /* primary text */
-  --muted: rgba(107, 119, 140, 0.88);   /* muted text */
+  --bg:#ffffff;                        /* page bg */
+  --fg:rgba(23, 43, 77, 0.82);         /* primary text */
+  --muted:rgba(107, 119, 140, 0.88);   /* muted text */
 
   /* Accents */
   --brand:#f86f0a;              /* accent */
@@ -44,7 +44,7 @@
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{margin:0;font:16px/1.65 -apple-system,system-ui,Segoe UI,Roboto,Ubuntu,Cantarell,"Helvetica Neue",Arial;color:var(--fg);background:var(--bg)}
-.container{max-width:none;margin:0 auto;padding:0 24px}
+.container{max-width:none;margin:0 auto;padding:0 32px}
 
 /* Headings */
 article h1{margin:48px 0 16px;font-size:28px;line-height:1.25;font-weight:800;border-bottom:2px solid var(--brand);padding-bottom:6px}
@@ -63,9 +63,28 @@ a{color:var(--brand);text-decoration:none}
 pre,code{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;background:var(--brand-bg)}
 pre{overflow:auto;border:1px solid var(--border);border-radius:8px;padding:6px}
 code{border-radius:4px;padding:4px}
-.highlight pre code{display:block;white-space:pre;font-size:12px}
+.highlight pre code{display:block;white-space:pre;font-size:0.85em;line-height:1.5}
 .highlight .err {background-color:inherit;color:#24292f}
 
+/* Контейнери Rouge */
+ div.highlight, figure.highlight { position: relative; }
+
+/* Кнопка копіювання */
+.copy-btn {
+  position: absolute;
+  top: 6px; right: 6px;
+  font-size: .75rem; line-height: 1;
+  background: rgba(0,0,0,.06);
+  border: 1px solid var(--border);
+  color: var(--fg);
+  font-weight: 200;
+  padding: .25rem .45rem;
+  border-radius: 6px;
+  cursor: pointer;
+  opacity: .75;
+}
+.copy-btn:hover {opacity: 1;}
+.copy-btn.copied {color: var(--brand);}
 /* =====================
    4) Header (brand, nav, burger, GitHub)
 ====================== */
@@ -82,6 +101,7 @@ code{border-radius:4px;padding:4px}
 .top-nav a{display:inline-block;padding:6px 10px;color:var(--fg)}
 .top-nav a:hover{background:var(--brand-bg)}
 .top-nav .active a{font-weight:700;border-bottom:3px solid var(--brand);padding-bottom:6px}
+.back-to-top{position:fixed; right:18px; bottom:18px;padding:.2rem .6rem; border-radius:8px;background:rgba(0,0,0,.06); text-decoration:none;color:var(--muted);}
 
 /* GitHub button */
 .header-github{display:flex;align-items:center;gap:6px;margin-left:12px;padding:6px 10px;border:1px solid var(--btn-border);border-radius:6px;text-decoration:none;background:var(--bg);color:var(--link-muted);white-space:nowrap;line-height:1.3}
@@ -106,7 +126,7 @@ code{border-radius:4px;padding:4px}
    6) TOC (right sidebar)
 ====================== */
 .toc{border-right:1px solid var(--border)}
-.toc-inner{position:sticky;top:64px;max-height:calc(100vh - 80px);overflow:auto;padding-left:16px}
+.toc-inner{position:sticky;top:64px;max-height:calc(100vh - 80px);overflow:auto}
 .toc ul{padding-inline-start:20px}
 .toc .section-nav{list-style:none;margin:0;padding:0}
 .toc .section-nav a{display:block;padding:3px 8px;color:var(--link-muted);font-size:14px}
@@ -115,6 +135,7 @@ code{border-radius:4px;padding:4px}
 .toc .toc-entry.toc-h2 > a{color:var(--fg);font-size:.95em;font-weight:200}
 .toc a.active{border-left:3px solid var(--brand);padding-left:6px;background-color:var(--brand-bg)}
 :target{scroll-margin-top:72px}
+.toc-mobile { display:none;border-bottom:1px solid var(--border);padding-bottom:8px;margin-bottom:16px; }
 
 /* =====================
    7) Tables
@@ -130,7 +151,7 @@ code{border-radius:4px;padding:4px}
 /* =====================
    8) Callouts
 ====================== */
-blockquote{margin:12px 0;padding:1px 14px;background:var(--brand-bg);border-left:4px solid var(--brand);border-radius:6px}
+blockquote{margin:12px 0;padding:8px 14px;background:var(--brand-bg);border-left:4px solid var(--brand);border-radius:6px}
 
 /* =====================
    9) Footer
@@ -146,11 +167,16 @@ blockquote{margin:12px 0;padding:1px 14px;background:var(--brand-bg);border-left
 }
 
 @media (max-width:1024px){
-  .grid{grid-template-columns:1fr}
+  .grid{grid-template-columns:1fr;gap:0}
   .left{border-right:0;padding-right:0;border-bottom:1px solid var(--border);margin-bottom:16px}
-  .toc{border-left:0;border-top:1px solid var(--border);margin-top:16px}
+  .toc{border-left:0;border-top:1px solid var(--border);border-right:0;margin-top:16px}
   .toc-inner{position:static;max-height:none;padding-left:0}
   .side-menu{position:static}
+}
+
+@media (max-width:1023px){
+  .toc-mobile { display: block; margin-bottom: 16px; }
+  .toc-desktop { display: none; }
 }
 
 @media (max-width:900px){
@@ -164,6 +190,7 @@ blockquote{margin:12px 0;padding:1px 14px;background:var(--brand-bg);border-left
   .header-github .github-text{display:none}
   .top-nav{order:4;display:none;flex-basis:100%;width:100%}
   .nav-toggle:checked ~ .top-nav{display:block}
+  .back-to-top { display:none; }
 
   .top-nav ul{flex-direction:column;gap:0;padding:8px 0;margin:0;width:100%}
   .top-nav li{border-top:1px solid var(--border)}

@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-  const tocLinks = document.querySelectorAll(".toc a");
+  const tocLinks = document.querySelectorAll(".toc-desktop a");
   const headings = Array.from(tocLinks).map(link => {
     const id = link.getAttribute("href").slice(1);
     return document.getElementById(id);

@@ -1,8 +1,17 @@
 {%- if page.toc != false -%}
-<aside class="toc" aria-label="Table of contents">
+<aside class="toc toc-desktop" aria-label="Table of contents">
     <div class="toc-inner">
-        <h3>{{ page.toc_label | default: page.title }}</h3>
+        <h3>{{ page.toc_label | default: page.title }} </h3>
         {{ content | toc_only }}
     </div>
 </aside>
+
+<details class="toc-mobile">
+    <summary>Table of Contents</summary>
+    <aside class="toc" aria-label="Table of contents">
+        <div class="toc-inner">
+            {{ content | toc_only }}
+        </div>
+    </aside>
+</details>
 {%- endif -%}

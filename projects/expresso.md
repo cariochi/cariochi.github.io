@@ -124,11 +124,10 @@ Expresso brings an **object‑oriented layer** to regular expressions. Instead o
 Example:
 
 ```yaml
-classes:
-  Integer: [ "\\d+" ]
-  Decimal:
-    Common: [ "\\d+\\.\\d+" ]
-    Scientific: [ "\\d+\\.\\d+e[+-]?\\d+" ]
+Integer: [ "\\d+" ]
+Decimal:
+  Common: [ "\\d+\\.\\d+" ]
+  Scientific: [ "\\d+\\.\\d+e[+-]?\\d+" ]
 ```
 
 This defines `Number.Integer`, `Number.Decimal`, `Number.Decimal.Common` and `Number.Decimal.Scientific` as part of the same hierarchy.
@@ -142,18 +141,18 @@ This defines `Number.Integer`, `Number.Decimal`, `Number.Decimal.Common` and `Nu
 Example:
 
 ```yaml
-  Currency:
-    USD: [ "\\$" ]
-    EUR: [ "€" ]
+Currency:
+  USD: [ "\\$" ]
+  EUR: [ "€" ]
 
-  Number:
-    Integer: [ "\\d+" ]
-    Decimal:
-      Scientific: [ "\\d+\\.\\d+e[+-]?\\d+" ]
+Number:
+  Integer: [ "\\d+" ]
+  Decimal:
+    Scientific: [ "\\d+\\.\\d+e[+-]?\\d+" ]
 
-  Price: [ "${Currency}${Number}" ]                               # use whole classes
-  PriceUSD: [ "${Currency.USD}${Number}" ]                        # reference a specific subclass
-  ScientificPrice: [ "${Currency}${Number.Decimal.Scientific}" ]  # reference a deep child
+Price: [ "${Currency}${Number}" ]                               # use whole classes
+PriceUSD: [ "${Currency.USD}${Number}" ]                        # reference a specific subclass
+ScientificPrice: [ "${Currency}${Number.Decimal.Scientific}" ]  # reference a deep child
 ```
 
 Here, `Price` composes from entire classes, `PriceUSD` targets a specific subclass, and `ScientificPrice` references a deeper level in the hierarchy.
@@ -166,16 +165,16 @@ Here, `Price` composes from entire classes, `PriceUSD` targets a specific subcla
 Examples:
 
 ```yaml
-  Date: [ "(?<year>\\d{4})-(?<month>\\d{2})-(?<day>\\d{2})" ]
+Date: [ "(?<year>\\d{4})-(?<month>\\d{2})-(?<day>\\d{2})" ]
 
-  Currency:
-    USD: [ "\\$" ]
-    EUR: [ "€" ]
+Currency:
+  USD: [ "\\$" ]
+  EUR: [ "€" ]
 
-  Number:
-    Integer: [ "\\d+" ]
+Number:
+  Integer: [ "\\d+" ]
 
-  Transaction: [ "(?<amount>${Number.Integer})(?<currency>${Currency})" ]
+Transaction: [ "(?<amount>${Number.Integer})(?<currency>${Currency})" ]
 ```
 
 * `Date` uses local named groups (`year`, `month`, `day`).
@@ -241,12 +240,11 @@ Supported flags:
 Examples:
 
 ```yaml
-classes:
-  Line: [ '(?m)^(.*)$' ]               # (?m) enables multiline mode
+Line: [ '(?m)^(.*)$' ]               # (?m) enables multiline mode
 
-  Pet:
-    Dog: [ '(?i)do(ggies|ggy|gs|g)' ]  # (?i) makes the match case‑insensitive
-    Cat: [ '(?i)cats?', '(?i)kitt(ies|y)' ]
+Pet:
+  Dog: [ '(?i)do(ggies|ggy|gs|g)' ]  # (?i) makes the match case‑insensitive
+  Cat: [ '(?i)cats?', '(?i)kitt(ies|y)' ]
 ```
 
 ## Result Tree
@@ -435,9 +433,9 @@ This way, `Event` automatically benefits from improvements in the shared `number
 Example:
 
 ```yaml
-  Number:
-    Decimal:
-      Scientific: [ "\\d+\\.\\d+e[+-]?\\d+" ]
+Number:
+  Decimal:
+    Scientific: [ "\\d+\\.\\d+e[+-]?\\d+" ]
 ```
 
 Here `Number.Decimal.Scientific` is a precise subtype of `Number.Decimal`, which itself is under `Number`.
@@ -449,7 +447,7 @@ Here `Number.Decimal.Scientific` is a precise subtype of `Number.Decimal`, which
 Example:
 
 ```yaml
-  Transaction: [ "(?<amount>${Number})(?<currency>${Currency})" ]
+Transaction: [ "(?<amount>${Number})(?<currency>${Currency})" ]
 ```
 
 This produces a tree with a `Transaction` node containing two child groups, `amount` and `currency`, which in turn resolve into their respective class matches.
@@ -461,9 +459,9 @@ This produces a tree with a `Transaction` node containing two child groups, `amo
 Example:
 
 ```yaml
-  Date:
-    ISO: [ "(?<year>\\d{4})-(?<month>\\d{2})-(?<day>\\d{2})" ]
-    US:  [ "(?<month>\\d{2})/(?<day>\\d{2})/(?<year>\\d{4})" ]
+Date:
+  ISO: [ "(?<year>\\d{4})-(?<month>\\d{2})-(?<day>\\d{2})" ]
+  US:  [ "(?<month>\\d{2})/(?<day>\\d{2})/(?<year>\\d{4})" ]
 ```
 
 This allows `Date` to match either ISO (`2024-12-31`) or US (`12/31/2024`) style inputs.
@@ -487,11 +485,10 @@ Input:
 Pattern (simplified):
 
 ```yaml
-classes:
-  Timestamp: [ "\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}" ]
-  Level: [ "INFO", "WARN", "ERROR" ]
-  Thread: [ "\\[.*?\\]" ]
-  LogEntry: [ "${Timestamp} ${Level} ${Thread} (?<message>.*)" ]
+Timestamp: [ "\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}" ]
+Level: [ "INFO", "WARN", "ERROR" ]
+Thread: [ "\\[.*?\\]" ]
+LogEntry: [ "${Timestamp} ${Level} ${Thread} (?<message>.*)" ]
 ```
 
 Result (model):
@@ -520,15 +517,14 @@ TXN-4456 DEBIT 120.50 USD Grocery
 Pattern (simplified):
 
 ```yaml
-classes:
-  Id: [ "TXN-\\d+" ]
-  Type: [ "DEBIT", "CREDIT" ]
-  Currency:
-    USD: [ "USD" ]
-    EUR: [ "EUR" ]
-  Number:
-    Decimal: [ "\\d+\\.\\d+" ]
-  Transaction: [ "${Id} ${Type} ${Number} ${Currency} (?<category>.*)" ]
+Id: [ "TXN-\\d+" ]
+Type: [ "DEBIT", "CREDIT" ]
+Currency:
+  USD: [ "USD" ]
+  EUR: [ "EUR" ]
+Number:
+  Decimal: [ "\\d+\\.\\d+" ]
+Transaction: [ "${Id} ${Type} ${Number} ${Currency} (?<category>.*)" ]
 ```
 
 Result (model):

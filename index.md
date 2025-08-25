@@ -3,9 +3,8 @@ layout: home
 title: Cariochi Projects
 ---
 
-## Cariochi Projects
-
-Welcome to the documentation hub for **Cariochi** libraries and tools. Each project is designed to simplify development and testing by providing expressive, declarative, and maintainable APIs.
+> ## Cariochi Projects
+> Welcome to the documentation hub for **Cariochi** libraries and tools. Each project is designed to simplify development and testing by providing expressive, declarative, and maintainable APIs.
 
 ### Projects
 
