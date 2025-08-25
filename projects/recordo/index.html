@@ -186,10 +186,10 @@
 <p>Key benefits at a glance:</p>
 
 <ul>
-  <li><strong>Read Module</strong> – annotate test parameters or fields with <code class="language-plaintext highlighter-rouge">@Read</code> to automatically load JSON, CSV, or ZIP resources into objects. Missing files are generated automatically, ensuring fast deterministic tests.</li>
-  <li><strong>Assertions Module</strong> – assert JSON or CSV responses with expressive fluent APIs. Compare against expected files, filter fields, or ignore order with clear options.</li>
-  <li><strong>MockMvc Module</strong> – build declarative HTTP clients for your controllers in tests. Use familiar Spring MVC annotations (<code class="language-plaintext highlighter-rouge">@GetMapping</code>, <code class="language-plaintext highlighter-rouge">@PostMapping</code>, etc.) and Recordo will generate typed clients, handle requests, and record responses.</li>
-  <li><strong>MockServer Module</strong> – capture and replay HTTP traffic from real clients like <code class="language-plaintext highlighter-rouge">OkHttp</code> or <code class="language-plaintext highlighter-rouge">RestTemplate</code>. Save interactions to JSON files and replay them in tests for stable, reproducible scenarios.</li>
+  <li><a href="#read-module"><strong>Read Module</strong></a> – annotate test parameters or fields with <code class="language-plaintext highlighter-rouge">@Read</code> to automatically load JSON, CSV, or ZIP resources into objects. Missing files are generated automatically, ensuring fast deterministic tests.</li>
+  <li><a href="#assertions-module"><strong>Assertions Module</strong></a> – assert JSON or CSV responses with expressive fluent APIs. Compare against expected files, filter fields, or ignore order with clear options.</li>
+  <li><a href="#mockmvc-module"><strong>MockMvc Module</strong></a> – build declarative HTTP clients for your controllers in tests. Use familiar Spring MVC annotations (<code class="language-plaintext highlighter-rouge">@GetMapping</code>, <code class="language-plaintext highlighter-rouge">@PostMapping</code>, etc.) and Recordo will generate typed clients, handle requests, and record responses.</li>
+  <li><a href="#mockserver-module"><strong>MockServer Module</strong></a> – capture and replay HTTP traffic from real clients like <code class="language-plaintext highlighter-rouge">OkHttp</code> or <code class="language-plaintext highlighter-rouge">RestTemplate</code>. Save interactions to JSON files and replay them in tests for stable, reproducible scenarios.</li>
 </ul>
 
 <p>Recordo combines these modules into a single coherent testing toolkit. It is especially useful when working with complex DTOs, deeply nested JSON structures, or external HTTP APIs, reducing boilerplate and making tests both <strong>readable</strong> and <strong>maintainable</strong>.</p>
