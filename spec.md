@@ -24,7 +24,7 @@ Maven:
 <dependency>
     <groupId>com.cariochi.spec</groupId>
     <artifactId>spring-data-web-spec</artifactId>
-   <version>1.0.3</version>
+  <version>1.0.3</version>
 </dependency>
 ```
 
@@ -32,8 +32,7 @@ Maven:
 
 ## Spring Boot autoconfiguration (recommended)
 
-If you use **Spring Boot 3.x** and have **spring-data-web-spec** on the classpath, the`SpecificationArgumentResolver`
-will be
+If you use **Spring Boot 3.x** and have **spring-data-web-spec** on the classpath, the`SpecificationArgumentResolver`will be
 auto-registered.
 
 Autoconfiguration is enabled by default but can be disabled via:
@@ -73,12 +72,14 @@ Binds an HTTP **query parameter** to a condition.
 
 ```java
 @GetMapping("/projects")
-public List<Project> findProjects(
+public Page<ProjectDto> findProjects(
         @Spec.Param(name = "status", operator = In.class)
         @Spec.Param(name = "name", operator = ContainsIgnoreCase.class)
-        Specification<Project> spec
+        Specification<Project> spec,
+        Pageable pageable
 ) {
-   return repo.findAll(spec);
+    return repo.findAll(spec, pageable)
+            .map(projectMapper::toDto);
 }
 ```
 
@@ -88,11 +89,13 @@ Binds a **path variable** to a condition.
 
 ```java
 @GetMapping("/organizations/{organizationId}/projects")
-public List<Project> findProjects(
+public Page<ProjectDto> findProjects(
         @Spec.Path(name = "organizationId", attribute = "organization.id")
-        Specification<Project> spec
+        Specification<Project> spec,
+        Pageable pageable
 ) {
-   return repo.findAll(spec);
+    return repo.findAll(spec, pageable)
+            .map(projectMapper::toDto);
 }
 ```
 
@@ -102,11 +105,13 @@ Binds an HTTP **header** to a condition.
 
 ```java
 @GetMapping("/projects")
-public List<Project> findProjects(
+public Page<ProjectDto> findProjects(
         @Spec.Header(name = "region", attribute = "organization.region", operator = In.class)
-        Specification<Project> spec
+        Specification<Project> spec,
+        Pageable pageable
 ) {
-   return repo.findAll(spec);
+    return repo.findAll(spec, pageable)
+            .map(projectMapper::toDto);
 }
 ```
 
@@ -117,14 +122,13 @@ conditions (for example, filtering by user-allowed regions), or other custom sou
 
 ```java
 @GetMapping("/projects")
-public List<Project> findProjects(
-        @Spec.Condition(
-                attribute = "organization.region",
-                valueResolver = UserAllowedRegions.class,
-                operator = In.class)
-        Specification<Project> spec
+public Page<ProjectDto> findProjects(
+        @Spec.Condition(attribute = "organization.region", valueResolver = UserAllowedRegions.class, operator = In.class)
+        Specification<Project> spec,
+        Pageable pageable
 ) {
-   return projectRepository.findAll(spec);
+    return projectRepository.findAll(spec, pageable)
+            .map(projectMapper::toDto);
 }
 ```
 
@@ -138,12 +142,12 @@ user:
 @RequiredArgsConstructor
 public class UserAllowedRegions implements Function<String, Set<String>> {
 
-   private final UserService userService;
+  private final UserService userService;
 
-   @Override
-   public Set<String> apply(String name) {
-      return userService.getAllowedRegions();
-   }
+  @Override
+  public Set<String> apply(String name) {
+    return userService.getAllowedRegions();
+  }
 }
 ```
 
@@ -161,7 +165,7 @@ controller parameter. The expression language supports:
 
 ```java
 @GetMapping("/organizations/{organizationId}/projects")
-public List<DummyEntity> findProjects(
+public Page<DummyDto> findProjects(
         @Spec.Path(name = "organizationId", attribute = "organization.id")
         @Spec.Param(name = "id")
         @Spec.Param(name = "name", operator = ContainsIgnoreCase.class)
@@ -170,9 +174,11 @@ public List<DummyEntity> findProjects(
         @Spec.Header(name = "region", attribute = "organization.region", operator = In.class)
         @Spec.Condition(attribute = "organization.region", valueResolver = UserAllowedRegions.class, operator = In.class)
         @Spec.Expression("(id OR name) AND (status OR labels)")
-        Specification<DummyEntity> spec
+        Specification<DummyEntity> spec,
+        Pageable pageable
 ) {
-   return service.findAll(spec);
+  return service.findAll(spec, pageable)
+          .map(emapper::toDto);
 }
 ```
 
@@ -194,10 +200,8 @@ By default the library provides a set of built-in operator beans:
 * null checks: `IsNull`, `IsNotNull`
 * comparison: `GreaterThan`, `GreaterThanOrEqualTo`, `LessThan`, `LessThanOrEqualTo`
 
-In addition to the built-in set, you can define your **own operators** and use them in annotations just like the
-provided
-ones. **Custom operators** are classes that implement the `Operator` interface. They are managed as **Spring beans** and
-can be
+In addition to the built-in set, you can define your **own operators** and use them in annotations just like the provided
+ones. **Custom operators** are classes that implement the `Operator` interface. They are managed as **Spring beans** and can be
 injected or created automatically by Spring.
 
 # Examples
@@ -206,12 +210,14 @@ injected or created automatically by Spring.
 
 ```java
 @GetMapping("/users")
-public List<User> findUsers(
+public Page<UserDto> findUsers(
         @Spec.Param(name = "status", operator = In.class)
         @Spec.Param(name = "name", operator = ContainsIgnoreCase.class)
-        Specification<User> spec
+        Specification<User> spec,
+        Pageable pageable
 ) {
-   return userRepository.findAll(spec);
+  return userRepository.findAll(spec, pageable)
+          .map(userMapper::toDto);
 }
 ```
 
@@ -219,13 +225,15 @@ public List<User> findUsers(
 
 ```java
 @GetMapping("/organizations/{organizationId}/projects")
-public List<Project> findProjects(
+public Page<ProjectDto> findProjects(
         @Spec.Path(name = "organizationId", attribute = "organization.id")
         @Spec.Header(name = "region", attribute = "organization.region", operator = In.class)
         @Spec.Param(name = "active", attribute = "status", operator = Equal.class)
-        Specification<Project> spec
+        Specification<Project> spec,
+        Pageable pageable
 ) {
-   return projectRepository.findAll(spec);
+  return projectRepository.findAll(spec, pageable)
+            .map(projectMapper::toDto);
 }
 ```
 
@@ -233,14 +241,16 @@ public List<Project> findProjects(
 
 ```java
 @GetMapping("/search")
-public List<Item> search(
+public Page<ItemDto> search(
         @Spec.Param(name = "id")
         @Spec.Param(name = "title", operator = ContainsIgnoreCase.class)
         @Spec.Param(name = "category", operator = In.class)
         @Spec.Expression("(id OR title) AND category")
-        Specification<Item> spec
+        Specification<Item> spec,
+        Pageable pageable
 ) {
-   return itemRepository.findAll(spec);
+  return itemRepository.findAll(spec, pageable)
+            .map(itemMapper::toDto);
 }
 ```
 
@@ -248,14 +258,16 @@ public List<Item> search(
 
 ```java
 @GetMapping("/organizations/{organizationId}/projects")
-public List<Project> findProjects(
+public Page<ProjectDto> findProjects(
         @Spec.Path(name = "organizationId", attribute = "organization.id")
         @Spec.Param(name = "status", operator = In.class)
         @Spec.Header(name = "region", attribute = "organization.region", operator = In.class)
         @Spec.Condition(attribute = "organization.region", valueResolver = UserAllowedRegions.class, operator = In.class)
-        Specification<Project> spec
+        Specification<Project> spec,
+        Pageable pageable
 ) {
-   return projectRepository.findAll(spec);
+  return projectRepository.findAll(spec, pageable)
+          .map(projectMapper::toDto);
 }
 ```
 
