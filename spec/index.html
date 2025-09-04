@@ -72,15 +72,34 @@
         <ul id="toc" class="section-nav">
 <li class="toc-entry toc-h1"><a href="#overview">Overview</a></li>
 <li class="toc-entry toc-h1"><a href="#installation">Installation</a></li>
-<li class="toc-entry toc-h1"><a href="#quick-start">Quick start</a>
+<li class="toc-entry toc-h1"><a href="#configuration">Configuration</a>
 <ul>
-<li class="toc-entry toc-h2"><a href="#configuration">Configuration</a></li>
-<li class="toc-entry toc-h2"><a href="#example-usage">Example Usage</a></li>
+<li class="toc-entry toc-h2"><a href="#spring-boot-autoconfiguration-recommended">Spring Boot autoconfiguration (recommended)</a></li>
+<li class="toc-entry toc-h2"><a href="#manual-registration">Manual registration</a></li>
 </ul>
 </li>
-<li class="toc-entry toc-h1"><a href="#how-it-works">How it works</a></li>
-<li class="toc-entry toc-h1"><a href="#built-in-operators">Built-in operators</a></li>
-<li class="toc-entry toc-h1"><a href="#access-control--security">Access control / security</a></li>
+<li class="toc-entry toc-h1"><a href="#core-annotations">Core Annotations</a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#specparam">@Spec.Param</a></li>
+<li class="toc-entry toc-h2"><a href="#specpath">@Spec.Path</a></li>
+<li class="toc-entry toc-h2"><a href="#specheader">@Spec.Header</a></li>
+<li class="toc-entry toc-h2"><a href="#speccondition">@Spec.Condition</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h1"><a href="#logical-expressions--specexpression">Logical Expressions — @Spec.Expression</a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#missing-parameter-behavior">Missing-parameter behavior</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h1"><a href="#operators">Operators</a></li>
+<li class="toc-entry toc-h1"><a href="#examples">Examples</a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#basic-usage">Basic usage</a></li>
+<li class="toc-entry toc-h2"><a href="#combining-path-header-and-query-params">Combining path, header, and query params</a></li>
+<li class="toc-entry toc-h2"><a href="#expression-example">Expression example</a></li>
+<li class="toc-entry toc-h2"><a href="#access-control-example">Access-control example</a></li>
+</ul>
+</li>
 <li class="toc-entry toc-h1"><a href="#license">License</a></li>
 </ul>
     </div>
@@ -93,15 +112,34 @@
             <ul id="toc" class="section-nav">
 <li class="toc-entry toc-h1"><a href="#overview">Overview</a></li>
 <li class="toc-entry toc-h1"><a href="#installation">Installation</a></li>
-<li class="toc-entry toc-h1"><a href="#quick-start">Quick start</a>
+<li class="toc-entry toc-h1"><a href="#configuration">Configuration</a>
 <ul>
-<li class="toc-entry toc-h2"><a href="#configuration">Configuration</a></li>
-<li class="toc-entry toc-h2"><a href="#example-usage">Example Usage</a></li>
+<li class="toc-entry toc-h2"><a href="#spring-boot-autoconfiguration-recommended">Spring Boot autoconfiguration (recommended)</a></li>
+<li class="toc-entry toc-h2"><a href="#manual-registration">Manual registration</a></li>
 </ul>
 </li>
-<li class="toc-entry toc-h1"><a href="#how-it-works">How it works</a></li>
-<li class="toc-entry toc-h1"><a href="#built-in-operators">Built-in operators</a></li>
-<li class="toc-entry toc-h1"><a href="#access-control--security">Access control / security</a></li>
+<li class="toc-entry toc-h1"><a href="#core-annotations">Core Annotations</a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#specparam">@Spec.Param</a></li>
+<li class="toc-entry toc-h2"><a href="#specpath">@Spec.Path</a></li>
+<li class="toc-entry toc-h2"><a href="#specheader">@Spec.Header</a></li>
+<li class="toc-entry toc-h2"><a href="#speccondition">@Spec.Condition</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h1"><a href="#logical-expressions--specexpression">Logical Expressions — @Spec.Expression</a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#missing-parameter-behavior">Missing-parameter behavior</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h1"><a href="#operators">Operators</a></li>
+<li class="toc-entry toc-h1"><a href="#examples">Examples</a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#basic-usage">Basic usage</a></li>
+<li class="toc-entry toc-h2"><a href="#combining-path-header-and-query-params">Combining path, header, and query params</a></li>
+<li class="toc-entry toc-h2"><a href="#expression-example">Expression example</a></li>
+<li class="toc-entry toc-h2"><a href="#access-control-example">Access-control example</a></li>
+</ul>
+</li>
 <li class="toc-entry toc-h1"><a href="#license">License</a></li>
 </ul>
         </div>
@@ -111,48 +149,50 @@
 <!--        <h1>Spring Data Web Spec</h1>-->
         <h1 id="overview">Overview</h1>
 
-<p><strong>Spring Data Web Spec</strong> is an <strong>open-source library</strong> for annotation-based mapping from web requests (query parameters, headers, path variables, and security
-context) to Spring Data JPA Specifications.</p>
+<p><strong>Spring Data Web Spec</strong> is a small <strong>open-source</strong> library that maps HTTP request data
+(<strong>query params</strong>, <strong>headers</strong>, <strong>path variables</strong>, plus optional <strong>access-control</strong> inputs)
+into <strong>Spring Data JPA Specifications</strong> using concise annotations on controller method parameters.</p>
 
 <ul>
-  <li>Declare filters directly in controller method parameters</li>
+  <li>Declare filters directly in controller signatures</li>
   <li>Integrates seamlessly with <strong>Spring MVC</strong> and <strong>Spring Data JPA</strong></li>
-  <li>Extensible <strong>operator</strong> model (<code class="language-plaintext highlighter-rouge">Equal</code>, <code class="language-plaintext highlighter-rouge">In</code>, <code class="language-plaintext highlighter-rouge">ContainsIgnoreCase</code>, <code class="language-plaintext highlighter-rouge">IsNull</code>, etc.)</li>
-  <li>Built-in <strong>access control</strong> support via <code class="language-plaintext highlighter-rouge">@Spec.AccessControl</code> for security-based filters</li>
-  <li>Minimal runtime dependencies</li>
-  <li><strong>Spring Boot autoconfiguration</strong> and optional <code class="language-plaintext highlighter-rouge">@EnableWebSpec</code> annotation for easy setup</li>
-</ul>
+  <li>Pluggable <strong>operators</strong> (<code class="language-plaintext highlighter-rouge">Equal</code>, <code class="language-plaintext highlighter-rouge">In</code>, <code class="language-plaintext highlighter-rouge">ContainsIgnoreCase</code>, <code class="language-plaintext highlighter-rouge">IsNull</code>, <code class="language-plaintext highlighter-rouge">GreaterThan</code>, …)</li>
+  <li><strong>Access control</strong> support via <code class="language-plaintext highlighter-rouge">@Spec.Condition</code> for security-based filters</li>
+  <li>
+    <p>Spring Boot autoconfiguration (or enable manually with <code class="language-plaintext highlighter-rouge">@EnableWebSpec</code>)</p>
 
-<p>👉 Source code is available on <a href="https://github.com/cariochi/spring-data-web-spec">GitHub</a>.</p>
+    <p>👉 Source code is available on <a href="https://github.com/cariochi/spring-data-web-spec">GitHub</a>.</p>
+  </li>
+</ul>
 
 <h1 id="installation">Installation</h1>
 
-<p><strong>Maven</strong></p>
+<p>Maven:</p>
 
 <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span>
     <span class="nt">&lt;groupId&gt;</span>com.cariochi.spec<span class="nt">&lt;/groupId&gt;</span>
     <span class="nt">&lt;artifactId&gt;</span>spring-data-web-spec<span class="nt">&lt;/artifactId&gt;</span>
-    <span class="nt">&lt;version&gt;</span>1.0.2<span class="nt">&lt;/version&gt;</span>
+   <span class="nt">&lt;version&gt;</span>1.0.3<span class="nt">&lt;/version&gt;</span>
 <span class="nt">&lt;/dependency&gt;</span>
 </code></pre></div></div>
 
-<h1 id="quick-start">Quick start</h1>
+<h1 id="configuration">Configuration</h1>
 
-<h2 id="configuration">Configuration</h2>
+<h2 id="spring-boot-autoconfiguration-recommended">Spring Boot autoconfiguration (recommended)</h2>
 
-<p>You can register the argument resolver in one of two ways:</p>
+<p>If you use <strong>Spring Boot 3.x</strong> and have <strong>spring-data-web-spec</strong> on the classpath, the<code class="language-plaintext highlighter-rouge">SpecificationArgumentResolver</code>
+will be
+auto-registered.</p>
 
-<h3 id="1-spring-boot-autoconfiguration-recommended">1. Spring Boot autoconfiguration (recommended)</h3>
-
-<p>If you use <strong>Spring Boot 3.x</strong> and have <strong>spring-data-web-spec</strong> on the classpath, the <code class="language-plaintext highlighter-rouge">SpecArgumentResolver</code> will be auto-registered.
-Autoconfiguration is enabled by default but can be disabled via:</p>
+<p>Autoconfiguration is enabled by default but can be disabled via:</p>
 
 <div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="py">cariochi.spec.web.enabled</span><span class="p">=</span><span class="s">false</span>
 </code></pre></div></div>
 
-<h3 id="2-manual-registration-via-enablewebspec">2. Manual registration via @EnableWebSpec</h3>
+<h2 id="manual-registration">Manual registration</h2>
 
-<p>If you don’t want to rely on <strong>autoconfiguration</strong> (or you use plain <strong>Spring MVC without Boot</strong>), annotate your configuration class:</p>
+<p>If you don’t want to rely on <strong>autoconfiguration</strong> (or you use plain <strong>Spring MVC without Boot</strong>), annotate your
+configuration class:</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@EnableWebSpec</span>
 <span class="nd">@Configuration</span>
@@ -160,116 +200,214 @@ Autoconfiguration is enabled by default but can be disabled via:</p>
 <span class="o">}</span>
 </code></pre></div></div>
 
-<h2 id="example-usage">Example Usage</h2>
+<h1 id="core-annotations">Core Annotations</h1>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@RestController</span>
-<span class="nd">@RequiredArgsConstructor</span>
-<span class="kd">class</span> <span class="nc">DummyController</span> <span class="o">{</span>
+<p>All annotations produce <code class="language-plaintext highlighter-rouge">Specification&lt;?&gt;</code> fragments that are combined with <strong>AND</strong> logic into a single query predicate.</p>
 
-    <span class="kd">private</span> <span class="kd">final</span> <span class="nc">DummyService</span> <span class="n">service</span><span class="o">;</span>
-    <span class="kd">private</span> <span class="kd">final</span> <span class="nc">DummyMapper</span> <span class="n">mapper</span><span class="o">;</span>
+<p>They share the same attributes:</p>
 
-    <span class="nd">@GetMapping</span><span class="o">(</span><span class="s">"/organizations/{organizationId}/dummy"</span><span class="o">)</span>
-    <span class="kd">public</span> <span class="nc">Page</span><span class="o">&lt;</span><span class="nc">DummyDto</span><span class="o">&gt;</span> <span class="nf">findAll</span><span class="o">(</span>
-            <span class="nd">@Spec</span><span class="o">.</span><span class="na">PathVariable</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"organizationId"</span><span class="o">,</span> <span class="n">path</span> <span class="o">=</span> <span class="s">"organization.id"</span><span class="o">,</span> <span class="n">required</span> <span class="o">=</span> <span class="kc">true</span><span class="o">)</span>
-            <span class="nd">@Spec</span><span class="o">.</span><span class="na">RequestParam</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"id"</span><span class="o">)</span>
-            <span class="nd">@Spec</span><span class="o">.</span><span class="na">RequestParam</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"status"</span><span class="o">,</span> <span class="n">operator</span> <span class="o">=</span> <span class="nc">In</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
-            <span class="nd">@Spec</span><span class="o">.</span><span class="na">RequestParam</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"name"</span><span class="o">,</span> <span class="n">operator</span> <span class="o">=</span> <span class="nc">ContainsIgnoreCase</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
-            <span class="nd">@Spec</span><span class="o">.</span><span class="na">RequestParam</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"propertyValue"</span><span class="o">,</span> <span class="n">path</span> <span class="o">=</span> <span class="s">"properties.value"</span><span class="o">,</span> <span class="n">joinType</span> <span class="o">=</span> <span class="nc">JoinType</span><span class="o">.</span><span class="na">INNER</span><span class="o">,</span> <span class="n">operator</span> <span class="o">=</span> <span class="nc">In</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">distinct</span> <span class="o">=</span> <span class="kc">true</span><span class="o">)</span>
-            <span class="nd">@Spec</span><span class="o">.</span><span class="na">RequestHeader</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"region"</span><span class="o">,</span> <span class="n">path</span> <span class="o">=</span> <span class="s">"organization.region"</span><span class="o">)</span>
-            <span class="nd">@Spec</span><span class="o">.</span><span class="na">AccessControl</span><span class="o">(</span><span class="n">path</span> <span class="o">=</span> <span class="s">"organization.region"</span><span class="o">,</span> <span class="n">valueSupplier</span> <span class="o">=</span> <span class="nc">UserAllowedRegions</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">operator</span> <span class="o">=</span> <span class="nc">In</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
-            <span class="nc">Specification</span><span class="o">&lt;</span><span class="nc">DummyEntity</span><span class="o">&gt;</span> <span class="n">specification</span><span class="o">,</span>
-            <span class="nc">Pageable</span> <span class="n">pageable</span>
-    <span class="o">)</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="n">service</span><span class="o">.</span><span class="na">findAll</span><span class="o">(</span><span class="n">specification</span><span class="o">,</span> <span class="n">pageable</span><span class="o">)</span>
-                <span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="nl">mapper:</span><span class="o">:</span><span class="n">toDto</span><span class="o">);</span>
-    <span class="o">}</span>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">name</code> – external name (query param, path variable, or header name)</li>
+  <li><code class="language-plaintext highlighter-rouge">attribute</code> – entity attribute path</li>
+  <li><code class="language-plaintext highlighter-rouge">operator</code> – comparison operator class (default <code class="language-plaintext highlighter-rouge">Equal</code>)</li>
+  <li><code class="language-plaintext highlighter-rouge">required</code> – fail if the value is missing</li>
+  <li><code class="language-plaintext highlighter-rouge">distinct</code> – apply <code class="language-plaintext highlighter-rouge">distinct</code> to the query</li>
+  <li><code class="language-plaintext highlighter-rouge">joinType</code> – join type when traversing associations (default <code class="language-plaintext highlighter-rouge">INNER</code>)</li>
+</ul>
+
+<h2 id="specparam"><code class="language-plaintext highlighter-rouge">@Spec.Param</code></h2>
+
+<p>Binds an HTTP <strong>query parameter</strong> to a condition.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@GetMapping</span><span class="o">(</span><span class="s">"/projects"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Project</span><span class="o">&gt;</span> <span class="nf">findProjects</span><span class="o">(</span>
+        <span class="nd">@Spec</span><span class="o">.</span><span class="na">Param</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"status"</span><span class="o">,</span> <span class="n">operator</span> <span class="o">=</span> <span class="nc">In</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+        <span class="nd">@Spec</span><span class="o">.</span><span class="na">Param</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"name"</span><span class="o">,</span> <span class="n">operator</span> <span class="o">=</span> <span class="nc">ContainsIgnoreCase</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+        <span class="nc">Specification</span><span class="o">&lt;</span><span class="nc">Project</span><span class="o">&gt;</span> <span class="n">spec</span>
+<span class="o">)</span> <span class="o">{</span>
+   <span class="k">return</span> <span class="n">repo</span><span class="o">.</span><span class="na">findAll</span><span class="o">(</span><span class="n">spec</span><span class="o">);</span>
 <span class="o">}</span>
 </code></pre></div></div>
 
-<h1 id="how-it-works">How it works</h1>
+<h2 id="specpath"><code class="language-plaintext highlighter-rouge">@Spec.Path</code></h2>
 
-<ol>
-  <li>
-    <p>Annotate a <code class="language-plaintext highlighter-rouge">Specification&lt;T&gt;</code> method parameter with one or more source annotations:</p>
+<p>Binds a <strong>path variable</strong> to a condition.</p>
 
-    <ul>
-      <li><code class="language-plaintext highlighter-rouge">@Spec.RequestParam</code> — query parameter</li>
-      <li><code class="language-plaintext highlighter-rouge">@Spec.RequestHeader</code> — HTTP header</li>
-      <li><code class="language-plaintext highlighter-rouge">@Spec.PathVariable</code> — URI path variable</li>
-      <li><code class="language-plaintext highlighter-rouge">@Spec.AccessControl</code> — security-based, no request value needed</li>
-    </ul>
-  </li>
-  <li>
-    <p><code class="language-plaintext highlighter-rouge">SpecArgumentResolver</code>:</p>
-
-    <ul>
-      <li>Reads the values from the HTTP request or security context.</li>
-      <li>Converts them using <strong>Spring’s ConversionService</strong>.</li>
-      <li>Passes them to the chosen operator.</li>
-    </ul>
-  </li>
-  <li>
-    <p>An operator implements:</p>
-
-    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">interface</span> <span class="nc">SpecOperator</span><span class="o">&lt;</span><span class="no">T</span><span class="o">,</span> <span class="no">Y</span><span class="o">,</span> <span class="no">V</span><span class="o">&gt;</span> <span class="o">{</span>
-  <span class="nc">Specification</span><span class="o">&lt;</span><span class="no">T</span><span class="o">&gt;</span> <span class="nf">buildSpecification</span><span class="o">(</span><span class="nc">SpecContext</span><span class="o">&lt;</span><span class="no">T</span><span class="o">,</span> <span class="no">Y</span><span class="o">,</span> <span class="no">V</span><span class="o">&gt;</span> <span class="n">ctx</span><span class="o">);</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@GetMapping</span><span class="o">(</span><span class="s">"/organizations/{organizationId}/projects"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Project</span><span class="o">&gt;</span> <span class="nf">findProjects</span><span class="o">(</span>
+        <span class="nd">@Spec</span><span class="o">.</span><span class="na">Path</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"organizationId"</span><span class="o">,</span> <span class="n">attribute</span> <span class="o">=</span> <span class="s">"organization.id"</span><span class="o">)</span>
+        <span class="nc">Specification</span><span class="o">&lt;</span><span class="nc">Project</span><span class="o">&gt;</span> <span class="n">spec</span>
+<span class="o">)</span> <span class="o">{</span>
+   <span class="k">return</span> <span class="n">repo</span><span class="o">.</span><span class="na">findAll</span><span class="o">(</span><span class="n">spec</span><span class="o">);</span>
 <span class="o">}</span>
-</code></pre></div>    </div>
-  </li>
-  <li>
-    <p>All generated specifications are combined with <strong>AND</strong> logic.</p>
-  </li>
-</ol>
+</code></pre></div></div>
 
-<h1 id="built-in-operators">Built-in operators</h1>
+<h2 id="specheader"><code class="language-plaintext highlighter-rouge">@Spec.Header</code></h2>
 
-<ul>
-  <li>Equal, NotEqual</li>
-  <li>In, NotIn</li>
-  <li>Contains, ContainsIgnoreCase</li>
-  <li>StartWith, StartWithIgnoreCase</li>
-  <li>IsNull, IsNotNull</li>
-  <li>GreaterThan, GreaterThanOrEqualTo, LessThan, LessThanOrEqualTo</li>
-</ul>
+<p>Binds an HTTP <strong>header</strong> to a condition.</p>
 
-<p><strong>You can also implement custom operators.</strong></p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@GetMapping</span><span class="o">(</span><span class="s">"/projects"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Project</span><span class="o">&gt;</span> <span class="nf">findProjects</span><span class="o">(</span>
+        <span class="nd">@Spec</span><span class="o">.</span><span class="na">Header</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"region"</span><span class="o">,</span> <span class="n">attribute</span> <span class="o">=</span> <span class="s">"organization.region"</span><span class="o">,</span> <span class="n">operator</span> <span class="o">=</span> <span class="nc">In</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+        <span class="nc">Specification</span><span class="o">&lt;</span><span class="nc">Project</span><span class="o">&gt;</span> <span class="n">spec</span>
+<span class="o">)</span> <span class="o">{</span>
+   <span class="k">return</span> <span class="n">repo</span><span class="o">.</span><span class="na">findAll</span><span class="o">(</span><span class="n">spec</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
 
-<h1 id="access-control--security">Access control / security</h1>
+<h2 id="speccondition"><code class="language-plaintext highlighter-rouge">@Spec.Condition</code></h2>
 
-<p>Use <code class="language-plaintext highlighter-rouge">@Spec.AccessControl</code> for filters without request input, e.g., enforcing user-specific restrictions.</p>
+<p>A flexible annotation that lets you provide your own <code class="language-plaintext highlighter-rouge">valueResolver</code>. It can be used to express access-control
+conditions (for example, filtering by user-allowed regions), or other custom sources of values.</p>
 
-<p><strong>Example:</strong></p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@GetMapping</span><span class="o">(</span><span class="s">"/projects"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Project</span><span class="o">&gt;</span> <span class="nf">findProjects</span><span class="o">(</span>
+        <span class="nd">@Spec</span><span class="o">.</span><span class="na">Condition</span><span class="o">(</span>
+                <span class="n">attribute</span> <span class="o">=</span> <span class="s">"organization.region"</span><span class="o">,</span>
+                <span class="n">valueResolver</span> <span class="o">=</span> <span class="nc">UserAllowedRegions</span><span class="o">.</span><span class="na">class</span><span class="o">,</span>
+                <span class="n">operator</span> <span class="o">=</span> <span class="nc">In</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+        <span class="nc">Specification</span><span class="o">&lt;</span><span class="nc">Project</span><span class="o">&gt;</span> <span class="n">spec</span>
+<span class="o">)</span> <span class="o">{</span>
+   <span class="k">return</span> <span class="n">projectRepository</span><span class="o">.</span><span class="na">findAll</span><span class="o">(</span><span class="n">spec</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
 
-<p>Value Supplier can be a <code class="language-plaintext highlighter-rouge">Supplier&lt;List&lt;String&gt;&gt;</code> that returns the allowed regions for the current user:</p>
+<h3 id="custom-value-resolver">Custom value resolver</h3>
+
+<p>A custom <code class="language-plaintext highlighter-rouge">valueResolver</code> can be implemented as a <strong>Spring bean</strong>. For example, resolving allowed regions for the current
+user:</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Component</span>
 <span class="nd">@RequiredArgsConstructor</span>
-<span class="kd">class</span> <span class="nc">UserAllowedRegions</span> <span class="kd">implements</span> <span class="nc">Supplier</span><span class="o">&lt;</span><span class="nc">List</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;&gt;</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">UserAllowedRegions</span> <span class="kd">implements</span> <span class="nc">Function</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">Set</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;&gt;</span> <span class="o">{</span>
 
-    <span class="kd">private</span> <span class="kd">final</span> <span class="nc">UserService</span> <span class="n">userService</span><span class="o">;</span>
+   <span class="kd">private</span> <span class="kd">final</span> <span class="nc">UserService</span> <span class="n">userService</span><span class="o">;</span>
 
-    <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="nf">get</span><span class="o">()</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="n">userService</span><span class="o">.</span><span class="na">getUserAllowedRegions</span><span class="o">();</span>
-    <span class="o">}</span>
+   <span class="nd">@Override</span>
+   <span class="kd">public</span> <span class="nc">Set</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="nf">apply</span><span class="o">(</span><span class="nc">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+      <span class="k">return</span> <span class="n">userService</span><span class="o">.</span><span class="na">getAllowedRegions</span><span class="o">();</span>
+   <span class="o">}</span>
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>Usage example:</p>
+<h1 id="logical-expressions--specexpression">Logical Expressions — <code class="language-plaintext highlighter-rouge">@Spec.Expression</code></h1>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Spec</span><span class="o">.</span><span class="na">AccessControl</span><span class="o">(</span>
-        <span class="n">path</span> <span class="o">=</span> <span class="s">"organization.region"</span><span class="o">,</span>
-        <span class="n">valueSupplier</span> <span class="o">=</span> <span class="nc">UserAllowedRegions</span><span class="o">.</span><span class="na">class</span><span class="o">,</span>
-        <span class="n">operator</span> <span class="o">=</span> <span class="nc">In</span><span class="o">.</span><span class="na">class</span>
-<span class="o">)</span>
+<p>Combine multiple atomic conditions with a Boolean expression defined right on the
+controller parameter. The expression language supports:</p>
+
+<ul>
+  <li>textual operators: <code class="language-plaintext highlighter-rouge">AND</code>, <code class="language-plaintext highlighter-rouge">OR</code>, <code class="language-plaintext highlighter-rouge">NOT</code> (case-insensitive)</li>
+  <li>symbolic operators: <code class="language-plaintext highlighter-rouge">&amp;&amp;</code>, <code class="language-plaintext highlighter-rouge">||</code>, <code class="language-plaintext highlighter-rouge">!</code></li>
+  <li>parentheses for grouping</li>
+</ul>
+
+<blockquote>
+  <p>Note: specifications declared on the controller method parameter but not referenced in the <code class="language-plaintext highlighter-rouge">@Spec.Expression</code> will
+still be included, combined with <strong>AND</strong>.</p>
+</blockquote>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@GetMapping</span><span class="o">(</span><span class="s">"/organizations/{organizationId}/projects"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">DummyEntity</span><span class="o">&gt;</span> <span class="nf">findProjects</span><span class="o">(</span>
+        <span class="nd">@Spec</span><span class="o">.</span><span class="na">Path</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"organizationId"</span><span class="o">,</span> <span class="n">attribute</span> <span class="o">=</span> <span class="s">"organization.id"</span><span class="o">)</span>
+        <span class="nd">@Spec</span><span class="o">.</span><span class="na">Param</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"id"</span><span class="o">)</span>
+        <span class="nd">@Spec</span><span class="o">.</span><span class="na">Param</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"name"</span><span class="o">,</span> <span class="n">operator</span> <span class="o">=</span> <span class="nc">ContainsIgnoreCase</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+        <span class="nd">@Spec</span><span class="o">.</span><span class="na">Param</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"status"</span><span class="o">,</span> <span class="n">operator</span> <span class="o">=</span> <span class="nc">In</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+        <span class="nd">@Spec</span><span class="o">.</span><span class="na">Param</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"labels"</span><span class="o">,</span> <span class="n">operator</span> <span class="o">=</span> <span class="nc">In</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+        <span class="nd">@Spec</span><span class="o">.</span><span class="na">Header</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"region"</span><span class="o">,</span> <span class="n">attribute</span> <span class="o">=</span> <span class="s">"organization.region"</span><span class="o">,</span> <span class="n">operator</span> <span class="o">=</span> <span class="nc">In</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+        <span class="nd">@Spec</span><span class="o">.</span><span class="na">Condition</span><span class="o">(</span><span class="n">attribute</span> <span class="o">=</span> <span class="s">"organization.region"</span><span class="o">,</span> <span class="n">valueResolver</span> <span class="o">=</span> <span class="nc">UserAllowedRegions</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">operator</span> <span class="o">=</span> <span class="nc">In</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+        <span class="nd">@Spec</span><span class="o">.</span><span class="na">Expression</span><span class="o">(</span><span class="s">"(id OR name) AND (status OR labels)"</span><span class="o">)</span>
+        <span class="nc">Specification</span><span class="o">&lt;</span><span class="nc">DummyEntity</span><span class="o">&gt;</span> <span class="n">spec</span>
+<span class="o">)</span> <span class="o">{</span>
+   <span class="k">return</span> <span class="n">service</span><span class="o">.</span><span class="na">findAll</span><span class="o">(</span><span class="n">spec</span><span class="o">);</span>
+<span class="o">}</span>
 </code></pre></div></div>
 
-<p>This will automatically restrict queries to allowed regions for the current user.</p>
+<h2 id="missing-parameter-behavior">Missing-parameter behavior</h2>
+
+<p><code class="language-plaintext highlighter-rouge">@Spec.Expression</code> exposes a <code class="language-plaintext highlighter-rouge">strict</code> flag that controls how unknown/missing aliases are handled in the expression:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">strict = false</code> <em>(default)</em>: <strong>lenient</strong> — missing aliases evaluate to <code class="language-plaintext highlighter-rouge">null</code> and are ignored by combinators
+(e.g., <code class="language-plaintext highlighter-rouge">(id OR name) AND (status OR labels)</code> with only <code class="language-plaintext highlighter-rouge">id</code> present simplifies to <code class="language-plaintext highlighter-rouge">id</code>).</li>
+  <li><code class="language-plaintext highlighter-rouge">strict = true</code>: an exception is thrown if the expression references an alias with no corresponding specification.</li>
+</ul>
+
+<h1 id="operators">Operators</h1>
+
+<p>By default the library provides a set of built-in operator beans:</p>
+
+<ul>
+  <li>equality/inequality: <code class="language-plaintext highlighter-rouge">Equal</code>, <code class="language-plaintext highlighter-rouge">NotEqual</code></li>
+  <li>membership: <code class="language-plaintext highlighter-rouge">In</code>, <code class="language-plaintext highlighter-rouge">NotIn</code></li>
+  <li>string: <code class="language-plaintext highlighter-rouge">Contains</code>, <code class="language-plaintext highlighter-rouge">ContainsIgnoreCase</code>, <code class="language-plaintext highlighter-rouge">StartsWith</code>, <code class="language-plaintext highlighter-rouge">StartsWithIgnoreCase</code>, <code class="language-plaintext highlighter-rouge">EndsWith</code>, <code class="language-plaintext highlighter-rouge">EndsWithIgnoreCase</code></li>
+  <li>null checks: <code class="language-plaintext highlighter-rouge">IsNull</code>, <code class="language-plaintext highlighter-rouge">IsNotNull</code></li>
+  <li>comparison: <code class="language-plaintext highlighter-rouge">GreaterThan</code>, <code class="language-plaintext highlighter-rouge">GreaterThanOrEqualTo</code>, <code class="language-plaintext highlighter-rouge">LessThan</code>, <code class="language-plaintext highlighter-rouge">LessThanOrEqualTo</code></li>
+</ul>
+
+<p>In addition to the built-in set, you can define your <strong>own operators</strong> and use them in annotations just like the
+provided
+ones. <strong>Custom operators</strong> are classes that implement the <code class="language-plaintext highlighter-rouge">Operator</code> interface. They are managed as <strong>Spring beans</strong> and
+can be
+injected or created automatically by Spring.</p>
+
+<h1 id="examples">Examples</h1>
+
+<h2 id="basic-usage">Basic usage</h2>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@GetMapping</span><span class="o">(</span><span class="s">"/users"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">User</span><span class="o">&gt;</span> <span class="nf">findUsers</span><span class="o">(</span>
+        <span class="nd">@Spec</span><span class="o">.</span><span class="na">Param</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"status"</span><span class="o">,</span> <span class="n">operator</span> <span class="o">=</span> <span class="nc">In</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+        <span class="nd">@Spec</span><span class="o">.</span><span class="na">Param</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"name"</span><span class="o">,</span> <span class="n">operator</span> <span class="o">=</span> <span class="nc">ContainsIgnoreCase</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+        <span class="nc">Specification</span><span class="o">&lt;</span><span class="nc">User</span><span class="o">&gt;</span> <span class="n">spec</span>
+<span class="o">)</span> <span class="o">{</span>
+   <span class="k">return</span> <span class="n">userRepository</span><span class="o">.</span><span class="na">findAll</span><span class="o">(</span><span class="n">spec</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="combining-path-header-and-query-params">Combining path, header, and query params</h2>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@GetMapping</span><span class="o">(</span><span class="s">"/organizations/{organizationId}/projects"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Project</span><span class="o">&gt;</span> <span class="nf">findProjects</span><span class="o">(</span>
+        <span class="nd">@Spec</span><span class="o">.</span><span class="na">Path</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"organizationId"</span><span class="o">,</span> <span class="n">attribute</span> <span class="o">=</span> <span class="s">"organization.id"</span><span class="o">)</span>
+        <span class="nd">@Spec</span><span class="o">.</span><span class="na">Header</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"region"</span><span class="o">,</span> <span class="n">attribute</span> <span class="o">=</span> <span class="s">"organization.region"</span><span class="o">,</span> <span class="n">operator</span> <span class="o">=</span> <span class="nc">In</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+        <span class="nd">@Spec</span><span class="o">.</span><span class="na">Param</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"active"</span><span class="o">,</span> <span class="n">attribute</span> <span class="o">=</span> <span class="s">"status"</span><span class="o">,</span> <span class="n">operator</span> <span class="o">=</span> <span class="nc">Equal</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+        <span class="nc">Specification</span><span class="o">&lt;</span><span class="nc">Project</span><span class="o">&gt;</span> <span class="n">spec</span>
+<span class="o">)</span> <span class="o">{</span>
+   <span class="k">return</span> <span class="n">projectRepository</span><span class="o">.</span><span class="na">findAll</span><span class="o">(</span><span class="n">spec</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="expression-example">Expression example</h2>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@GetMapping</span><span class="o">(</span><span class="s">"/search"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Item</span><span class="o">&gt;</span> <span class="nf">search</span><span class="o">(</span>
+        <span class="nd">@Spec</span><span class="o">.</span><span class="na">Param</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"id"</span><span class="o">)</span>
+        <span class="nd">@Spec</span><span class="o">.</span><span class="na">Param</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"title"</span><span class="o">,</span> <span class="n">operator</span> <span class="o">=</span> <span class="nc">ContainsIgnoreCase</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+        <span class="nd">@Spec</span><span class="o">.</span><span class="na">Param</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"category"</span><span class="o">,</span> <span class="n">operator</span> <span class="o">=</span> <span class="nc">In</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+        <span class="nd">@Spec</span><span class="o">.</span><span class="na">Expression</span><span class="o">(</span><span class="s">"(id OR title) AND category"</span><span class="o">)</span>
+        <span class="nc">Specification</span><span class="o">&lt;</span><span class="nc">Item</span><span class="o">&gt;</span> <span class="n">spec</span>
+<span class="o">)</span> <span class="o">{</span>
+   <span class="k">return</span> <span class="n">itemRepository</span><span class="o">.</span><span class="na">findAll</span><span class="o">(</span><span class="n">spec</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="access-control-example">Access-control example</h2>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@GetMapping</span><span class="o">(</span><span class="s">"/organizations/{organizationId}/projects"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Project</span><span class="o">&gt;</span> <span class="nf">findProjects</span><span class="o">(</span>
+        <span class="nd">@Spec</span><span class="o">.</span><span class="na">Path</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"organizationId"</span><span class="o">,</span> <span class="n">attribute</span> <span class="o">=</span> <span class="s">"organization.id"</span><span class="o">)</span>
+        <span class="nd">@Spec</span><span class="o">.</span><span class="na">Param</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"status"</span><span class="o">,</span> <span class="n">operator</span> <span class="o">=</span> <span class="nc">In</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+        <span class="nd">@Spec</span><span class="o">.</span><span class="na">Header</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"region"</span><span class="o">,</span> <span class="n">attribute</span> <span class="o">=</span> <span class="s">"organization.region"</span><span class="o">,</span> <span class="n">operator</span> <span class="o">=</span> <span class="nc">In</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+        <span class="nd">@Spec</span><span class="o">.</span><span class="na">Condition</span><span class="o">(</span><span class="n">attribute</span> <span class="o">=</span> <span class="s">"organization.region"</span><span class="o">,</span> <span class="n">valueResolver</span> <span class="o">=</span> <span class="nc">UserAllowedRegions</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">operator</span> <span class="o">=</span> <span class="nc">In</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+        <span class="nc">Specification</span><span class="o">&lt;</span><span class="nc">Project</span><span class="o">&gt;</span> <span class="n">spec</span>
+<span class="o">)</span> <span class="o">{</span>
+   <span class="k">return</span> <span class="n">projectRepository</span><span class="o">.</span><span class="na">findAll</span><span class="o">(</span><span class="n">spec</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
 
 <h1 id="license">License</h1>
 
-<p>The library is distributed under the <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a>.</p>
+<p>The library is licensed under the <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a>.</p>
 
     </article>
     <a href="#top" class="back-to-top" title="Back to top">↑</a>
