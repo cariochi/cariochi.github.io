@@ -9,7 +9,7 @@
   github: https://github.com/cariochi/recordo
 - title: WEB SPEC
   url: /spec
-  github: https://github.com/cariochi/spec
+  github: https://github.com/cariochi/spring-data-web-spec
 - title: EXPRESSO
   url: /expresso
   demo_url: https://expresso.cariochi.com

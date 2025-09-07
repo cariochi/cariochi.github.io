@@ -4,17 +4,32 @@ title: Spring Data Web Spec
 
 # Overview
 
-**Spring Data Web Spec** is a small **open-source** library that maps HTTP request data
-(**query params**, **headers**, **path variables**, plus optional **access-control** inputs)
-into **Spring Data JPA Specifications** using concise annotations on controller method parameters.
+**Spring Data Web Spec** is a lightweight **open‑source** library that maps HTTP request data—
+(**query parameters**, **headers**, **path variables**, **JSON body fields**, and **access‑control** conditions) — into
+Spring Data JPA **Specifications** using clear, concise annotations on controller method parameters.
 
-* Declare filters directly in controller signatures
-* Integrates seamlessly with **Spring MVC** and **Spring Data JPA**
-* Pluggable **operators** (`Equal`, `In`, `ContainsIgnoreCase`, `IsNull`, `GreaterThan`, ...)
-* **Access control** support via `@Spec.Condition` for security-based filters
-* Spring Boot autoconfiguration (or enable manually with `@EnableWebSpec`)
+👉 Source code is available on [GitHub](https://github.com/cariochi/spring-data-web-spec).
 
-  👉 Source code is available on [GitHub](https://github.com/cariochi/spring-data-web-spec).
+# Quick Start
+
+The simplest usage example is filtering entities by query parameters in a controller method:
+
+```java
+@GetMapping("/users")
+public Page<UserDto> findUsers(
+        @Spec.Param(name = "role", attribute = "role.name", operator = In.class)
+        @Spec.Param(name = "name", operator = ContainsIgnoreCase.class)
+        @Spec.Condition(attribute = "organization.id", valueResolver = AllowedOrganizations.class, operator = In.class)
+        Specification<User> spec,
+        Pageable pageable
+) {
+  return userService.findAll(spec, pageable).map(userMapper::toDto);
+}
+```
+
+With just these annotations, incoming request parameters like `?role=ADMIN&name=alex` will be automatically mapped into
+a JPA **Specification**, and **access-control** rules (for example, restricting results to organizations allowed by
+`AllowedOrganizations`) will also be applied to the query.
 
 # Installation
 
@@ -24,7 +39,7 @@ Maven:
 <dependency>
     <groupId>com.cariochi.spec</groupId>
     <artifactId>spring-data-web-spec</artifactId>
-  <version>1.0.3</version>
+  <version>1.0.4</version>
 </dependency>
 ```
 
@@ -32,13 +47,13 @@ Maven:
 
 ## Spring Boot autoconfiguration (recommended)
 
-If you use **Spring Boot 3.x** and have **spring-data-web-spec** on the classpath, the`SpecificationArgumentResolver`will be
-auto-registered.
+If you use **Spring Boot 3.x** and have **spring-data-web-spec** on the classpath, the `SpecificationArgumentResolver`
+will be automatically registered.
 
 Autoconfiguration is enabled by default but can be disabled via:
 
 ```properties
-cariochi.spec.web.enabled=false
+cariochi.spec.enabled=false
 ```
 
 ## Manual registration
@@ -53,17 +68,20 @@ public class WebConfig {
 }
 ```
 
-# Core Annotations
+# Annotations
 
 All annotations produce `Specification<?>` fragments that are combined with **AND** logic into a single query predicate.
+Additionally, you can use the [`@Spec.Expression`](#specexpression) annotation to define custom combinations with groups
+and Boolean
+operators (AND, OR, NOT).
 
 They share the same attributes:
 
 * `name` – external name (query param, path variable, or header name)
 * `attribute` – entity attribute path
 * `operator` – comparison operator class (default `Equal`)
-* `required` – fail if the value is missing
-* `distinct` – apply `distinct` to the query
+* `required` – fail if the value is missing (default `false`)
+* `distinct` – apply `distinct` to the query (default `false`)
 * `joinType` – join type when traversing associations (default `INNER`)
 
 ## `@Spec.Param`
@@ -74,51 +92,92 @@ Binds an HTTP **query parameter** to a condition.
 @GetMapping("/projects")
 public Page<ProjectDto> findProjects(
         @Spec.Param(name = "status", operator = In.class)
-        @Spec.Param(name = "name", operator = ContainsIgnoreCase.class)
+        @Spec.Param(name = "nameContains", operator = ContainsIgnoreCase.class)
         Specification<Project> spec,
         Pageable pageable
 ) {
-    return repo.findAll(spec, pageable)
-            .map(projectMapper::toDto);
+  return repo.findAll(spec, pageable).map(projectMapper::toDto);
 }
 ```
 
 ## `@Spec.Path`
 
-Binds a **path variable** to a condition.
+Binds an HTTP **path variable** to a condition.
 
 ```java
 @GetMapping("/organizations/{organizationId}/projects")
 public Page<ProjectDto> findProjects(
         @Spec.Path(name = "organizationId", attribute = "organization.id")
+        @Spec.Param(name = "status", operator = In.class)
+        @Spec.Param(name = "nameContains", operator = ContainsIgnoreCase.class)
         Specification<Project> spec,
         Pageable pageable
 ) {
-    return repo.findAll(spec, pageable)
-            .map(projectMapper::toDto);
+  return repo.findAll(spec, pageable).map(projectMapper::toDto);
 }
 ```
 
 ## `@Spec.Header`
 
-Binds an HTTP **header** to a condition.
+Binds an HTTP **header** to a condition. This can also be used for multi‑tenant support, for example separating data by
+region, client, or other contextual header values.
 
 ```java
 @GetMapping("/projects")
 public Page<ProjectDto> findProjects(
-        @Spec.Header(name = "region", attribute = "organization.region", operator = In.class)
+        @Spec.Param(name = "status", operator = In.class)
+        @Spec.Param(name = "nameContains", operator = ContainsIgnoreCase.class)
+        @Spec.Header(name = "X-Region", attribute = "organization.region", operator = In.class)
         Specification<Project> spec,
         Pageable pageable
 ) {
-    return repo.findAll(spec, pageable)
-            .map(projectMapper::toDto);
+  return repo.findAll(spec, pageable).map(projectMapper::toDto);
+}
+```
+
+## `@Spec.Body`
+
+Binds a **request body** field to a condition. Supports **JSON** (`application/json`, `application/*+json`).
+
+* Nested keys via **dot-notation** (e.g. `filters.status`, `organization.region.id`).
+* Works with both **nested** and **flattened** JSON structures.
+* Can be freely **combined** with other annotations (`@Spec.Param`, `@Spec.Path`, `@Spec.Header`, `@Spec.Condition`,
+  `@Spec.Expression`).
+* If your body includes additional data beyond filters, you can still declare a regular `@RequestBody` parameter to
+  receive the full payload as-is. This is especially useful when the request contains pagination or metadata alongside
+  filter criteria. In such cases, the library ensures that filters and business data can coexist cleanly in a single
+  request.
+
+  For this to work, you need to enable the **body-repeatable** option (disabled by default):
+
+ ```properties
+  cariochi.spec.body-repeatable=true
+  ```
+
+When enabled, the request body can be consumed multiple times—once for resolving specifications and again for binding to
+the controller parameter. This feature is critical for robust API designs where controllers expect both structured
+filters and domain-specific payloads.
+
+```java
+
+@PostMapping("/projects/search")
+public List<ProjectDto> findProjects(
+        @Spec.Body(name = "filters.id", attribute = "id")
+        @Spec.Body(name = "filters.name", attribute = "name", operator = ContainsIgnoreCase.class)
+        @Spec.Body(name = "filters.status", attribute = "status", operator = In.class)
+        @Spec.Body(name = "filters.labels", attribute = "labels", operator = In.class)
+        @Spec.Expression(value = "(filters.id || filters.status) && (filters.name || filters.labels)")
+        Specification<Project> spec,
+        @RequestBody SearchRequestDto searchRequest
+) {
+  return repo.findAll(spec, searchRequest.getPageable()).map(projectMapper::toDto);
 }
 ```
 
 ## `@Spec.Condition`
 
-A flexible annotation that lets you provide your own `valueResolver`. It can be used to express access-control
-conditions (for example, filtering by user-allowed regions), or other custom sources of values.
+A flexible annotation that lets you provide your own `valueResolver`. It can be used to express **access-control
+conditions** (for example, filtering by user-allowed regions), or other custom sources of values.
 
 ```java
 @GetMapping("/projects")
@@ -127,8 +186,7 @@ public Page<ProjectDto> findProjects(
         Specification<Project> spec,
         Pageable pageable
 ) {
-    return projectRepository.findAll(spec, pageable)
-            .map(projectMapper::toDto);
+  return projectService.findAll(spec, pageable).map(projectMapper::toDto);
 }
 ```
 
@@ -151,7 +209,7 @@ public class UserAllowedRegions implements Function<String, Set<String>> {
 }
 ```
 
-# Logical Expressions — `@Spec.Expression`
+## `@Spec.Expression`
 
 Combine multiple atomic conditions with a Boolean expression defined right on the
 controller parameter. The expression language supports:
@@ -165,24 +223,23 @@ controller parameter. The expression language supports:
 
 ```java
 @GetMapping("/organizations/{organizationId}/projects")
-public Page<DummyDto> findProjects(
+public Page<ProjectDto> findProjects(
         @Spec.Path(name = "organizationId", attribute = "organization.id")
         @Spec.Param(name = "id")
         @Spec.Param(name = "name", operator = ContainsIgnoreCase.class)
         @Spec.Param(name = "status", operator = In.class)
         @Spec.Param(name = "labels", operator = In.class)
-        @Spec.Header(name = "region", attribute = "organization.region", operator = In.class)
+        @Spec.Header(name = "X-Region", attribute = "organization.region", operator = In.class)
         @Spec.Condition(attribute = "organization.region", valueResolver = UserAllowedRegions.class, operator = In.class)
-        @Spec.Expression("(id OR name) AND (status OR labels)")
-        Specification<DummyEntity> spec,
+        @Spec.Expression("(id || name) && (status || labels)")
+        Specification<Project> spec,
         Pageable pageable
 ) {
-  return service.findAll(spec, pageable)
-          .map(emapper::toDto);
+  return service.findAll(spec, pageable).map(projectMapper::toDto);
 }
 ```
 
-## Missing-parameter behavior
+### Missing-parameter behavior
 
 `@Spec.Expression` exposes a `strict` flag that controls how unknown/missing aliases are handled in the expression:
 
@@ -192,7 +249,7 @@ public Page<DummyDto> findProjects(
 
 # Operators
 
-By default the library provides a set of built-in operator beans:
+By default, the library provides a set of built-in operator beans:
 
 * equality/inequality: `Equal`, `NotEqual`
 * membership: `In`, `NotIn`
@@ -200,76 +257,9 @@ By default the library provides a set of built-in operator beans:
 * null checks: `IsNull`, `IsNotNull`
 * comparison: `GreaterThan`, `GreaterThanOrEqualTo`, `LessThan`, `LessThanOrEqualTo`
 
-In addition to the built-in set, you can define your **own operators** and use them in annotations just like the provided
-ones. **Custom operators** are classes that implement the `Operator` interface. They are managed as **Spring beans** and can be
-injected or created automatically by Spring.
-
-# Examples
-
-## Basic usage
-
-```java
-@GetMapping("/users")
-public Page<UserDto> findUsers(
-        @Spec.Param(name = "status", operator = In.class)
-        @Spec.Param(name = "name", operator = ContainsIgnoreCase.class)
-        Specification<User> spec,
-        Pageable pageable
-) {
-  return userRepository.findAll(spec, pageable)
-          .map(userMapper::toDto);
-}
-```
-
-## Combining path, header, and query params
-
-```java
-@GetMapping("/organizations/{organizationId}/projects")
-public Page<ProjectDto> findProjects(
-        @Spec.Path(name = "organizationId", attribute = "organization.id")
-        @Spec.Header(name = "region", attribute = "organization.region", operator = In.class)
-        @Spec.Param(name = "active", attribute = "status", operator = Equal.class)
-        Specification<Project> spec,
-        Pageable pageable
-) {
-  return projectRepository.findAll(spec, pageable)
-            .map(projectMapper::toDto);
-}
-```
-
-## Expression example
-
-```java
-@GetMapping("/search")
-public Page<ItemDto> search(
-        @Spec.Param(name = "id")
-        @Spec.Param(name = "title", operator = ContainsIgnoreCase.class)
-        @Spec.Param(name = "category", operator = In.class)
-        @Spec.Expression("(id OR title) AND category")
-        Specification<Item> spec,
-        Pageable pageable
-) {
-  return itemRepository.findAll(spec, pageable)
-            .map(itemMapper::toDto);
-}
-```
-
-## Access-control example
-
-```java
-@GetMapping("/organizations/{organizationId}/projects")
-public Page<ProjectDto> findProjects(
-        @Spec.Path(name = "organizationId", attribute = "organization.id")
-        @Spec.Param(name = "status", operator = In.class)
-        @Spec.Header(name = "region", attribute = "organization.region", operator = In.class)
-        @Spec.Condition(attribute = "organization.region", valueResolver = UserAllowedRegions.class, operator = In.class)
-        Specification<Project> spec,
-        Pageable pageable
-) {
-  return projectRepository.findAll(spec, pageable)
-          .map(projectMapper::toDto);
-}
-```
+In addition to the built-in set, you can define your **own operators** and use them in annotations just like the
+provided ones. **Custom operators** are classes that implement the `Operator` interface. They are managed as **Spring
+beans** and can be injected or created automatically by Spring.
 
 # License
 
