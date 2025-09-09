@@ -23,7 +23,7 @@ public Page<UserDto> findUsers(
         Specification<User> spec,
         Pageable pageable
 ) {
-  return userService.findAll(spec, pageable).map(userMapper::toDto);
+    return userService.findAll(spec, pageable).map(userMapper::toDto);
 }
 ```
 
@@ -39,7 +39,7 @@ Maven:
 <dependency>
     <groupId>com.cariochi.spec</groupId>
     <artifactId>spring-data-web-spec</artifactId>
-  <version>1.0.4</version>
+    <version>1.0.4</version>
 </dependency>
 ```
 
@@ -96,7 +96,7 @@ public Page<ProjectDto> findProjects(
         Specification<Project> spec,
         Pageable pageable
 ) {
-  return repo.findAll(spec, pageable).map(projectMapper::toDto);
+    return repo.findAll(spec, pageable).map(projectMapper::toDto);
 }
 ```
 
@@ -113,7 +113,7 @@ public Page<ProjectDto> findProjects(
         Specification<Project> spec,
         Pageable pageable
 ) {
-  return repo.findAll(spec, pageable).map(projectMapper::toDto);
+    return repo.findAll(spec, pageable).map(projectMapper::toDto);
 }
 ```
 
@@ -131,7 +131,7 @@ public Page<ProjectDto> findProjects(
         Specification<Project> spec,
         Pageable pageable
 ) {
-  return repo.findAll(spec, pageable).map(projectMapper::toDto);
+    return repo.findAll(spec, pageable).map(projectMapper::toDto);
 }
 ```
 
@@ -159,7 +159,6 @@ the controller parameter. This feature is critical for robust API designs where 
 filters and domain-specific payloads.
 
 ```java
-
 @PostMapping("/projects/search")
 public List<ProjectDto> findProjects(
         @Spec.Body(name = "filters.id", attribute = "id")
@@ -170,7 +169,7 @@ public List<ProjectDto> findProjects(
         Specification<Project> spec,
         @RequestBody SearchRequestDto searchRequest
 ) {
-  return repo.findAll(spec, searchRequest.getPageable()).map(projectMapper::toDto);
+    return repo.findAll(spec, searchRequest.getPageable()).map(projectMapper::toDto);
 }
 ```
 
@@ -186,7 +185,7 @@ public Page<ProjectDto> findProjects(
         Specification<Project> spec,
         Pageable pageable
 ) {
-  return projectService.findAll(spec, pageable).map(projectMapper::toDto);
+    return projectService.findAll(spec, pageable).map(projectMapper::toDto);
 }
 ```
 
@@ -200,12 +199,12 @@ user:
 @RequiredArgsConstructor
 public class UserAllowedRegions implements Function<String, Set<String>> {
 
-  private final UserService userService;
+    private final UserService userService;
 
-  @Override
-  public Set<String> apply(String name) {
-    return userService.getAllowedRegions();
-  }
+    @Override
+    public Set<String> apply(String name) {
+        return userService.getAllowedRegions();
+    }
 }
 ```
 
@@ -235,7 +234,7 @@ public Page<ProjectDto> findProjects(
         Specification<Project> spec,
         Pageable pageable
 ) {
-  return service.findAll(spec, pageable).map(projectMapper::toDto);
+    return service.findAll(spec, pageable).map(projectMapper::toDto);
 }
 ```
 

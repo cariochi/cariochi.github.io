@@ -116,6 +116,7 @@ Examples:
 ```properties
 recordo.resources.root=src/it/resources
 ```
+
 **`recordo.http.headers.included`**
 Comma‑separated list of header names that must be included into recordings and used for matching during replay.
 
@@ -133,6 +134,17 @@ recordo.http.headers.sensitive=Authorization,Set-Cookie
 
 The Read module lets you source test objects from external files and keep them under version control. If a referenced file is missing on the first run, Recordo generates it with a sensible structure and randomized values; on subsequent runs the same file is read back, keeping your tests deterministic.
 
+## Maven Dependency
+
+```xml
+<dependency>
+    <groupId>com.cariochi.recordo</groupId>
+    <artifactId>recordo-read</artifactId>
+    <version>2.0.9</version>
+    <scope>test</scope>
+</dependency>
+```
+
 ## Annotation Parameters
 
 `@Read` supports:
@@ -140,7 +152,7 @@ The Read module lets you source test objects from external files and keep them u
 * **`value`** – resource path (e.g. `/books/book.json`).
 * **`objectMapper`** – optional name of an `ObjectMapper` bean or test‑class field to use for (de)serialization.
 
-## Approach 1 — Interface‑based Object Factory
+## Approach 1 — Interface‑based Object Factory
 
 Declare a factory interface with `@RecordoObjectFactory`. Mark factory methods with `@Read` to bind them to files. Use `@Modifier` methods for fluent tweaks.
 
@@ -174,7 +186,7 @@ public interface LogRecordFactory {
 ```java
 @ExtendWith(RecordoExtension.class)
 class LogTests {
-    
+
     LogRecordFactory factory = Recordo.create(LogRecordFactory.class);
 
     @Test
@@ -186,7 +198,7 @@ class LogTests {
 }
 ```
 
-## Approach 2 — Direct Object Creation
+## Approach 2 — Direct Object Creation
 
 Use `@Read` directly on test parameters for quick loading without factories.
 
@@ -226,21 +238,29 @@ The Assertions module compares objects and strings against JSON/CSV files using 
 * `JsonCondition` — AssertJ `Condition` for object ⇄ JSON file comparison.
 * `CsvAssertion` — CSV string ⇄ CSV file comparison.
 
+## Maven Dependency
+
+```xml
+<dependency>
+    <groupId>com.cariochi.recordo</groupId>
+    <artifactId>recordo-assertions</artifactId>
+    <version>2.0.9</version>
+    <scope>test</scope>
+</dependency>
+```
 
 ## JSON Assertions (`JsonAssertion`)
 
 Pass any object (e.g., DTOs, collections, pages). Recordo will serialize it via Jackson and compare with the expected JSON file.
 
 ```java
-import static com.cariochi.recordo.assertions.JsonAssertion.assertAsJson;
-
 @Test
 void shouldMatchBooksShortView() {
     Page<Book> books = bookService.findAllByAuthor(author);
 
     assertAsJson(books)
-        .including("content[*].id", "content[*].title", "content[*].author.id")
-        .isEqualTo("/books/short_books.json");
+            .including("content[*].id", "content[*].title", "content[*].author.id")
+            .isEqualTo("/books/short_books.json");
 }
 ```
 
@@ -252,44 +272,37 @@ void shouldMatchBooksShortView() {
 * `.withStrictOrder(true)` — require array order to match.
 * `.using(ObjectMapper)` — custom mapper.
 
-
 ## JSON Assertions as AssertJ Condition (`JsonCondition`)
 
 `JsonCondition` provides an alternative syntax for the same functionality. It supports the same options as `JsonAssertion`.
 
 ```java
-import static com.cariochi.recordo.assertions.JsonCondition.equalAsJsonTo;
-import static org.assertj.core.api.Assertions.assertThat;
-
 @Test
 void shouldMatchBooksShortView_withCondition() {
     Page<Book> books = bookService.findAllByAuthor(author);
 
     assertThat(books)
-        .is(equalAsJsonTo("/books/short_books.json")
-            .including("content[*].id", "content[*].title", "content[*].author.id")
-        );
+            .is(equalAsJsonTo("/books/short_books.json")
+                    .including("content[*].id", "content[*].title", "content[*].author.id")
+            );
 }
 ```
-
 
 ## CSV Assertions (`CsvAssertion`)
 
 Compare an **actual CSV string** with an expected CSV file.
 
 ```java
-import static com.cariochi.recordo.assertions.CsvAssertion.assertCsv;
-
 @Test
 void shouldMatchCsv() {
     String actualCsv = "id,name\n1,John\n";
 
     assertCsv(actualCsv)
-        .withHeaders(true)
-        .withStrictOrder(true)
-        .withColumnSeparator(';')
-        .withLineSeparator("\r\n")
-        .isEqualsTo("/expected/users.csv");
+            .withHeaders(true)
+            .withStrictOrder(true)
+            .withColumnSeparator(';')
+            .withLineSeparator("\r\n")
+            .isEqualsTo("/expected/users.csv");
 }
 ```
 
@@ -299,7 +312,6 @@ void shouldMatchCsv() {
 * `.withStrictOrder(boolean)` — require rows to appear in the same order.
 * `.withColumnSeparator(char)` — set a custom column separator (default is comma).
 * `.withLineSeparator(String)` — set a custom line separator.
-
 
 ## First Run & Debugging Failures
 
@@ -319,13 +331,23 @@ This module lets you call Spring MVC controllers via **type‑safe clients** def
 
 ⚠️ Recordo will work only if there is a **single `MockMvc` instance** available in the Spring context.
 
+## Maven Dependency
+
+```xml
+<dependency>
+    <groupId>com.cariochi.recordo</groupId>
+    <artifactId>recordo-spring-mockmvc</artifactId>
+    <version>2.0.9</version>
+    <scope>test</scope>
+</dependency>
+```
 
 ## Define the client interface
 
 ```java
 @RecordoApiClient(
-    objectMapper = "customMapper",                                      // bean name (optional)
-    interceptors = { LocaleInterceptor.class, AuthInterceptor.class }   // optional
+        objectMapper = "customMapper",                                    // bean name (optional)
+        interceptors = {LocaleInterceptor.class, AuthInterceptor.class}   // optional
 )
 @RequestMapping("/users")
 interface UserApiClient {
@@ -362,17 +384,16 @@ interface UserApiClient {
 @WebMvcTest(UserController.class)
 @ExtendWith(RecordoExtension.class)
 class UserControllerTest {
-    
+
     private final UserApiClient api = Recordo.create(UserApiClient.class);
 
     @Test
     void shouldCreateAndFetch() {
-        UserDto created = api.create(new UserDto("John"));   // 201 CREATED (from @ResponseStatus)
-        UserDto loaded  = api.findById(created.getId());     // 200 OK (default)
+        UserDto created = api.create(new UserDto("John"));  // 201 CREATED (from @ResponseStatus)
+        UserDto loaded = api.findById(created.getId());     // 200 OK (default)
     }
 }
 ```
-
 
 ## Return types
 
@@ -415,7 +436,6 @@ Request<UserDto> request = apiClient.getById(1, "Test User");
 Response<UserDto> response = request.header("Authorization", "Bearer ...").perform();
 ```
 
-
 ## Request interceptors
 
 Declare interceptors in `@RecordoApiClient(interceptors = {...})`. Resolution order:
@@ -433,7 +453,7 @@ Interceptors can mutate outgoing requests (e.g., add headers) before they are ex
 public class AuthInterceptor implements RequestInterceptor {
 
     private static SecurityService securityService;
-    
+
     @Override
     public Request<?> apply(Request<?> request) {
         if (request.headers().get("Authorization") == null) {
@@ -443,9 +463,21 @@ public class AuthInterceptor implements RequestInterceptor {
     }
 }
 ```
+
 # MockServer Module
 
 Recordo can **record** real HTTP interactions on the first run and **replay** them on subsequent runs. Interactions are persisted as JSON and kept under version control, so your tests remain deterministic.
+
+## Maven Dependency
+
+```xml
+<dependency>
+    <groupId>com.cariochi.recordo</groupId>
+    <artifactId>recordo-mockserver</artifactId>
+    <version>2.0.9</version>
+    <scope>test</scope>
+</dependency>
+```
 
 ## How it works on test runs
 
@@ -453,7 +485,6 @@ Recordo can **record** real HTTP interactions on the first run and **replay** th
 * **Subsequent runs** — HTTP calls are **not** sent to the network; responses are taken from the saved JSON.
 
 This module keeps your integration tests fast, repeatable, and reviewable (recordings are plain JSON files).
-
 
 ## Setup with Spring
 
@@ -474,13 +505,15 @@ Available interceptors:
 
 ```java
 @Bean
-OkhttpRecordoInterceptor recordoOkhttpInterceptor() { return new OkhttpRecordoInterceptor(); }
+OkhttpRecordoInterceptor recordoOkhttpInterceptor() {
+    return new OkhttpRecordoInterceptor();
+}
 
 @Bean
 OkHttpClient okHttpClient(OkhttpRecordoInterceptor interceptor) {
     return new OkHttpClient.Builder()
-        .addInterceptor(interceptor)
-        .build();
+            .addInterceptor(interceptor)
+            .build();
 }
 ```
 
@@ -488,13 +521,15 @@ OkHttpClient okHttpClient(OkhttpRecordoInterceptor interceptor) {
 
 ```java
 @Bean
-ApacheRecordoInterceptor recordoApacheInterceptor() { return new ApacheRecordoInterceptor(); }
+ApacheRecordoInterceptor recordoApacheInterceptor() {
+    return new ApacheRecordoInterceptor();
+}
 
 @Bean
 org.apache.hc.client5.http.classic.HttpClient apacheHttpClient(ApacheRecordoInterceptor interceptor) {
     return HttpClients.custom()
-        .addRequestInterceptorFirst(interceptor)
-        .build();
+            .addRequestInterceptorFirst(interceptor)
+            .build();
 }
 ```
 
@@ -502,7 +537,9 @@ org.apache.hc.client5.http.classic.HttpClient apacheHttpClient(ApacheRecordoInte
 
 ```java
 @Bean
-RestTemplateRecordoInterceptor recordoRestTemplateInterceptor() { return new RestTemplateRecordoInterceptor(); }
+RestTemplateRecordoInterceptor recordoRestTemplateInterceptor() {
+    return new RestTemplateRecordoInterceptor();
+}
 
 @Bean
 RestTemplate restTemplate(RestTemplateRecordoInterceptor interceptor) {
@@ -516,13 +553,13 @@ RestTemplate restTemplate(RestTemplateRecordoInterceptor interceptor) {
 
 ```java
 @Bean
-RestClientRecordoInterceptor recordoRestClientInterceptor() { return new RestClientRecordoInterceptor(); }
+RestClientRecordoInterceptor recordoRestClientInterceptor() {return new RestClientRecordoInterceptor();}
 
 @Bean
 RestClient restClient(RestClientRecordoInterceptor interceptor) {
     return RestClient.builder()
-        .requestInterceptor(interceptor)
-        .build();
+            .requestInterceptor(interceptor)
+            .build();
 }
 ```
 
@@ -651,7 +688,6 @@ Use `@MockServer` on a test method (or class). Parameters:
 
 * **`objectMapper`** (String) — name of `ObjectMapper` bean or test field.
 
-
 ## Examples
 
 ### Single server (file storage)
@@ -669,7 +705,8 @@ void should_retrieve_gists() {
 
 ```java
 @Test
-@MockServer("/mock_servers/gists/") // folder
+@MockServer("/mock_servers/gists/")
+    // folder
 void should_retrieve_gists_in_folder_mode() {
     List<GistResponse> gists = gitHubClient.getGists();
 }
@@ -678,8 +715,11 @@ void should_retrieve_gists_in_folder_mode() {
 ### Multiple HTTP clients
 
 ```java
-@Autowired private RestTemplate bookServerRestTemplate;
-@Autowired private RestTemplate authorServerRestTemplate;
+@Autowired
+private RestTemplate bookServerRestTemplate;
+
+@Autowired
+private RestTemplate authorServerRestTemplate;
 
 @Test
 @MockServer(httpClient = "bookServerRestTemplate", value = "/mockserver/multiservers/books-server.rest.json")
@@ -693,7 +733,7 @@ void should_retrieve_books_and_authors() {
 
 ```java
 @Test
-@MockServer(beanName = "https://books.server/**",  value = "/mockserver/multiservers/books-server.rest.json")
+@MockServer(beanName = "https://books.server/**", value = "/mockserver/multiservers/books-server.rest.json")
 @MockServer(beanName = "https://authors.server/**", value = "/mockserver/multiservers/authors-server.rest.json")
 void should_retrieve_from_multiple_servers() {
     // calls to matching hosts go into the respective files

@@ -35,14 +35,6 @@ Key features at a glance:
 A factory is an interface or abstract class that declares methods for creating your domain objects. You annotate these methods to describe how random instances should be generated.
 
 ```java
-import com.cariochi.objecto.Spec;
-import com.cariochi.objecto.Faker;
-import com.cariochi.objecto.GenerateField;
-import com.cariochi.objecto.Modify;
-import com.cariochi.objecto.Reference;
-import com.cariochi.objecto.DefaultGenerator;
-import com.cariochi.objecto.Construct;
-
 public interface IssueFactory {
 
     // Link subtasks back to their parent issue
@@ -169,9 +161,9 @@ Issue createIssue();
 @DefaultGenerator
 default Issue createIssue(ObjectoRandom random) {
     return Issue.builder()
-        .key("ID-" + random.nextInt(1000, 9999))
-        .name(random.nextString())
-        .build();
+            .key("ID-" + random.nextInt(1000, 9999))
+            .name(random.nextString())
+            .build();
 }
 ```
 
@@ -426,9 +418,9 @@ Issue createIssue();
 ```java
 @DefaultGenerator
 default User createUser(ObjectoRandom random) {
-return User.builder()
-        .fullName(random.strings().faker().nextString(Faker.Base.Name.FULL_NAME))
-        .build();
+    return User.builder()
+            .fullName(random.strings().faker().nextString(Faker.Base.Name.FULL_NAME))
+            .build();
 }
 
 @GenerateField(type = Issue.class, field = "key")
