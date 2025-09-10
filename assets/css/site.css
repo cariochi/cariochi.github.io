@@ -7,19 +7,51 @@
    1) Variables
 ====================== */
 :root{
-  --bg:#ffffff;                        /* page bg */
-  --fg:#172B4DD1;         /* primary text */
-  --muted:rgba(107, 119, 140, 0.88);   /* muted text */
-  --brand:#E95400;              /* accent */
-  --brand-bg:#F7F8FA;           /* subtle bg */
-  --border:#EBECF0;             /* layout borders */
-  --btn-border:#DFE1E6;         /* buttons */
-  --btn-border-hover:#B3BAC5;   /* buttons hover */
+  --bg:#ffffff;
+  --fg:#172B4D;
+  --muted:rgba(107, 119, 140, 0.88);
+  --brand:#E95400;
+  --brand-bg:#F7F8FA;
+  --border:#EBECF0;
+  --btn-border:#DFE1E6;
+  --btn-border-hover:#B3BAC5;
   --link-muted:#42526E;
-  --table-alt:#FBFCFE;          /* zebra */
-  --table-hover:#F7F9FD;        /* hover */
+  --table-alt:#FBFCFE;
+  --table-hover:#F7F9FD;
   --shadow-color:rgba(9,30,66,.03);
-  --max:1280px;                 /* optional content cap */
+  --max:1280px;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme]) {
+        --bg: #0d1117;
+        --fg: #c9d1d9;
+        --muted: #8b949e;
+        --brand: #e95400;
+        --brand-bg: #161b22;
+        --border: #30363d;
+        --btn-border: #30363d;
+        --btn-border-hover: #6e7681;
+        --link-muted: #c9d1d9;
+        --table-alt: #161b22;
+        --table-hover: #1c2128;
+        --shadow-color: rgba(0, 0, 0, .4);
+    }
+}
+
+:root[data-theme="dark"] {
+    --bg: #0d1117;
+    --fg: #c9d1d9;
+    --muted: #8b949e;
+    --brand: #e95400;
+    --brand-bg: #161b22;
+    --border: #30363d;
+    --btn-border: #30363d;
+    --btn-border-hover: #6e7681;
+    --link-muted: #c9d1d9;
+    --table-alt: #161b22;
+    --table-hover: #1c2128;
+    --shadow-color: rgba(0, 0, 0, .4);
 }
 
 /* =====================
@@ -65,7 +97,6 @@ code{border-radius:4px;padding:4px}
 .site-header .container{display:flex;align-items:center;gap:16px;padding:10px 24px;flex-wrap:wrap;}
 
 .brand{display:flex;align-items:center;gap:8px;text-decoration:none;font-size:24px}
-.brand img{height:38px}
 
 /* main nav */
 .top-nav{margin-left:auto}
@@ -74,7 +105,7 @@ code{border-radius:4px;padding:4px}
 .top-nav a{display:inline-block;padding:6px 10px;color:var(--fg)}
 .top-nav a:hover{background:var(--brand-bg)}
 .top-nav .active a{font-weight:700;border-bottom:3px solid var(--brand);padding-bottom:6px}
-.back-to-top{position:fixed; right:18px; bottom:18px;padding:.2rem .6rem; border-radius:8px;background:rgba(0,0,0,.06); text-decoration:none;color:var(--muted);}
+.back-to-top{position:fixed; right:24px; bottom:72px;padding:.2rem .6rem; border-radius:8px;background:rgba(0,0,0,.06); text-decoration:none;color:var(--muted);}
 
 /* GitHub button */
 .header-github{display:flex;align-items:center;gap:6px;margin-left:12px;padding:6px 10px;border:1px solid var(--btn-border);border-radius:6px;text-decoration:none;background:var(--bg);color:var(--link-muted);white-space:nowrap;line-height:1.3}
@@ -151,7 +182,17 @@ blockquote{margin:12px 0;padding:8px 14px;background:var(--brand-bg);border-left
 .not-found{text-align:center;padding:4rem 1rem;}
 
 /* =====================
-  13) Responsive
+  14) Dark Theme Toggle
+====================== */
+.footer-controls{}
+.theme-switcher{display:inline-flex;border:1px solid var(--btn-border);border-radius:6px;overflow:hidden;}
+.theme-switcher label{cursor:pointer;padding:4px 8px;background:var(--bg);color:var(--fg);font-size:14p;line-height:1.2;user-select:one;}
+.theme-switcher input{display:none;}
+.theme-switcher label:has(input:checked){background:var(--brand-bg);}
+.theme-switcher label:not(:last-child){border-right:1px solid var(--btn-border);}
+
+/* =====================
+  15) Responsive
 ====================== */
 @media (max-width:1200px){
   .grid{grid-template-columns:220px 1fr 280px}
