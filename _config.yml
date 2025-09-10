@@ -58,3 +58,5 @@ feed:
 exclude:
   - README.md
   - vendor
+
+google_analytics: G-HVN3N9W4DK
