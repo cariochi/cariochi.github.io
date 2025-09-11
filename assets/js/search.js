@@ -30,9 +30,10 @@ document.addEventListener('DOMContentLoaded', async () => {
         .trim();
 
     const highlight = (text, terms) => {
-        if (!terms.length) return escapeHtml(text);
-        const re = new RegExp(`(${terms.map(escapeReg).join('|')})`, 'gi');
-        return escapeHtml(text).replace(re, '<mark>$1</mark>');
+        return escapeHtml(text);
+        // if (!terms.length) return escapeHtml(text);
+        // const re = new RegExp(`(${terms.map(escapeReg).join('|')})`, 'gi');
+        // return escapeHtml(text).replace(re, '<mark>$1</mark>');
     };
 
     const makeSnippet = (text, terms, max = 180) => {
