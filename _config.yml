@@ -7,6 +7,7 @@ github_url: https://github.com/cariochi
 # Build
 markdown: kramdown
 kramdown:
+  auto_ids: true
   input: GFM
   syntax_highlighter: rouge
   syntax_highlighter_opts:
@@ -26,6 +27,20 @@ plugins:
   - jekyll-redirect-from
   - jekyll-include-cache
   - jekyll-toc
+
+lunr_search:
+  fields:
+    title: 10
+    categories: 5
+    tags: 5
+    body: 1
+  exclude:
+    - feed.xml
+    - sitemap.xml
+    - "**/*.xml"
+    - "**/*.rss"
+    - "assets/**"
+    - "node_modules/**"
 
 # jekyll-toc defaults (can be overridden per page)
 toc:
