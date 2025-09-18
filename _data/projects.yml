@@ -1,15 +1,24 @@
 - title: REFLECTO
   url: /reflecto
   github: https://github.com/cariochi/reflecto
+  image: /assets/og/reflecto.png
+
 - title: OBJECTO
   url: /objecto
   github: https://github.com/cariochi/objecto
+  image: /assets/og/objecto.png
+
 - title: RECORDO
   url: /recordo
   github: https://github.com/cariochi/recordo
+  image: /assets/og/recordo.png
+
 - title: WEB SPEC
   url: /spec
   github: https://github.com/cariochi/spring-data-web-spec
+  image: /assets/og/webspec.png
+
 - title: EXPRESSO
   url: /expresso
   demo_url: https://expresso.cariochi.com
+  image: /assets/og/expresso.png
