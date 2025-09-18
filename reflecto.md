@@ -1,7 +1,7 @@
 ---
 title: REFLECTO — Java Reflection Utility
 description: Lightweight open-source Java library for simplified reflection. Provides clean, safe API for accessing fields, methods, and annotations.
-image: /assets/og/reflecto.png
+image: /assets/images/og/reflecto.png
 ---
 
 # Introduction

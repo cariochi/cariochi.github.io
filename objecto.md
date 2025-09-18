@@ -1,7 +1,7 @@
 ---
 title: OBJECTO — Random Object Generator for Tests
 description: Open-source Java library for generating random test objects. Features factory interfaces, Faker integration, reproducibility, and flexible post-processing.
-image: /assets/og/expresso.png
+image: /assets/images/og/expresso.png
 ---
 
 # Introduction

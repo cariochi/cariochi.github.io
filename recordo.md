@@ -1,7 +1,7 @@
 ---
 title: RECORDO — JUnit 5 Extension for Recorded Fixtures
 description: An open-source JUnit 5 extension that streamlines testing with recorded fixtures. Includes modules for resource loading, JSON/CSV assertions, MockMvc clients, and HTTP traffic replay.
-image: /assets/og/recordo.png
+image: /assets/images/og/recordo.png
 ---
 
 # Introduction
