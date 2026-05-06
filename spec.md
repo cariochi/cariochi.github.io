@@ -1,5 +1,5 @@
 ---
-title: Spring Data Web Spec — Annotation-driven mapping for Spring Data JPA
+title: Spring Data Web Spec
 description: Open-source annotation-driven mapping from web requests to Spring Data JPA Specifications. Simplifies controllers, adds type-safe filtering, and supports access control.
 image: /assets/images/og/webspec.png
 ---

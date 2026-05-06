@@ -1,5 +1,5 @@
 ---
-title: EXPRESSO — Extended Regular Expressions with Object-Oriented Patterns
+title: EXPRESSO
 description: Extended regular expressions with object-oriented patterns and hierarchical results.
 image: /assets/images/og/expresso.png
 ---
