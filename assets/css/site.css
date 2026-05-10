@@ -57,8 +57,9 @@
 ====================== */
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;font:16px/1.65 -apple-system,system-ui,Segoe UI,Roboto,Ubuntu,Cantarell,"Helvetica Neue",Arial;color:var(--fg);background:var(--bg)}
+body{min-height:100vh;display:flex;flex-direction:column;margin:0;font:16px/1.65 -apple-system,system-ui,Segoe UI,Roboto,Ubuntu,Cantarell,"Helvetica Neue",Arial;color:var(--fg);background:var(--bg)}
 .container{max-width:none;margin:0 auto;padding:0 32px}
+main.container{flex:1;width:100%}
 
 /* Headings */
 article h1{margin:48px 0 16px;font-size:28px;line-height:1.25;font-weight:800;border-bottom:2px solid var(--brand);padding-bottom:6px}
@@ -119,6 +120,8 @@ code{border-radius:4px;padding:4px}
 .site-search button#search-clear{position:absolute;right:.35rem;top:50%;transform:translateY(-50%);border:0;background:transparent;font-size:1.2rem;line-height:1;cursor:pointer;}
 #search-results{position:absolute;top:100%;left:0;right:0;background:var(--bg);border:1px solid var(--border);border-radius:0 0 8px 8px;max-height:70vh;overflow-y:auto;box-shadow:0 4px 12px var(--shadow-color);z-index:9999;display:none;padding:.5rem 1rem;font-size:.8rem;background-color:var(--brand-bg);}
 #search-results.active{display:block;}
+.search-tags{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:3px}
+.search-tags span{display:inline-flex;align-items:center;padding:1px 6px;border:1px solid var(--border);border-radius:999px;background:var(--bg);color:var(--muted);font-size:.65rem;font-weight:700;line-height:1.4;text-transform:uppercase}
 
 /* =====================
    5) Layout grid (left menu + content)
@@ -141,6 +144,9 @@ code{border-radius:4px;padding:4px}
 .toc a.active{border-left:3px solid var(--brand);padding-left:6px;background-color:var(--brand-bg)}
 :target{scroll-margin-top:72px}
 .toc-mobile{ display:none;border-bottom:1px solid var(--border);padding-bottom:8px;margin-bottom:16px; }
+.toc-title{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:0 0 8px}
+.toc-title-tags{display:inline-flex;gap:5px;flex-wrap:wrap}
+.toc-title-tags span{display:inline-flex;align-items:center;padding:1px 6px;border:1px solid var(--border);border-radius:999px;background:var(--bg);color:var(--muted);font-size:.65rem;font-weight:700;line-height:1.4;text-transform:uppercase}
 
 /* =====================
    7) Tables
@@ -157,6 +163,13 @@ code{border-radius:4px;padding:4px}
    8) Callouts
 ====================== */
 blockquote{margin:12px 0;padding:8px 14px;background:var(--brand-bg);border-left:4px solid var(--brand);border-radius:6px}
+.doc-notice{display:flex;align-items:center;justify-content:space-between;gap:16px;margin:8px 0 24px;padding:12px 14px;border:1px solid var(--border);border-left:4px solid var(--brand);border-radius:8px;background:var(--brand-bg);color:var(--fg);font-size:.95rem;line-height:1.45}
+.doc-notice strong{font-weight:700}
+.doc-notice a{font-weight:700;white-space:nowrap}
+.doc-notice-archived div{display:flex;flex-direction:column;gap:2px}
+.doc-notice-versions{justify-content:flex-start}
+.version-links{display:inline-flex;gap:6px;flex-wrap:wrap}
+.header-actions + .doc-notice{margin-top:48px}
 
 /* =====================
    9) Footer
@@ -167,15 +180,17 @@ blockquote{margin:12px 0;padding:8px 14px;background:var(--brand-bg);border-left
 /* =====================
   11) Home
 ====================== */
-.hero{text-align:center;padding:3rem 1rem 2rem;max-width:820px;margin:0 auto;}
-.hero h1{margin-bottom:.5rem;}
-.hero p{font-size:1.1rem;line-height:1.6;}
-.cards{display:grid;grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));gap:1.25rem;margin:0 auto;max-width:1100px;}
-.card{display:flex;flex-direction:column;justify-content:flex-start;border:1px solid var(--border);border-radius:12px;padding:1.25rem;text-decoration:none;color:inherit;transition:box-shadow .2s, transform .06s;}
-.card h3{font-weight:600;font-size:1.15rem;margin-bottom:.5rem;color:var(--brand);}
-.card p{font-size:.95rem;opacity:.9;margin-bottom:1rem;}
-.badge{margin-top:auto;display:flex;align-items:center;gap:6px;font-size:.85rem;opacity:.75;}
-.card:hover{box-shadow:0 6px 22px rgba(0, 0, 0, .06);transform:translateY(-1px);}
+.home{max-width:1000px;margin:1rem auto;}
+.hero{text-align:left;padding:2.25rem 0 1.5rem;max-width:780px;margin:0;}
+.hero h1{margin:0 0 .5rem;font-size:2rem;line-height:1.2;}
+.hero p{font-size:1.05rem;line-height:1.65;margin:0;color:var(--link-muted);}
+.project-list{display:flex;flex-direction:column;border-top:1px solid var(--border);max-width:1000px;margin:0 auto;}
+.project-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:24px;align-items:start;padding:18px 0;border-bottom:1px solid var(--border);text-decoration:none;color:inherit;}
+.project-row:hover{background:var(--brand-bg);box-shadow:0 0 0 12px var(--brand-bg);}
+.project-main h2{margin:0 0 4px;font-size:1rem;line-height:1.25;color:var(--brand);}
+.project-main p{margin:0;max-width:720px;color:var(--link-muted);font-size:.95rem;line-height:1.55;}
+.project-tags{display:flex;justify-content:flex-end;gap:6px;flex-wrap:wrap;padding-top:1px;}
+.project-tags span{display:inline-flex;align-items:center;white-space:nowrap;padding:2px 7px;border:1px solid var(--border);border-radius:999px;background:var(--bg);color:var(--muted);font-size:.68rem;font-weight:700;line-height:1.4;text-transform:uppercase;}
 
 
 /* =====================
@@ -216,6 +231,8 @@ blockquote{margin:12px 0;padding:8px 14px;background:var(--brand-bg);border-left
   .toc{border-left:0;border-top:1px solid var(--border);border-right:0;margin-top:16px}
   .toc-inner{position:static;max-height:none;padding-left:0}
   .side-menu{position:static}
+  .doc-notice{align-items:flex-start;flex-direction:column;gap:8px}
+  .doc-notice a{white-space:normal}
 }
 
 @media (max-width:1023px){
@@ -228,6 +245,8 @@ blockquote{margin:12px 0;padding:8px 14px;background:var(--brand-bg);border-left
   .top-nav{display:none;flex-basis:100%;width:100%}
   .nav-toggle:checked ~ .top-nav{display:block;order:3;}
   .back-to-top{display:none;}
+  .project-row{grid-template-columns:1fr;gap:8px}
+  .project-tags{justify-content:flex-start}
 
   .top-nav ul{flex-direction:column;gap:0;padding:8px 0;margin:0;width:100%}
   .top-nav li{border-top:1px solid var(--border)}

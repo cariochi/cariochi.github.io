@@ -29,7 +29,10 @@ module SearchIndex
           title_chain << sec[:h1] if sec[:h1]
           title_chain << sec[:h2] if sec[:h2]
           title = title_chain.join(" → ")
-
+          archived = doc.data && (doc.data["archived"] == true || doc.data["archived"].to_s == "true")
+          archived ||= doc.url.to_s.start_with?("/archive/")
+          version = doc.data && doc.data["version"]
+          current_url = doc.data && doc.data["current_url"]
           anchor_title = sec[:h2] || sec[:h1]
           url =
             if anchor_title && doc.url
@@ -41,11 +44,20 @@ module SearchIndex
             end
 
           content = markdown_to_text(sec[:body])
+          if archived
+            archive_note = "Archived documentation"
+            archive_note += " for #{version}" if version
+            archive_note += "."
+            content = [archive_note, content].reject(&:empty?).join("\n")
+          end
 
           docs << {
             "title" => title,
             "url" => url,
-            "content" => content
+            "content" => content,
+            "archived" => archived,
+            "version" => version,
+            "current_url" => current_url
           }
         end
       end

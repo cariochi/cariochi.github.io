@@ -1,7 +1,17 @@
 {%- if page.toc != false -%}
 <aside class="toc toc-desktop" aria-label="Table of contents">
     <div class="toc-inner">
-        <h3>{{ page.toc_label | default: page.title }} </h3>
+        <h3 class="toc-title">
+            <span>{{ page.toc_label | default: page.title }}</span>
+            {%- if page.archived -%}
+            <span class="toc-title-tags">
+                <span>Archived</span>
+                {%- if page.version -%}
+                <span>{{ page.version }}</span>
+                {%- endif -%}
+            </span>
+            {%- endif -%}
+        </h3>
         {{ content | toc_only }}
     </div>
 </aside>

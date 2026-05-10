@@ -2,6 +2,9 @@
 title: REFLECTO
 description: Lightweight open-source Java library for simplified reflection. Provides clean, safe API for accessing fields, methods, and annotations.
 image: /assets/images/og/reflecto.png
+versions:
+  - label: v2.0.x
+    url: /archive/reflecto-v2.0.x
 ---
 
 # Introduction
@@ -14,10 +17,15 @@ Reflecto is a Java reflection library focused on three tasks that are usually ve
 
 The library is designed for runtime tooling, framework code, metadata-heavy libraries, and internal infrastructure where native reflection APIs are correct but too low-level.
 
+Source code is available on [GitHub](https://github.com/cariochi/reflecto).
+
+> Current documentation covers Reflecto `2.1.x`, which is aligned with Jackson 3 based projects. Documentation for previous releases is still available: [Reflecto v2.0.x]({{ '/archive/reflecto-v2.0.x' | relative_url }}).
+
 # Features
 
 - Unified `perform(...)` and `reflect(...)` API for fields, methods, arrays, lists, sets, maps, and nested object graphs
 - Generic-aware type utilities for `List<T>`, `Map<K, V>`, arrays, wildcards, `Optional<T>`, and `Stream<T>`
+- Jackson 3 compatible type handling for projects built on the current Jackson generation
 - Fluent type inspection with `ReflectoType`
 - Fluent member inspection for methods, fields, constructors, parameters, annotations, exceptions, and modifiers
 - Generic-aware proxy generation for abstract classes and interfaces

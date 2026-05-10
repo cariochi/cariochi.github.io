@@ -117,9 +117,13 @@ document.addEventListener('DOMContentLoaded', async () => {
                 const url = d.url || r.ref;
                 const title = d.title || url;
                 const content = d.content || '';
+                const badges = d.archived
+                    ? `<div class="search-tags"><span>Archived</span>${d.version ? `<span>${escapeHtml(d.version)}</span>` : ''}</div>`
+                    : '';
 
                 return `
           <div class="search-hit" style="padding:.6rem 0;border-bottom:1px solid #eee">
+            ${badges}
             <a href="${escapeHtml(url)}">
               <span>${highlight(title, terms)}</span>
             </a>

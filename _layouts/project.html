@@ -45,6 +45,20 @@ layout: default
         </div>
         {%- endif -%}
 
+        {%- if page.archived -%}
+        <aside class="doc-notice doc-notice-archived" role="note">
+            <div>
+                <strong>This documentation is archived.</strong>
+                <span>
+                    It describes {{ page.current_label | default: page.title }} {{ page.version }} and may not match the latest release.
+                </span>
+            </div>
+            {%- if page.current_url -%}
+            <a href="{{ page.current_url | relative_url }}">View current documentation</a>
+            {%- endif -%}
+        </aside>
+        {%- endif -%}
+
         <!--        <h1>{{ page.title }}</h1>-->
         {{ content }}
     </article>

@@ -1,7 +1,10 @@
 ---
 title: OBJECTO
 description: Open-source Java library for generating random test objects. Features factory interfaces, Faker integration, reproducibility, and flexible post-processing.
-image: /assets/images/og/expresso.png
+image: /assets/images/og/objecto.png
+versions:
+  - label: v2.0.x
+    url: /archive/objecto-v2.0.x
 ---
 
 # Introduction
@@ -13,6 +16,10 @@ setters, or fragile JSON snapshots.
 With Objecto, you describe how your test data should be generated in a factory interface or abstract
 class. Objecto creates an implementation at runtime and uses your annotations, custom generator methods,
 constructors, modifiers, references, and post-processors to build objects.
+
+Source code is available on [GitHub](https://github.com/cariochi/objecto).
+
+> Current documentation covers Objecto `2.1.x`, which is aligned with Jackson 3 based projects. Documentation for previous releases is still available: [Objecto v2.0.x]({{ '/archive/objecto-v2.0.x' | relative_url }}).
 
 # What Objecto Helps With
 
@@ -32,6 +39,7 @@ constructors, modifiers, references, and post-processors to build objects.
 
 - Java 17 or newer.
 - Maven-compatible dependency management.
+- Jackson 3 when generated test objects are serialized, deserialized, or used with Jackson-based fixtures.
 - JUnit 5 if you want to use `ObjectoExtension`.
 
 # Installation
