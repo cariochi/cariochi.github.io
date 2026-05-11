@@ -31,6 +31,14 @@ Source code is available on [GitHub](https://github.com/cariochi/recordo).
 > uses Spring Boot 3 / Spring Framework 6, use the archived [Recordo v2.0.x]({{ '/archive/recordo-v2.0.x' | relative_url }})
 > documentation.
 
+# Why It Exists
+
+Tests are easier to trust when their inputs, expected outputs, and external interactions are visible, reviewable,
+and repeatable.
+
+Recordo keeps fixtures outside test code without losing determinism: generated objects, expected responses,
+MockMvc calls, and HTTP recordings become versioned resources that tests can load or replay.
+
 # When To Use Recordo
 
 Recordo fits Java projects where tests are easier to understand and maintain when fixtures, expected outputs, and

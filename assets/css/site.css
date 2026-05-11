@@ -18,6 +18,7 @@
   --link-muted:#42526E;
   --table-alt:#FBFCFE;
   --table-hover:#F7F9FD;
+  --table-head:#FAFBFC;
   --shadow-color:rgba(9,30,66,.03);
   --max:1280px;}
 
@@ -32,6 +33,7 @@
         --btn-border: #30363d;
         --btn-border-hover: #6e7681;
         --link-muted: #c9d1d9;
+        --table-head: #161b22;
         --table-alt: #161b22;
         --table-hover: #1c2128;
         --shadow-color: rgba(0, 0, 0, .4);
@@ -48,6 +50,7 @@
     --btn-border: #30363d;
     --btn-border-hover: #6e7681;
     --link-muted: #c9d1d9;
+    --table-head: #161b22;
     --table-alt: #161b22;
     --table-hover: #1c2128;
     --shadow-color: rgba(0, 0, 0, .4);}
@@ -79,7 +82,11 @@ pre,code{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberati
 pre{overflow:auto;border:1px solid var(--border);border-radius:8px;padding:6px}
 code{border-radius:4px;padding:4px}
 .highlight pre code{display:block;white-space:pre;font-size:0.85em;line-height:1.5}
-.highlight .err{background-color:inherit;color:#24292f}
+.highlight .err{background-color:transparent;color:inherit}
+:root[data-theme="dark"] .highlight .err{background-color:transparent;color:inherit}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) .highlight .err{background-color:transparent;color:inherit}
+}
 
 /* Контейнери Rouge */
  div.highlight, figure.highlight{ position:relative; }
@@ -120,6 +127,7 @@ code{border-radius:4px;padding:4px}
 .site-search button#search-clear{position:absolute;right:.35rem;top:50%;transform:translateY(-50%);border:0;background:transparent;font-size:1.2rem;line-height:1;cursor:pointer;}
 #search-results{position:absolute;top:100%;left:0;right:0;background:var(--bg);border:1px solid var(--border);border-radius:0 0 8px 8px;max-height:70vh;overflow-y:auto;box-shadow:0 4px 12px var(--shadow-color);z-index:9999;display:none;padding:.5rem 1rem;font-size:.8rem;background-color:var(--brand-bg);}
 #search-results.active{display:block;}
+.search-hit{padding:.6rem 0;border-bottom:1px solid var(--border)}
 .search-tags{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:3px}
 .search-tags span{display:inline-flex;align-items:center;padding:1px 6px;border:1px solid var(--border);border-radius:999px;background:var(--bg);color:var(--muted);font-size:.65rem;font-weight:700;line-height:1.4;text-transform:uppercase}
 
@@ -152,7 +160,7 @@ code{border-radius:4px;padding:4px}
    7) Tables
 ====================== */
 .content table{width:100%;border-collapse:separate;border-spacing:0;background:var(--bg);border:1px solid var(--border);border-radius:8px;box-shadow:0 1px 0 var(--shadow-color)}
-.content thead th{position:sticky;top:0;background:#FAFBFC;border-bottom:1px solid var(--border);font-weight:700;padding:10px 12px;text-align:left}
+.content thead th{position:sticky;top:0;background:var(--table-head);border-bottom:1px solid var(--border);font-weight:700;padding:10px 12px;text-align:left}
 .content thead th:first-child{border-top-left-radius:8px}
 .content thead th:last-child{border-top-right-radius:8px}
 .content tbody td{padding:10px 12px;border-top:1px solid var(--border);vertical-align:top}
@@ -184,6 +192,9 @@ blockquote{margin:12px 0;padding:8px 14px;background:var(--brand-bg);border-left
 .hero{text-align:left;padding:2.25rem 0 1.5rem;max-width:780px;margin:0;}
 .hero h1{margin:0 0 .5rem;font-size:2rem;line-height:1.2;}
 .hero p{font-size:1.05rem;line-height:1.65;margin:0;color:var(--link-muted);}
+.home-philosophy{max-width:900px;margin:0 0 1.5rem;padding:14px 16px;border-left:4px solid var(--brand);background:var(--brand-bg);border-radius:8px}
+.home-philosophy p{margin:0;color:var(--link-muted);font-size:.96rem;line-height:1.55}
+.home-philosophy p + p{margin-top:6px}
 .project-list{display:flex;flex-direction:column;border-top:1px solid var(--border);max-width:1000px;margin:0 auto;}
 .project-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:24px;align-items:start;padding:18px 0;border-bottom:1px solid var(--border);text-decoration:none;color:inherit;}
 .project-row:hover{background:var(--brand-bg);box-shadow:0 0 0 12px var(--brand-bg);}

@@ -122,7 +122,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                     : '';
 
                 return `
-          <div class="search-hit" style="padding:.6rem 0;border-bottom:1px solid #eee">
+          <div class="search-hit">
             ${badges}
             <a href="${escapeHtml(url)}">
               <span>${highlight(title, terms)}</span>

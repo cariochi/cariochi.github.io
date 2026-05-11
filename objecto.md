@@ -21,6 +21,14 @@ Source code is available on [GitHub](https://github.com/cariochi/objecto).
 
 > Current documentation covers Objecto `2.1.x`, which is aligned with Jackson 3 based projects. Documentation for previous releases is still available: [Objecto v2.0.x]({{ '/archive/objecto-v2.0.x' | relative_url }}).
 
+# Why It Exists
+
+Large tests often spend more code constructing object graphs than describing the behavior being tested.
+Fixture builders, hand-written JSON, and copied test data become fragile as the domain model changes.
+
+Objecto lets tests describe the shape, constraints, overrides, and relationships of generated data instead of
+maintaining fixture construction by hand.
+
 # What Objecto Helps With
 
 - Generate POJOs, collections, maps, arrays, optionals, streams, enums, primitives, numbers, strings,

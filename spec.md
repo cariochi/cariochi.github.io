@@ -41,6 +41,14 @@ Source code is available on [GitHub](https://github.com/cariochi/spring-data-web
 > uses Spring Boot 3 / Spring Framework 6, use the archived [Spring Data Web Spec v1.0.x]({{ '/archive/spec-v1.0.x' | relative_url }})
 > documentation.
 
+# Why It Exists
+
+Search and filtering endpoints often start simple and then accumulate query-parameter parsing, conditional joins,
+access-control predicates, and ad hoc query-building code.
+
+Spring Data Web Spec lets controllers describe dynamic search APIs declaratively, mapping request data and access
+rules into reusable Spring Data JPA Specifications.
+
 # Installation
 
 ```xml

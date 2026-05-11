@@ -21,6 +21,14 @@ Source code is available on [GitHub](https://github.com/cariochi/reflecto).
 
 > Current documentation covers Reflecto `2.1.x`, which is aligned with Jackson 3 based projects. Documentation for previous releases is still available: [Reflecto v2.0.x]({{ '/archive/reflecto-v2.0.x' | relative_url }}).
 
+# Why It Exists
+
+Reflection is powerful, but plain Java reflection turns common framework tasks into repetitive lookup,
+accessibility, type-resolution, and invocation code.
+
+Reflecto provides reflection without reflection boilerplate: a fluent API for deep object paths, generic types,
+members, metadata, and runtime proxy types.
+
 # Features
 
 - Unified `perform(...)` and `reflect(...)` API for fields, methods, arrays, lists, sets, maps, and nested object graphs
