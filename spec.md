@@ -291,10 +291,10 @@ public Page<ProjectDto> findProjects(
 Supported operators:
 
 | Logical operator | Symbolic form | Text form |
-| --- | --- | --- |
-| AND | `&&` | `AND` |
-| OR | `\|\|` | `OR` |
-| NOT | `!` | `NOT` |
+|------------------|---------------|-----------|
+| AND              | &&            | AND       |
+| OR               | \|\|          | OR        |
+| NOT              | !             | NOT       |
 
 Parentheses are supported.
 
