@@ -17,8 +17,3 @@
   url: /spec
   github: https://github.com/cariochi/spring-data-web-spec
   image: /assets/images/og/webspec.png
-
-- title: EXPRESSO
-  url: /expresso
-  demo_url: https://expresso.cariochi.com
-  image: /assets/images/og/expresso.png
