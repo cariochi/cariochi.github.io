@@ -3,7 +3,21 @@
 
         <div class="contact">
             <p><a href="mailto:vadym@deineka.com">vadym@deineka.com</a></p>
-            <p class="made-in-ukraine"><span class="ua-flag" aria-label="Ukrainian flag">🇺🇦</span> Made in Ukraine</p>
+            <p class="made-in-ukraine"> Made with
+                <svg class="ua-heart" viewBox="0 0 24 24" width="16" height="16" aria-label="love" role="img">
+                    <defs>
+                        <linearGradient id="uaHeartGradient" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stop-color="#0057B7"/>
+                            <stop offset="50%" stop-color="#0057B7"/>
+                            <stop offset="50%" stop-color="#FFDD00"/>
+                            <stop offset="100%" stop-color="#FFDD00"/>
+                        </linearGradient>
+                    </defs>
+                    <path fill="url(#uaHeartGradient)"
+                          d="M12 21s-7-4.5-9.5-9.1C.7 8.6 2.4 5 5.7 5c1.9 0 3.4 1.1 4.3 2.4l2 2.6 2-2.6C14.9 6.1 16.4 5 18.3 5c3.3 0 5 3.6 3.2 6.9C19 16.5 12 21 12 21z"/>
+                </svg>
+                in Ukraine
+            </p>
         </div>
 
         <p class="copyright">© {{ site.time | date: '%Y' }} {{ site.title }}</p>
@@ -13,8 +27,9 @@
                 <!-- Light -->
                 <label title="Light theme">
                     <input type="radio" name="theme" value="light">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="12" cy="12" r="5" />
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none"
+                         stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="5"/>
                         <path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
                     </svg>
                 </label>
@@ -22,7 +37,8 @@
                 <!-- Dark -->
                 <label title="Dark theme">
                     <input type="radio" name="theme" value="dark">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none"
+                         stroke="currentColor" stroke-width="2">
                         <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
                     </svg>
                 </label>
@@ -30,7 +46,8 @@
                 <!-- System -->
                 <label title="System theme">
                     <input type="radio" name="theme" value="system">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none"
+                         stroke="currentColor" stroke-width="2">
                         <rect x="2" y="4" width="20" height="14" rx="2" ry="2"/>
                         <line x1="8" y1="20" x2="16" y2="20"/>
                         <line x1="12" y1="18" x2="12" y2="20"/>
